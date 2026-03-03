@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBB Analytics — College Basketball Rankings</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9f7f4;
+    --surface: #ffffff;
+    --border: #e2ddd7;
+    --text-primary: #1a1916;
+    --text-secondary: #6b6560;
+    --text-muted: #9e9892;
+    --accent: #c0392b;
+    --accent-light: #fdf3f2;
+    --green: #27ae60;
+    --green-light: #f0faf4;
+    --blue: #2471a3;
+    --blue-light: #eaf3fb;
+    --amber: #d68910;
+    --amber-light: #fef9ec;
+    --font-sans: 'Libre Franklin', sans-serif;
+    --font-serif: 'Source Serif 4', serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--text-primary);
+    color: white;
+    padding: 0 24px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: white;
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+  .header-meta {
+    font-size: 11px;
+    color: #aaa;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    padding: 0 24px;
+  }
+  .nav-tab {
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: var(--text-primary); }
+  .nav-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* LAYOUT */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 24px;
+  }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* PAGE TITLE */
+  .page-title {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+  .page-title h1 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  .page-title p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .filters label { font-size: 12px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+  .filters select, .filters input {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    background: white;
+    color: var(--text-primary);
+    outline: none;
+  }
+  .filters select:focus, .filters input:focus { border-color: var(--accent); }
+  .search-input { min-width: 180px; }
+  .filter-spacer { flex: 1; }
+  .last-updated { font-size: 11px; color: var(--text-muted); font-style: italic; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; background: white; }
+  table { width: 100%; border-collapse: collapse; min-width: 700px; }
+  thead th {
+    background: #f4f1ed;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+  thead th:hover { color: var(--text-primary); }
+  thead th.sorted { color: var(--accent); }
+  thead th.num, td.num { text-align: right; }
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #faf8f5; }
+  td {
+    padding: 11px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .rank-cell {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 36px;
+  }
+  .rank-cell.top5 { color: var(--accent); }
+  .team-cell { font-weight: 600; }
+  .team-conf { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-left: 6px; }
+  .record { font-size: 12px; color: var(--text-secondary); }
+
+  /* BADGES & PILLS */
+  .pill {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .pill-green { background: var(--green-light); color: var(--green); }
+  .pill-red { background: var(--accent-light); color: var(--accent); }
+  .pill-blue { background: var(--blue-light); color: var(--blue); }
+  .pill-amber { background: var(--amber-light); color: var(--amber); }
+
+  /* BAR CHARTS IN TABLE */
+  .bar-wrap { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+  .bar-bg { width: 70px; height: 6px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s; }
+  .bar-green .bar-fill { background: var(--green); }
+  .bar-red .bar-fill { background: var(--accent); }
+  .bar-blue .bar-fill { background: var(--blue); }
+
+  /* STAT CARDS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+  .stat-card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); font-weight: 600; margin-bottom: 6px; }
+  .stat-card-value { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: -1px; }
+  .stat-card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* TOOLTIP */
+  th .th-tip {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-muted);
+    display: block;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    main { padding: 16px 12px; }
+    .page-title h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">CBB<span>Analytics</span></div>
+    <div class="header-meta">
+      2024–25 Season<br>
+      Updated March 2, 2026
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-tab active" onclick="switchTab('power')">Power Rankings</div>
+    <div class="nav-tab" onclick="switchTab('efficiency')">Efficiency Ratings</div>
+    <div class="nav-tab" onclick="switchTab('players')">Player Rankings</div>
+    <div class="nav-tab" onclick="switchTab('sos')">Strength of Schedule</div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== POWER RANKINGS ===== -->
+  <div class="section active" id="power">
+    <div class="page-title">
+      <div>
+        <h1>Team Power Rankings</h1>
+        <p>Composite ranking based on adjusted efficiency, results, and schedule quality</p>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Conference</label>
+      <select onchange="filterTable('power-table', 2, this.value)">
+        <option value="">All</option>
+        <option>ACC</option><option>Big 12</option><option>Big East</option>
+        <option>Big Ten</option><option>Pac-12</option><option>SEC</option>
+        <option>AAC</option><option>Mountain West</option>
+      </select>
+      <div class="filter-spacer"></div>
+      <span class="last-updated">Through March 2, 2026</span>
+    </div>
+    <div class="table-wrap">
+      <table id="power-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('power-table',0)" class="sorted">Rk <span class="th-tip">Overall</span></th>
+            <th onclick="sortTable('power-table',1)">Team</th>
+            <th onclick="sortTable('power-table',2)">Conf</th>
+            <th onclick="sortTable('power-table',3)" class="num">Record</th>
+            <th onclick="sortTable('power-table',4)" class="num">Power Rtg <span class="th-tip">Higher = better</span></th>
+            <th onclick="sortTable('power-table',5)" class="num">Adj EM <span class="th-tip">Net efficiency margin</span></th>
+            <th onclick="sortTable('power-table',6)" class="num">Win% <span class="th-tip">Win probability</span></th>
+            <th onclick="sortTable('power-table',7)" class="num">Trend <span class="th-tip">Last 10 games</span></th>
+            <th onclick="sortTable('power-table',8)" class="num">NCAA Seed</th>
+          </tr>
+        </thead>
+        <tbody id="power-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== EFFICIENCY ===== -->
+  <div class="section" id="efficiency">
+    <div class="page-title">
+      <div>
+        <h1>Offensive & Defensive Efficiency</h1>
+        <p>Points per 100 possessions, adjusted for opponent strength</p>
+      </div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Avg. Off. Efficiency</div>
+        <div class="stat-card-value" style="color:var(--blue)">108.4</div>
+        <div class="stat-card-sub">pts per 100 possessions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Avg. Def. Efficiency</div>
+        <div class="stat-card-value" style="color:var(--accent)">108.4</div>
+        <div class="stat-card-sub">pts allowed per 100</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Best Net Efficiency</div>
+        <div class="stat-card-value" style="color:var(--green)">+34.2</div>
+        <div class="stat-card-sub">Duke Blue Devils</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Fastest Tempo</div>
+        <div class="stat-card-value">78.1</div>
+        <div class="stat-card-sub">possessions per game</div>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Conference</label>
+      <select onchange="filterTable('eff-table', 1, this.value)">
+        <option value="">All</option>
+        <option>ACC</option><option>Big 12</option><option>Big East</option>
+        <option>Big Ten</option><option>SEC</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table id="eff-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('eff-table',0)" class="sorted">Rk</th>
+            <th onclick="sortTable('eff-table',1)">Team</th>
+            <th onclick="sortTable('eff-table',2)" class="num">Adj OE <span class="th-tip">Off efficiency adj</span></th>
+            <th onclick="sortTable('eff-table',3)" class="num">Adj DE <span class="th-tip">Def efficiency adj</span></th>
+            <th onclick="sortTable('eff-table',4)" class="num">Net EM <span class="th-tip">OE minus DE</span></th>
+            <th onclick="sortTable('eff-table',5)" class="num">Tempo <span class="th-tip">Poss/game</span></th>
+            <th onclick="sortTable('eff-table',6)" class="num">eFG% Off</th>
+            <th onclick="sortTable('eff-table',7)" class="num">eFG% Def</th>
+            <th onclick="sortTable('eff-table',8)" class="num">TO% Off <span class="th-tip">Lower = better</span></th>
+            <th onclick="sortTable('eff-table',9)" class="num">TO% Def <span class="th-tip">Higher = better</span></th>
+          </tr>
+        </thead>
+        <tbody id="eff-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== PLAYERS ===== -->
+  <div class="section" id="players">
+    <div class="page-title">
+      <div>
+        <h1>Player Rankings</h1>
+        <p>Individual performance metrics adjusted for usage and pace</p>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Position</label>
+      <select onchange="filterTable('player-table', 3, this.value)">
+        <option value="">All</option>
+        <option>G</option><option>F</option><option>C</option>
+      </select>
+      <label>Stat</label>
+      <select id="player-sort-select" onchange="sortTable('player-table', parseInt(this.value))">
+        <option value="4">BPM</option>
+        <option value="5">Points</option>
+        <option value="6">Rebounds</option>
+        <option value="7">Assists</option>
+        <option value="9">TS%</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table id="player-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('player-table',0)" class="sorted">Rk</th>
+            <th onclick="sortTable('player-table',1)">Player</th>
+            <th onclick="sortTable('player-table',2)">Team</th>
+            <th onclick="sortTable('player-table',3)">Pos</th>
+            <th onclick="sortTable('player-table',4)" class="num">BPM <span class="th-tip">Box Plus/Minus</span></th>
+            <th onclick="sortTable('player-table',5)" class="num">PPG</th>
+            <th onclick="sortTable('player-table',6)" class="num">RPG</th>
+            <th onclick="sortTable('player-table',7)" class="num">APG</th>
+            <th onclick="sortTable('player-table',8)" class="num">USG% <span class="th-tip">Usage rate</span></th>
+            <th onclick="sortTable('player-table',9)" class="num">TS% <span class="th-tip">True shooting</span></th>
+            <th onclick="sortTable('player-table',10)" class="num">PER <span class="th-tip">Player efficiency</span></th>
+          </tr>
+        </thead>
+        <tbody id="player-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== STRENGTH OF SCHEDULE ===== -->
+  <div class="section" id="sos">
+    <div class="page-title">
+      <div>
+        <h1>Strength of Schedule</h1>
+        <p>How difficult each team's slate of games has been relative to the national average</p>
+      </div>
+    </div>
+    <div class="filters">
+      <label>Conference</label>
+      <select onchange="filterTable('sos-table', 2, this.value)">
+        <option value="">All</option>
+        <option>ACC</option><option>Big 12</option><option>Big East</option>
+        <option>Big Ten</option><option>SEC</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table id="sos-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('sos-table',0)" class="sorted">SOS Rk</th>
+            <th onclick="sortTable('sos-table',1)">Team</th>
+            <th onclick="sortTable('sos-table',2)">Conf</th>
+            <th onclick="sortTable('sos-table',3)" class="num">SOS Rating <span class="th-tip">Avg opp strength</span></th>
+            <th onclick="sortTable('sos-table',4)" class="num">Opp AvgRk <span class="th-tip">Avg opponent rank</span></th>
+            <th onclick="sortTable('sos-table',5)" class="num">Q1 W-L <span class="th-tip">vs top 30 home</span></th>
+            <th onclick="sortTable('sos-table',6)" class="num">Q2 W-L</th>
+            <th onclick="sortTable('sos-table',7)" class="num">Bad Loss <span class="th-tip">Losses vs 100+</span></th>
+            <th onclick="sortTable('sos-table',8)" class="num">Non-Con SOS</th>
+          </tr>
+        </thead>
+        <tbody id="sos-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ===== DATA =====
+const teams = [
+  {name:"Duke",conf:"ACC",w:27,l:4,power:97.2,adjEM:34.2,winPct:.871,trend:"8-2",seed:1,adjOE:122.4,adjDE:88.2,tempo:71.4,efgO:.568,efgD:.432,toO:13.2,toD:21.4,sosRating:18.4,oppAvgRk:28,q1:"12-3",q2:"6-1",badLoss:0,nonConSOS:12.1},
+  {name:"Houston",conf:"Big 12",w:26,l:5,power:95.8,adjEM:31.7,winPct:.839,trend:"7-3",seed:1,adjOE:118.6,adjDE:86.9,tempo:64.2,efgO:.541,efgD:.421,toO:14.1,toD:22.1,sosRating:17.9,oppAvgRk:31,q1:"10-4",q2:"7-1",badLoss:0,nonConSOS:14.3},
+  {name:"Kansas",conf:"Big 12",w:25,l:6,power:94.1,adjEM:29.8,winPct:.806,trend:"9-1",seed:2,adjOE:120.1,adjDE:90.3,tempo:68.8,efgO:.554,efgD:.444,toO:15.2,toD:19.8,sosRating:19.2,oppAvgRk:27,q1:"11-5",q2:"5-1",badLoss:0,nonConSOS:15.6},
+  {name:"Auburn",conf:"SEC",w:26,l:5,power:93.7,adjEM:28.9,winPct:.839,trend:"8-2",seed:2,adjOE:117.8,adjDE:88.9,tempo:72.1,efgO:.548,efgD:.438,toO:13.8,toD:20.6,sosRating:20.1,oppAvgRk:24,q1:"10-4",q2:"7-1",badLoss:0,nonConSOS:11.8},
+  {name:"Tennessee",conf:"SEC",w:25,l:6,power:92.4,adjEM:27.4,winPct:.806,trend:"7-3",seed:2,adjOE:116.2,adjDE:88.8,tempo:66.4,efgO:.534,efgD:.436,toO:14.4,toD:21.2,sosRating:21.4,oppAvgRk:22,q1:"9-5",q2:"8-1",badLoss:0,nonConSOS:10.4},
+  {name:"Iowa St.",conf:"Big 12",w:24,l:7,power:91.8,adjEM:26.8,winPct:.774,trend:"6-4",seed:3,adjOE:115.8,adjDE:89.0,tempo:67.2,efgO:.531,efgD:.439,toO:14.8,toD:20.4,sosRating:16.8,oppAvgRk:33,q1:"8-5",q2:"7-2",badLoss:0,nonConSOS:13.2},
+  {name:"Marquette",conf:"Big East",w:24,l:7,power:91.2,adjEM:26.1,winPct:.774,trend:"8-2",seed:3,adjOE:119.4,adjDE:93.3,tempo:70.8,efgO:.558,efgD:.462,toO:13.1,toD:18.8,sosRating:15.2,oppAvgRk:38,q1:"9-5",q2:"6-1",badLoss:0,nonConSOS:9.8},
+  {name:"Michigan St.",conf:"Big Ten",w:24,l:7,power:90.6,adjEM:25.4,winPct:.774,trend:"7-3",seed:3,adjOE:114.6,adjDE:89.2,tempo:65.8,efgO:.528,efgD:.441,toO:15.6,toD:19.2,sosRating:18.8,oppAvgRk:29,q1:"8-6",q2:"7-1",badLoss:1,nonConSOS:12.4},
+  {name:"Florida",conf:"SEC",w:23,l:8,power:89.9,adjEM:24.8,winPct:.742,trend:"6-4",seed:4,adjOE:114.2,adjDE:89.4,tempo:71.2,efgO:.526,efgD:.443,toO:15.8,toD:18.9,sosRating:22.1,oppAvgRk:21,q1:"7-6",q2:"8-2",badLoss:1,nonConSOS:10.1},
+  {name:"St. John's",conf:"Big East",w:23,l:8,power:89.3,adjEM:24.2,winPct:.742,trend:"5-5",seed:4,adjOE:115.6,adjDE:91.4,tempo:69.4,efgO:.538,efgD:.452,toO:14.2,toD:18.4,sosRating:14.8,oppAvgRk:40,q1:"8-5",q2:"6-2",badLoss:0,nonConSOS:8.4},
+  {name:"Purdue",conf:"Big Ten",w:22,l:9,power:88.4,adjEM:23.1,winPct:.710,trend:"6-4",seed:4,adjOE:118.8,adjDE:95.7,tempo:63.2,efgO:.562,efgD:.468,toO:12.8,toD:16.8,sosRating:17.4,oppAvgRk:32,q1:"7-7",q2:"6-2",badLoss:1,nonConSOS:11.2},
+  {name:"Gonzaga",conf:"WCC",w:25,l:6,power:87.8,adjEM:22.6,winPct:.806,trend:"9-1",seed:4,adjOE:120.8,adjDE:98.2,tempo:74.8,efgO:.572,efgD:.478,toO:12.4,toD:16.2,sosRating:8.4,oppAvgRk:62,q1:"4-4",q2:"8-2",badLoss:0,nonConSOS:18.4},
+  {name:"Creighton",conf:"Big East",w:22,l:9,power:87.1,adjEM:21.8,winPct:.710,trend:"7-3",seed:5,adjOE:117.4,adjDE:95.6,tempo:68.2,efgO:.556,efgD:.467,toO:13.4,toD:17.4,sosRating:15.6,oppAvgRk:37,q1:"6-6",q2:"7-3",badLoss:1,nonConSOS:9.2},
+  {name:"Alabama",conf:"SEC",w:21,l:10,power:86.4,adjEM:21.2,winPct:.677,trend:"5-5",seed:5,adjOE:116.8,adjDE:95.6,tempo:73.8,efgO:.552,efgD:.469,toO:16.2,toD:17.8,sosRating:19.8,oppAvgRk:25,q1:"6-7",q2:"6-3",badLoss:1,nonConSOS:9.6},
+  {name:"Arizona",conf:"Big 12",w:21,l:10,power:85.8,adjEM:20.4,winPct:.677,trend:"6-4",seed:5,adjOE:115.2,adjDE:94.8,tempo:72.4,efgO:.544,efgD:.465,toO:15.4,toD:18.2,sosRating:17.1,oppAvgRk:34,q1:"6-7",q2:"7-3",badLoss:1,nonConSOS:13.8},
+];
+
+const players = [
+  {name:"Cooper Flagg",team:"Duke",pos:"F",bpm:14.2,ppg:18.1,rpg:8.2,apg:4.1,usg:28.4,ts:.612,per:34.1},
+  {name:"Tre Johnson",team:"Texas",pos:"G",bpm:11.8,ppg:21.4,rpg:3.8,apg:2.4,usg:32.8,ts:.594,per:28.4},
+  {name:"Kasparas Jakucionis",team:"Illinois",pos:"G",bpm:10.4,ppg:16.2,rpg:4.8,apg:6.8,usg:26.2,ts:.578,per:24.8},
+  {name:"Kon Knueppel",team:"Duke",pos:"F",bpm:9.8,ppg:14.8,rpg:5.2,apg:2.8,usg:22.4,ts:.624,per:23.4},
+  {name:"VJ Edgecombe",team:"Baylor",pos:"G",bpm:9.2,ppg:17.8,rpg:4.4,apg:3.2,usg:28.8,ts:.568,per:22.8},
+  {name:"Collin Murray-Boyles",team:"S. Carolina",pos:"F",bpm:8.8,ppg:14.2,rpg:8.8,apg:2.1,usg:21.8,ts:.602,per:22.1},
+  {name:"Johnni Broome",team:"Auburn",pos:"C",bpm:8.4,ppg:16.4,rpg:9.2,apg:1.8,usg:24.2,ts:.584,per:21.8},
+  {name:"Mark Sears",team:"Alabama",pos:"G",bpm:8.1,ppg:20.4,rpg:3.2,apg:4.8,usg:33.2,ts:.558,per:21.2},
+  {name:"RJ Luis Jr.",team:"St. John's",pos:"F",bpm:7.8,ppg:16.8,rpg:6.8,apg:2.4,usg:24.8,ts:.574,per:20.8},
+  {name:"Hunter Dickinson",team:"Kansas",pos:"C",bpm:7.4,ppg:15.8,rpg:10.4,apg:2.2,usg:22.8,ts:.598,per:20.4},
+  {name:"Ace Bailey",team:"Rutgers",pos:"F",bpm:7.2,ppg:17.2,rpg:6.8,apg:2.8,usg:29.8,ts:.548,per:19.8},
+  {name:"Chaz Lanier",team:"Tennessee",pos:"G",bpm:6.8,ppg:18.4,rpg:3.8,apg:2.4,usg:27.4,ts:.582,per:19.2},
+  {name:"Nique Clifford",team:"Colorado St.",pos:"F",bpm:6.4,ppg:16.8,rpg:9.4,apg:3.4,usg:24.8,ts:.564,per:18.8},
+  {name:"Danny Wolf",team:"Michigan",pos:"C",bpm:6.2,ppg:15.4,rpg:9.8,apg:3.8,usg:22.2,ts:.578,per:18.4},
+  {name:"Devin Carter",team:"Providence",pos:"G",bpm:6.0,ppg:17.8,rpg:5.4,apg:3.2,usg:29.2,ts:.542,per:18.1},
+];
+
+// ===== RENDER =====
+function seedColor(s){
+  if(s===1) return 'pill-red';
+  if(s<=2) return 'pill-amber';
+  if(s<=4) return 'pill-blue';
+  return 'pill-green';
+}
+
+function renderPower(){
+  const tbody = document.getElementById('power-tbody');
+  tbody.innerHTML = '';
+  teams.forEach((t,i)=>{
+    const maxEM=34.2,minEM=20;
+    const pct=Math.max(0,Math.min(100,((t.adjEM-minEM)/(maxEM-minEM))*100));
+    const row=`<tr>
+      <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
+      <td class="team-cell">${t.name}<span class="team-conf">${t.conf}</span></td>
+      <td><span class="pill pill-blue">${t.conf}</span></td>
+      <td class="num record">${t.w}–${t.l}</td>
+      <td class="num"><strong>${t.power.toFixed(1)}</strong></td>
+      <td class="num">
+        <div class="bar-wrap">
+          <span>+${t.adjEM.toFixed(1)}</span>
+          <div class="bar-bg bar-green"><div class="bar-fill" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td class="num">${(t.winPct*100).toFixed(1)}%</td>
+      <td class="num">${t.trend}</td>
+      <td class="num"><span class="pill ${seedColor(t.seed)}">#${t.seed}</span></td>
+    </tr>`;
+    tbody.innerHTML+=row;
+  });
+}
+
+function renderEfficiency(){
+  const tbody = document.getElementById('eff-tbody');
+  tbody.innerHTML='';
+  const sorted=[...teams].sort((a,b)=>(b.adjOE-b.adjDE)-(a.adjOE-a.adjDE));
+  const maxNet=34.2,minNet=21;
+  sorted.forEach((t,i)=>{
+    const net=(t.adjOE-t.adjDE).toFixed(1);
+    const pctO=Math.min(100,((t.adjOE-112)/(122-112))*100);
+    const pctD=Math.min(100,((100-t.adjDE)/(100-86))*100);
+    tbody.innerHTML+=`<tr>
+      <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
+      <td class="team-cell">${t.name}<span class="team-conf">${t.conf}</span></td>
+      <td class="num">
+        <div class="bar-wrap">
+          <span>${t.adjOE.toFixed(1)}</span>
+          <div class="bar-bg bar-blue"><div class="bar-fill" style="width:${pctO}%"></div></div>
+        </div>
+      </td>
+      <td class="num">
+        <div class="bar-wrap">
+          <span>${t.adjDE.toFixed(1)}</span>
+          <div class="bar-bg bar-red"><div class="bar-fill" style="width:${pctD}%"></div></div>
+        </div>
+      </td>
+      <td class="num"><strong style="color:var(--green)">+${net}</strong></td>
+      <td class="num">${t.tempo.toFixed(1)}</td>
+      <td class="num">${(t.efgO*100).toFixed(1)}%</td>
+      <td class="num">${(t.efgD*100).toFixed(1)}%</td>
+      <td class="num">${t.toO.toFixed(1)}%</td>
+      <td class="num">${t.toD.toFixed(1)}%</td>
+    </tr>`;
+  });
+}
+
+function renderPlayers(){
+  const tbody=document.getElementById('player-tbody');
+  tbody.innerHTML='';
+  const sorted=[...players].sort((a,b)=>b.bpm-a.bpm);
+  const maxBPM=14.2,minBPM=6;
+  sorted.forEach((p,i)=>{
+    const pct=Math.max(0,Math.min(100,((p.bpm-minBPM)/(maxBPM-minBPM))*100));
+    tbody.innerHTML+=`<tr>
+      <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
+      <td class="team-cell">${p.name}</td>
+      <td>${p.team}</td>
+      <td><span class="pill ${p.pos==='G'?'pill-blue':p.pos==='F'?'pill-green':'pill-amber'}">${p.pos}</span></td>
+      <td class="num">
+        <div class="bar-wrap">
+          <span><strong>${p.bpm.toFixed(1)}</strong></span>
+          <div class="bar-bg bar-green"><div class="bar-fill" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td class="num">${p.ppg.toFixed(1)}</td>
+      <td class="num">${p.rpg.toFixed(1)}</td>
+      <td class="num">${p.apg.toFixed(1)}</td>
+      <td class="num">${p.usg.toFixed(1)}%</td>
+      <td class="num">${(p.ts*100).toFixed(1)}%</td>
+      <td class="num">${p.per.toFixed(1)}</td>
+    </tr>`;
+  });
+}
+
+function renderSOS(){
+  const tbody=document.getElementById('sos-tbody');
+  tbody.innerHTML='';
+  const sorted=[...teams].sort((a,b)=>b.sosRating-a.sosRating);
+  const max=22.1,min=8;
+  sorted.forEach((t,i)=>{
+    const pct=Math.max(0,Math.min(100,((t.sosRating-min)/(max-min))*100));
+    tbody.innerHTML+=`<tr>
+      <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
+      <td class="team-cell">${t.name}</td>
+      <td><span class="pill pill-blue">${t.conf}</span></td>
+      <td class="num">
+        <div class="bar-wrap">
+          <span><strong>${t.sosRating.toFixed(1)}</strong></span>
+          <div class="bar-bg bar-blue"><div class="bar-fill" style="width:${pct}%"></div></div>
+        </div>
+      </td>
+      <td class="num">${t.oppAvgRk}</td>
+      <td class="num"><span class="${t.q1.split('-')[0]>t.q1.split('-')[1]?'pill pill-green':'pill pill-red'}">${t.q1}</span></td>
+      <td class="num">${t.q2}</td>
+      <td class="num"><span class="${t.badLoss>0?'pill pill-red':''}">${t.badLoss}</span></td>
+      <td class="num">${t.nonConSOS.toFixed(1)}</td>
+    </tr>`;
+  });
+}
+
+// ===== TAB SWITCHING =====
+function switchTab(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs={power:0,efficiency:1,players:2,sos:3};
+  document.querySelectorAll('.nav-tab')[tabs[id]].classList.add('active');
+}
+
+// ===== SORT =====
+function sortTable(tableId, col){
+  const table=document.getElementById(tableId);
+  const tbody=table.querySelector('tbody');
+  const rows=Array.from(tbody.querySelectorAll('tr'));
+  const ths=table.querySelectorAll('thead th');
+  ths.forEach(th=>th.classList.remove('sorted'));
+  ths[col].classList.add('sorted');
+  rows.sort((a,b)=>{
+    const aText=a.cells[col].innerText.replace(/[^0-9.\-]/g,'');
+    const bText=b.cells[col].innerText.replace(/[^0-9.\-]/g,'');
+    const aVal=parseFloat(aText)||0, bVal=parseFloat(bText)||0;
+    return bVal-aVal;
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
+// ===== FILTER =====
+function filterTable(tableId, col, val){
+  const table=document.getElementById(tableId);
+  Array.from(table.querySelectorAll('tbody tr')).forEach(row=>{
+    const cell=row.cells[col].innerText.trim();
+    row.style.display=(!val||cell.includes(val))?'':'none';
+  });
+}
+
+// Init
+renderPower();
+renderEfficiency();
+renderPlayers();
+renderSOS();
+</script>
+</body>
+</html>
