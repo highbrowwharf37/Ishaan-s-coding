@@ -365,15 +365,11 @@ function parseTeams(raw) {
     const adjDE = parseFloat(r[6]) || 0;
     const barthag = parseFloat(r[8]) || 0;
     const netEM = parseFloat(r[10]) || (adjOE - adjDE);
-    // SOS is around index 22-24 based on the data structure
-    const sos = parseFloat(r[22]) || parseFloat(r[23]) || 0;
-    // WAB around index 36-37
-    const wab = parseFloat(r[36]) || parseFloat(r[14]) || 0;
-    // Tempo around index 13
-    const adjT = parseFloat(r[13]) || 0;
-    // Projected record index 7 area — oppO/oppD from indices 23,24
-    const oppO = parseFloat(r[23]) || parseFloat(r[25]) || 0;
-    const oppD = parseFloat(r[24]) || parseFloat(r[26]) || 0;
+    const oppO = parseFloat(r[23]) || 0;
+    const oppD = parseFloat(r[24]) || 0;
+    const sos = parseFloat(r[40]) || 0;  // SOS rank
+    const wab = parseFloat(r[38]) || 0;
+    const adjT = parseFloat(r[42]) || 0;
     return {
       name: String(r[1] || ''),
       conf: String(r[2] || ''),
@@ -522,13 +518,14 @@ function renderPlayers() {
 
 // ===== SOS =====
 function renderSOS() {
-  const teams = [...filteredTeams('sos-conf')].sort((a,b) => b.sos - a.sos);
+  const teams = [...filteredTeams('sos-conf')].sort((a,b) => b.oppO - a.oppO);
   if (!teams.length) return;
-  const [maxSOS,minSOS] = [Math.max(...teams.map(t=>t.sos)), Math.min(...teams.map(t=>t.sos))];
+  const [maxO, minO] = [Math.max(...teams.map(t=>t.oppO)), Math.min(...teams.map(t=>t.oppO))];
   let html = `<div class="table-wrap"><table>
     <thead><tr>
       <th class="sorted">SOS Rk</th><th>Team</th><th>Conf</th>
-      <th class="num">SOS Rating</th>
+      <th class="num">Opp Avg OE <span class="th-tip">Higher = tougher schedule</span></th>
+      <th class="num">Opp Avg DE <span class="th-tip">Lower = tougher schedule</span></th>
       <th class="num">Adj OE</th><th class="num">Adj DE</th>
       <th class="num">Record</th><th class="num">WAB</th>
     </tr></thead><tbody>`;
@@ -537,7 +534,8 @@ function renderSOS() {
       <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
       <td class="team-cell">${t.name}</td>
       <td><span class="pill pill-blue">${t.conf}</span></td>
-      <td class="num">${barHTML(`<strong>${t.sos.toFixed(2)}</strong>`, pct(t.sos,minSOS,maxSOS), 'bar-blue')}</td>
+      <td class="num">${barHTML(`<strong>${t.oppO.toFixed(1)}</strong>`, pct(t.oppO,minO,maxO), 'bar-blue')}</td>
+      <td class="num">${t.oppD.toFixed(1)}</td>
       <td class="num">${t.adjOE.toFixed(1)}</td>
       <td class="num">${t.adjDE.toFixed(1)}</td>
       <td class="num">${t.record}</td>
