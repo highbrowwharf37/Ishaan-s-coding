@@ -162,7 +162,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
   <div class="nav-inner">
     <div class="nav-tab active" onclick="switchTab('power')">Power Rankings</div>
     <div class="nav-tab" onclick="switchTab('efficiency')">Efficiency</div>
-    <div class="nav-tab" onclick="switchTab('players')">Players</div>
+
     <div class="nav-tab" onclick="switchTab('sos')">Schedule Strength</div>
     <div class="nav-tab" onclick="switchTab('predictor')">Game Predictor</div>
     <div class="nav-tab" onclick="switchTab('bubble')">Bubble Tracker</div>
@@ -198,17 +198,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
   <p class="data-note">Data: barttorvik.com</p>
 </div>
 
-<div class="section" id="players">
-  <div class="page-title"><div><h1>Player Rankings</h1><p>Top players by Box Plus/Minus · min 150 minutes</p></div></div>
-  <div class="filters">
-    <label>Position</label>
-    <select id="player-pos" onchange="renderPlayers()"><option value="">All</option><option>G</option><option>F</option><option>C</option></select>
-    <label>Min PPG</label>
-    <select id="player-ppg" onchange="renderPlayers()"><option value="0">Any</option><option value="10">10+</option><option value="15">15+</option><option value="20">20+</option></select>
-  </div>
-  <div id="player-container"><div class="loading-bar"><div class="spinner"></div>Loading...</div></div>
-  <p class="data-note">Data: barttorvik.com</p>
-</div>
+
 
 <div class="section" id="sos">
   <div class="page-title"><div><h1>Strength of Schedule</h1><p>How difficult each team's slate has been vs national average</p></div></div>
@@ -390,7 +380,7 @@ function getConf(id) { const s = document.getElementById(id); return s ? s.value
 function filteredTeams(confId) { const c = getConf(confId); return c ? allTeams.filter(t=>t.conf===c) : allTeams; }
 
 function renderAll() {
-  renderPower(); renderEfficiency(); renderPlayers();
+  renderPower(); renderEfficiency();
   renderSOS(); renderBubble(); renderMomentum();
   renderUpset(); renderConfStrength();
 }
@@ -817,7 +807,7 @@ function switchTab(id) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx = {power:0,efficiency:1,players:2,sos:3,predictor:4,bubble:5,momentum:6,h2h:7,upset:8,confstrength:9};
+  const idx = {power:0,efficiency:1,sos:2,predictor:3,bubble:4,momentum:5,h2h:6,upset:7,confstrength:8};
   document.querySelectorAll('.nav-tab')[idx[id]].classList.add('active');
 }
 
