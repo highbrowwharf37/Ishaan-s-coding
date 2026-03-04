@@ -45,7 +45,9 @@ A React + Vite + TypeScript web application providing comprehensive analytics, p
 │   └── fetch-data/
 │       └── fetch_cbb_data.py   # Fetches Barttorvik data → writes data/data.json
 ├── public/
-│   └── nba-live.html           # Standalone NBA live play-by-play tracker (Sportradar API)
+│   ├── cbb-data.html           # Canonical CBB app entry page
+│   ├── cbb_data/               # Back-compat redirect path
+│   └── nba_live/nba-live.html  # Standalone NBA live play-by-play tracker (Sportradar API)
 ├── .github/workflows/
 │   └── fetch-data.yml          # Daily cron: runs Python script and commits data
 └── archive/                    # Old iterative HTML versions (pre-React, for reference)
@@ -86,7 +88,7 @@ This writes fresh data to `data/data.json`. In dev mode, the app reads from `/da
 
 ## NBA Live Tracker
 
-`public/nba-live.html` is a standalone page (no build step required) that shows real-time NBA play-by-play using the Sportradar NBA v8 API. Open it via the dev server at `http://localhost:5173/nba-live.html` or directly in a browser. Features:
+`public/nba_live/nba-live.html` is a standalone page (no build step required) that shows real-time NBA play-by-play using the Sportradar NBA v8 API. Open it via the dev server at `http://localhost:5173/nba_live/nba-live.html` (or legacy redirect `http://localhost:5173/nba-live.html`) or directly in a browser. Features:
 
 - All games for the current day with live scores
 - Real-time PBP feed (polls every 2 seconds for live games)

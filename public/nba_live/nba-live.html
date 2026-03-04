@@ -4,7 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NBA Live — Real-Time Play-by-Play</title>
+  <title>nba live - real-time play-by-play</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+    rel="stylesheet">
   <style>
     *,
     *::before,
@@ -662,6 +665,329 @@
       color: #fca5a5;
       margin: 16px;
     }
+
+    /* CBB theme alignment */
+    :root {
+      --bg: #f9f7f4;
+      --surface: #fff;
+      --surface2: #f4f1ed;
+      --border: #e2ddd7;
+      --text: #1a1916;
+      --muted: #6b6560;
+      --dim: #9e9892;
+      --live: #c0392b;
+      --live-glow: rgba(192, 57, 43, 0.12);
+      --green: #27ae60;
+      --gold: #d68910;
+      --blue: #2471a3;
+      --font-sans: 'Libre Franklin', sans-serif;
+      --font-serif: 'Source Serif 4', serif;
+      --font: var(--font-sans);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      text-transform: lowercase;
+    }
+
+    header {
+      background: var(--text);
+      color: #fff;
+      border-bottom: 3px solid var(--live);
+      padding: 0 24px;
+      position: static;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      height: 60px;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: #fff;
+    }
+
+    .logo-icon {
+      font-size: 20px;
+    }
+
+    .logo-sub {
+      color: #c8c2bc;
+      letter-spacing: 0.5px;
+    }
+
+    .date-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.22);
+      color: #fff;
+      border-radius: 3px;
+    }
+
+    .date-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    #date-display {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    #clock {
+      color: #c8c2bc;
+    }
+
+    .queue-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #ddd8d2;
+      border-radius: 3px;
+    }
+
+    .status-bar {
+      background: var(--surface);
+      border-bottom-color: var(--border);
+      color: var(--muted);
+    }
+
+    .status-inner {
+      max-width: 1280px;
+    }
+
+    .main {
+      max-width: 1280px;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    @media (min-width: 1100px) {
+      .main {
+        grid-template-columns: 390px 1fr;
+      }
+    }
+
+    .panel,
+    .pbp-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    .panel-header {
+      background: var(--surface2);
+      border-bottom-color: var(--border);
+      padding: 10px 12px;
+    }
+
+    .panel-title {
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .game-card {
+      border-bottom-color: var(--border);
+    }
+
+    .game-card:hover {
+      background: #faf8f5;
+    }
+
+    .game-card.selected {
+      background: #eef4fa;
+      border-left-color: var(--blue);
+    }
+
+    .game-card.live {
+      border-left-color: var(--live);
+    }
+
+    .game-card.live.selected {
+      background: #fdf3f2;
+      border-left-color: var(--live);
+    }
+
+    .game-status-badge {
+      border-radius: 2px;
+      letter-spacing: 0.4px;
+    }
+
+    .badge-live {
+      background: #fdf3f2;
+      color: var(--live);
+    }
+
+    .badge-scheduled {
+      background: #eaf3fb;
+      color: var(--blue);
+    }
+
+    .badge-halftime {
+      background: #fef9ec;
+      color: var(--gold);
+    }
+
+    .badge-closed {
+      background: var(--surface2);
+      color: var(--muted);
+    }
+
+    .game-clock {
+      color: var(--muted);
+    }
+
+    .team-alias {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      letter-spacing: -0.2px;
+    }
+
+    .team-full {
+      color: var(--dim);
+    }
+
+    .team-score.leading {
+      color: var(--text);
+    }
+
+    .team-score.trailing {
+      color: var(--muted);
+    }
+
+    .score-divider {
+      background: var(--border);
+    }
+
+    .game-meta {
+      color: var(--dim);
+    }
+
+    .pbp-panel {
+      max-height: calc(100vh - 170px);
+    }
+
+    .pbp-header {
+      border-bottom-color: var(--border);
+    }
+
+    .pbp-team-alias {
+      color: var(--muted);
+    }
+
+    .pbp-team-score {
+      font-family: var(--font-serif);
+      color: var(--text);
+    }
+
+    .pbp-divider {
+      color: var(--dim);
+    }
+
+    .pbp-game-info {
+      color: var(--muted);
+    }
+
+    .pbp-period {
+      color: var(--text);
+    }
+
+    .pbp-clock-display {
+      color: var(--gold);
+    }
+
+    .pbp-empty,
+    .pbp-loading {
+      color: var(--muted);
+    }
+
+    .spinner-sm {
+      border-color: var(--border);
+      border-top-color: var(--live);
+    }
+
+    .period-sep {
+      background: var(--surface2);
+      border-bottom-color: var(--border);
+      border-top-color: var(--border);
+      color: var(--muted);
+    }
+
+    .period-line {
+      background: var(--border);
+    }
+
+    .play-event {
+      border-bottom-color: var(--border);
+    }
+
+    .play-event:hover {
+      background: #faf8f5;
+    }
+
+    .play-clock {
+      color: var(--dim);
+    }
+
+    .play-desc {
+      color: var(--text);
+    }
+
+    .play-score-change {
+      color: var(--muted);
+    }
+
+    .play-event.pts2 .play-icon {
+      color: var(--green);
+    }
+
+    .play-event.pts3 .play-icon {
+      color: var(--blue);
+    }
+
+    .play-event.ft .play-icon {
+      color: var(--green);
+    }
+
+    .play-event.miss .play-desc {
+      color: var(--dim);
+    }
+
+    .play-event.turnover .play-icon {
+      color: var(--live);
+    }
+
+    .play-event.foul .play-icon {
+      color: var(--gold);
+    }
+
+    .play-event.rebound .play-icon {
+      color: var(--blue);
+    }
+
+    .play-event.timeout .play-icon {
+      color: var(--muted);
+    }
+
+    .no-games {
+      color: var(--muted);
+    }
+
+    .no-games-title {
+      color: var(--text);
+      font-family: var(--font-serif);
+      font-weight: 600;
+    }
+
+    .error-banner {
+      background: #fdf3f2;
+      border: 1px solid #f5c6c4;
+      border-radius: 4px;
+      color: var(--live);
+    }
   </style>
 </head>
 
@@ -670,10 +996,9 @@
   <header>
     <div class="header-inner">
       <div class="logo">
-        <span class="logo-icon">🏀</span>
         <div>
-          NBA LIVE
-          <span class="logo-sub">Real-Time Play-by-Play</span>
+          nba live
+          <span class="logo-sub">real-time play-by-play</span>
         </div>
       </div>
       <div class="date-nav">
@@ -683,10 +1008,10 @@
       </div>
       <div class="header-right">
         <span id="clock">—</span>
-        <span class="queue-badge">Queue: <span id="queue-depth">0</span></span>
+        <span class="queue-badge">queue: <span id="queue-depth">0</span></span>
         <div class="live-count" id="live-indicator" style="display:none">
           <div class="pulse-dot"></div>
-          <span id="live-count-text">0 LIVE</span>
+          <span id="live-count-text">0 live</span>
         </div>
       </div>
     </div>
@@ -696,11 +1021,11 @@
     <div class="status-inner">
       <div class="status-item">
         <div class="status-dot" id="api-dot"></div>
-        <span id="api-status">Connecting...</span>
+        <span id="api-status">connecting...</span>
       </div>
       <span style="color:var(--dim)">·</span>
       <div class="status-item">
-        Last updated: <span id="last-updated">—</span>
+        last updated: <span id="last-updated">—</span>
       </div>
       <span style="color:var(--dim)">·</span>
       <div class="status-item">
@@ -713,12 +1038,12 @@
     <!-- Games List -->
     <div class="panel">
       <div class="panel-header">
-        <span class="panel-title">Today's Games</span>
+        <span class="panel-title" id="games-title">games</span>
         <span id="games-count" style="font-size:11px;color:var(--muted)"></span>
       </div>
       <div class="games-list" id="games-list">
         <div class="pbp-loading">
-          <div class="spinner-sm"></div>Loading schedule...
+          <div class="spinner-sm"></div>loading schedule...
         </div>
       </div>
     </div>
@@ -746,8 +1071,8 @@
       <div class="pbp-feed" id="pbp-feed">
         <div class="pbp-empty">
           <div style="font-size:32px;margin-bottom:12px"></div>
-          <div style="font-weight:700;margin-bottom:6px">Select a game</div>
-          <div style="font-size:12px;color:var(--muted)">Click any game on the left to view live play-by-play</div>
+          <div style="font-weight:700;margin-bottom:6px">select a game</div>
+          <div style="font-size:12px;color:var(--muted)">click any game on the left to view live play-by-play</div>
         </div>
       </div>
     </div>
@@ -844,7 +1169,7 @@
           if (err.status === 429) {
             // Rate limited — re-add with backoff
             retryDelay = Math.min(retryDelay * 2, 30000);
-            setStatus(`Rate limited. Backing off ${(retryDelay / 1000).toFixed(0)}s…`, 'loading');
+            setStatus(`rate limited. backing off ${(retryDelay / 1000).toFixed(0)}s…`, 'loading');
             await sleep(retryDelay);
           }
           reject(err);
@@ -865,10 +1190,10 @@
       const url = `${BASE}/${path}?api_key=${API_KEY}`;
       const res = await fetch(url);
       if (res.status === 429) {
-        const e = new Error('Rate limited'); e.status = 429; throw e;
+        const e = new Error('rate limited'); e.status = 429; throw e;
       }
       if (!res.ok) {
-        throw new Error(`API error ${res.status}: ${await res.text().catch(() => '')}`);
+        throw new Error(`api error ${res.status}: ${await res.text().catch(() => '')}`);
       }
       return res.json();
     }
@@ -903,12 +1228,16 @@
     function pad2(n) { return String(n).padStart(2, '0'); }
 
     function dateLabel(d) {
-      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }).toLowerCase();
     }
 
     function gameLocalTime(scheduledUTC) {
       const d = new Date(scheduledUTC);
-      return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET';
+      return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' et';
+    }
+
+    function gamesTitleLabel(d) {
+      return `games for ${dateLabel(d)}`;
     }
 
     // ============================================================
@@ -931,20 +1260,21 @@
       const day = pad2(d.getDate());
 
       document.getElementById('date-display').textContent = dateLabel(d);
-      document.getElementById('games-list').innerHTML = '<div class="pbp-loading"><div class="spinner-sm"></div>Loading schedule…</div>';
-      setStatus('Fetching schedule…', 'loading');
+      document.getElementById('games-title').textContent = gamesTitleLabel(d);
+      document.getElementById('games-list').innerHTML = '<div class="pbp-loading"><div class="spinner-sm"></div>loading schedule…</div>';
+      setStatus('fetching schedule…', 'loading');
 
       try {
         const data = await fetchSchedule(y, m, day);
         state.games = data.games || [];
-        setStatus(`Schedule loaded — ${state.games.length} game${state.games.length !== 1 ? 's' : ''}`, 'ok');
+        setStatus(`schedule loaded — ${state.games.length} game${state.games.length !== 1 ? 's' : ''}`, 'ok');
         renderGames();
         startLivePollers();
         if (state.selectedId) loadPBP(state.selectedId);
       } catch (err) {
-        setStatus('Failed to load schedule: ' + err.message, 'error');
+        setStatus('failed to load schedule: ' + err.message, 'error');
         document.getElementById('games-list').innerHTML =
-          `<div class="error-banner">⚠ ${err.message}<br><small>Check your API key and access level (currently: ${ACCESS_LEVEL})</small></div>`;
+          `<div class="error-banner">error: ${err.message}<br><small>check your api key and access level (currently: ${ACCESS_LEVEL})</small></div>`;
       }
     }
 
@@ -952,12 +1282,12 @@
     // GAME RENDERING
     // ============================================================
     function gameStatusLabel(status) {
-      if (!status) return { text: 'TBD', cls: 'badge-scheduled' };
+      if (!status) return { text: 'tbd', cls: 'badge-scheduled' };
       const s = status.toLowerCase();
-      if (s === 'inprogress') return { text: 'LIVE', cls: 'badge-live' };
-      if (s === 'halftime') return { text: 'HALF', cls: 'badge-halftime' };
-      if (s === 'closed' || s === 'complete') return { text: 'FINAL', cls: 'badge-closed' };
-      return { text: 'TBD', cls: 'badge-scheduled' };
+      if (s === 'inprogress') return { text: 'live', cls: 'badge-live' };
+      if (s === 'halftime') return { text: 'half', cls: 'badge-halftime' };
+      if (s === 'closed' || s === 'complete') return { text: 'final', cls: 'badge-closed' };
+      return { text: 'tbd', cls: 'badge-scheduled' };
     }
 
     function isLive(status) {
@@ -967,8 +1297,8 @@
 
     function periodLabel(num) {
       if (!num) return '';
-      if (num > 4) return `OT${num - 4 > 1 ? num - 4 : ''}`;
-      return `Q${num}`;
+      if (num > 4) return `ot${num - 4 > 1 ? num - 4 : ''}`;
+      return `q${num}`;
     }
 
     function renderGames() {
@@ -980,9 +1310,8 @@
       const games = state.games;
       if (!games.length) {
         list.innerHTML = `<div class="no-games">
-      <div class="no-games-icon">🏀</div>
-      <div class="no-games-title">No games today</div>
-      <div class="no-games-sub">Try a different date using the arrows above</div>
+      <div class="no-games-title">no games for this date</div>
+      <div class="no-games-sub">try a different date using the arrows above</div>
     </div>`;
         count.textContent = '';
         liveIndicator.style.display = 'none';
@@ -994,7 +1323,7 @@
       const liveGames = games.filter(g => isLive(g.status));
       if (liveGames.length > 0) {
         liveIndicator.style.display = 'flex';
-        liveCountText.textContent = `${liveGames.length} LIVE`;
+        liveCountText.textContent = `${liveGames.length} live`;
       } else {
         liveIndicator.style.display = 'none';
       }
@@ -1155,11 +1484,10 @@
         const home = game.home || {};
         updatePBPHeader(game);
         feed.innerHTML = `<div class="pbp-empty">
-      <div style="font-size:32px;margin-bottom:12px">🕐</div>
-      <div style="font-weight:700;margin-bottom:6px">Game not started</div>
+      <div style="font-weight:700;margin-bottom:6px">game not started</div>
       <div style="font-size:12px;color:var(--muted)">
         ${away.name || away.alias} @ ${home.name || home.alias}<br>
-        Tip-off: ${game.scheduled ? gameLocalTime(game.scheduled) : 'TBD'}
+        tip-off: ${game.scheduled ? gameLocalTime(game.scheduled) : 'tbd'}
       </div>
     </div>`;
         return;
@@ -1171,16 +1499,16 @@
         return;
       }
 
-      feed.innerHTML = '<div class="pbp-loading"><div class="spinner-sm"></div>Loading play-by-play…</div>';
-      setStatus('Fetching play-by-play…', 'loading');
+      feed.innerHTML = '<div class="pbp-loading"><div class="spinner-sm"></div>loading play-by-play…</div>';
+      setStatus('fetching play-by-play…', 'loading');
 
       try {
         const data = await fetchPBP(gameId);
         processPBPData(gameId, data);
-        setStatus('Play-by-play loaded', 'ok');
+        setStatus('play-by-play loaded', 'ok');
       } catch (err) {
-        feed.innerHTML = `<div class="error-banner">⚠ Could not load PBP: ${err.message}</div>`;
-        setStatus('PBP fetch failed', 'error');
+        feed.innerHTML = `<div class="error-banner">could not load pbp: ${err.message}</div>`;
+        setStatus('pbp fetch failed', 'error');
       }
     }
 
@@ -1218,16 +1546,16 @@
       if (isLive(status)) {
         periodEl.textContent = periodLabel(quarter);
         clockEl.textContent = clock || '';
-        statusEl.textContent = 'LIVE';
+        statusEl.textContent = 'live';
         statusEl.style.color = 'var(--live)';
       } else if (status.toLowerCase() === 'halftime') {
-        periodEl.textContent = 'HALFTIME';
+        periodEl.textContent = 'halftime';
         clockEl.textContent = '';
         statusEl.textContent = '';
       } else if (status.toLowerCase() === 'closed' || status.toLowerCase() === 'complete') {
-        periodEl.textContent = 'FINAL';
+        periodEl.textContent = 'final';
         clockEl.textContent = '';
-        statusEl.textContent = 'FINAL';
+        statusEl.textContent = 'final';
         statusEl.style.color = 'var(--muted)';
       } else {
         periodEl.textContent = game.scheduled ? gameLocalTime(game.scheduled) : '—';
@@ -1261,15 +1589,15 @@
 
     function playIcon(type) {
       switch (type) {
-        case 'pts2': return '⬤';
-        case 'pts3': return '★';
-        case 'ft': return '◎';
-        case 'miss': return '○';
-        case 'turnover': return '↩';
-        case 'foul': return '!';
-        case 'rebound': return '↑';
-        case 'timeout': return '⏸';
-        default: return '·';
+        case 'pts2': return '';
+        case 'pts3': return '';
+        case 'ft': return '';
+        case 'miss': return '';
+        case 'turnover': return '';
+        case 'foul': return '';
+        case 'rebound': return '';
+        case 'timeout': return '';
+        default: return '';
       }
     }
 
@@ -1288,7 +1616,7 @@
       });
 
       if (!allEvents.length) {
-        feed.innerHTML = '<div class="pbp-empty">No play-by-play data available yet.</div>';
+        feed.innerHTML = '<div class="pbp-empty">no play-by-play data available yet.</div>';
         return;
       }
 
@@ -1308,7 +1636,7 @@
       reversed.forEach(ev => {
         // Period separator
         if (ev.periodNum !== lastPeriod) {
-          const pLabel = ev.periodNum > 4 ? `OT${ev.periodNum - 4 > 1 ? ev.periodNum - 4 : ''}` : `Quarter ${ev.periodNum}`;
+          const pLabel = ev.periodNum > 4 ? `ot${ev.periodNum - 4 > 1 ? ev.periodNum - 4 : ''}` : `quarter ${ev.periodNum}`;
           html += `<div class="period-sep"><div class="period-line"></div>${pLabel}<div class="period-line"></div></div>`;
           lastPeriod = ev.periodNum;
         }
@@ -1319,6 +1647,7 @@
         const desc = ev.description || ev.desc || '—';
         const clock = ev.clock || '';
         const icon = playIcon(type);
+        const iconHtml = icon ? `${icon} ` : '';
         const isNew = ev.id && newIds.has(ev.id);
 
         const homePoints = ev.home_points ?? '';
@@ -1330,7 +1659,7 @@
         html += `<div class="play-event ${type}${isNew ? ' new' : ''}">
       <span class="play-clock">${clock}</span>
       <div class="play-body">
-        <span class="play-icon">${icon} <span class="play-desc">${escHtml(desc)}</span></span>
+        <span class="play-icon">${iconHtml}<span class="play-desc">${escHtml(desc)}</span></span>
         ${scoreStr ? `<span style="font-size:11px;color:var(--muted)">${escHtml(scoreStr)}</span>` : ''}
       </div>
       ${scoreStr ? `<span class="play-score-change">${awayPoints}–${homePoints}</span>` : '<span></span>'}
@@ -1339,7 +1668,7 @@
 
       // Preserve scroll position if user has scrolled down
       const wasAtTop = feed.scrollTop < 60;
-      feed.innerHTML = html || '<div class="pbp-empty">No plays yet.</div>';
+      feed.innerHTML = html || '<div class="pbp-empty">no plays yet.</div>';
       if (wasAtTop) feed.scrollTop = 0;
     }
 
@@ -1393,7 +1722,7 @@
     function tickClock() {
       const now = new Date();
       document.getElementById('clock').textContent =
-        now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/New_York' }) + ' ET';
+        now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'America/New_York' }) + ' et';
     }
     tickClock();
     setInterval(tickClock, 1000);
