@@ -1,40 +1,28 @@
-import json, datetime, urllib.request
+import json, datetime, urllib.request, urllib.parse
 
 # Fetch team data from Barttorvik
 req = urllib.request.Request(
     'https://barttorvik.com/2026_team_results.json',
-    headers={'User-Agent': 'Mozilla/5.0', 'Cache-Control': 'no-cache'}
+    headers={'User-Agent': 'Mozilla/5.0'}
 )
 with urllib.request.urlopen(req) as r:
     teams = json.loads(r.read().decode())
-
 print(f"Total teams: {len(teams)}")
 
-# Fetch player data from cbbstat.com (free, no auth)
-player_urls = [
-    'https://cbbstat.com/api/players?season=2025-26&per_page=500',
-    'https://api.cbbstat.com/players?year=2026',
-]
-
+# Fetch player stats from NCAA stats site
 players = []
-for url in player_urls:
-    try:
-        req2 = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req2, timeout=20) as r:
-            content = r.read().decode().strip()
-            print(f"Response from {url}: {content[:300]}")
-            data = json.loads(content)
-            if isinstance(data, list):
-                players = data
-            elif isinstance(data, dict):
-                players = data.get('data', data.get('players', data.get('results', [])))
-            if players:
-                print(f"Got {len(players)} players!")
-                break
-    except Exception as e:
-        print(f"Failed {url}: {e}")
-
-print(f"Total players: {len(players)}")
+try:
+    url = 'https://stats.ncaa.org/rankings/change_sport_year_div?sport_code=MBB&academic_year=2026&division=1&ranking_period=113&team_individual=I&stat_seq=145'
+    req2 = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+        'Accept': 'application/json, text/javascript, */*',
+        'X-Requested-With': 'XMLHttpRequest'
+    })
+    with urllib.request.urlopen(req2, timeout=30) as r:
+        content = r.read().decode()
+        print(f"NCAA response preview: {content[:300]}")
+except Exception as e:
+    print(f"NCAA failed: {e}")
 
 out = {
     'teams': teams,
@@ -44,5 +32,4 @@ out = {
 
 with open('data.json', 'w') as f:
     json.dump(out, f)
-
 print("Done!")
