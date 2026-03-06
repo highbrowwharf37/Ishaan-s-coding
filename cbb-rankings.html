@@ -19,17 +19,28 @@
   --font-serif: 'Source Serif 4', serif;
 }
 body { background: var(--bg); color: var(--text-primary); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
-header { background: var(--text-primary); color: white; padding: 0 24px; border-bottom: 3px solid var(--accent); }
-.header-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-.logo { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: white; }
+header { background: var(--text-primary); color: white; padding: 0 24px; border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 200; }
+.header-inner { max-width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px; }
+.logo { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: white; white-space: nowrap; }
 .logo span { color: var(--accent); font-style: italic; }
-.header-meta { font-size: 11px; color: #aaa; text-align: right; line-height: 1.6; }
-nav { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; }
-.nav-inner { max-width: 1280px; margin: 0 auto; display: flex; padding: 0 24px; }
-.nav-tab { padding: 13px 15px; font-size: 12px; font-weight: 700; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; }
-.nav-tab:hover { color: var(--text-primary); }
-.nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-main { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.header-meta { font-size: 11px; color: #aaa; text-align: right; line-height: 1.6; white-space: nowrap; }
+
+/* SIDE NAV */
+.app-shell { display: flex; min-height: calc(100vh - 56px); }
+.side-nav { width: 220px; min-width: 220px; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; z-index: 100; }
+.side-nav-inner { padding: 14px 0; }
+.side-nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); padding: 10px 18px 6px; }
+.side-nav-item { display: flex; align-items: center; gap: 9px; padding: 9px 18px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all 0.12s; border-left: 3px solid transparent; line-height: 1.3; }
+.side-nav-item:hover { background: var(--bg); color: var(--text-primary); }
+.side-nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.side-nav-item .nav-icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
+.side-nav-divider { height: 1px; background: var(--border); margin: 8px 18px; }
+.side-nav-toggle { display: none; background: none; border: none; cursor: pointer; color: white; font-size: 20px; padding: 0 8px; line-height: 1; }
+
+/* TOP NAV (hidden by default, shown on mobile) */
+nav { display: none; }
+
+main { flex: 1; padding: 24px; overflow-x: hidden; min-width: 0; }
 .section { display: none; }
 .section.active { display: block; }
 .page-title { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 14px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -177,32 +188,63 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 .draft-gen-btn { padding: 12px 28px; background: var(--accent); color: white; border: none; border-radius: 4px; font-family: var(--font-sans); font-size: 14px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.4px; transition: background 0.15s; }
 .draft-gen-btn:hover { background: #a93226; }
 .draft-gen-btn:disabled { background: var(--text-muted); cursor: not-allowed; }
+
+/* SORTABLE COLUMNS */
+thead th.sortable { cursor: pointer; user-select: none; }
+thead th.sortable:hover { color: var(--text-primary); background: #ede9e4; }
+thead th.sort-asc::after  { content: ' ▲'; color: var(--accent); font-size: 10px; }
+thead th.sort-desc::after { content: ' ▼'; color: var(--accent); font-size: 10px; }
+thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0ef; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .side-nav { display: none; position: fixed; top: 56px; left: 0; height: calc(100vh - 56px); z-index: 300; box-shadow: 4px 0 20px rgba(0,0,0,0.12); }
+  .side-nav.open { display: block; }
+  .side-nav-toggle { display: block; }
+  .side-nav-overlay { display: none; position: fixed; inset: 0; top: 56px; background: rgba(0,0,0,0.35); z-index: 299; }
+  .side-nav-overlay.open { display: block; }
+  main { padding: 16px; }
+}
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-inner">
-    <div class="logo">CBB<span>Analytics</span></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="side-nav-toggle" onclick="toggleNav()" title="Menu">☰</button>
+      <div class="logo">CBB<span>Analytics</span></div>
+    </div>
     <div class="header-meta">2025–26 Season<br><span id="last-updated-header">Loading...</span></div>
   </div>
 </header>
 
-<nav>
-  <div class="nav-inner">
-    <div class="nav-tab active" onclick="switchTab('power')">Power Rankings</div>
-    <div class="nav-tab" onclick="switchTab('efficiency')">Efficiency</div>
-    <div class="nav-tab" onclick="switchTab('sos')">Schedule Strength</div>
-    <div class="nav-tab" onclick="switchTab('predictor')">Game Predictor</div>
-    <div class="nav-tab" onclick="switchTab('bubble')">Bubble Tracker</div>
-    <div class="nav-tab" onclick="switchTab('momentum')">Momentum</div>
-    <div class="nav-tab" onclick="switchTab('h2h')">Head-to-Head</div>
-    <div class="nav-tab" onclick="switchTab('upset')">Upset Alerts</div>
-    <div class="nav-tab" onclick="switchTab('confstrength')">Conf Strength</div>
-    <div class="nav-tab" onclick="switchTab('cinderella')">🥿 Cinderella Watch</div>
-    <div class="nav-tab" onclick="switchTab('draftboard')">🏀 NBA Draft Board</div>
+<div class="side-nav-overlay" id="nav-overlay" onclick="toggleNav()"></div>
+
+<div class="app-shell">
+
+<aside class="side-nav" id="side-nav">
+  <div class="side-nav-inner">
+    <div class="side-nav-label">Rankings</div>
+    <div class="side-nav-item active" id="snav-power" onclick="switchTab('power')"><span class="nav-icon">📊</span>Power Rankings</div>
+    <div class="side-nav-item" id="snav-efficiency" onclick="switchTab('efficiency')"><span class="nav-icon">⚡</span>Efficiency</div>
+    <div class="side-nav-item" id="snav-sos" onclick="switchTab('sos')"><span class="nav-icon">📅</span>Schedule Strength</div>
+    <div class="side-nav-item" id="snav-confstrength" onclick="switchTab('confstrength')"><span class="nav-icon">🏟️</span>Conf Strength</div>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-label">Tools</div>
+    <div class="side-nav-item" id="snav-predictor" onclick="switchTab('predictor')"><span class="nav-icon">🎯</span>Game Predictor</div>
+    <div class="side-nav-item" id="snav-h2h" onclick="switchTab('h2h')"><span class="nav-icon">⚔️</span>Head-to-Head</div>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-label">Tournament</div>
+    <div class="side-nav-item" id="snav-bubble" onclick="switchTab('bubble')"><span class="nav-icon">🫧</span>Bubble Tracker</div>
+    <div class="side-nav-item" id="snav-momentum" onclick="switchTab('momentum')"><span class="nav-icon">📈</span>Momentum</div>
+    <div class="side-nav-item" id="snav-upset" onclick="switchTab('upset')"><span class="nav-icon">💥</span>Upset Alerts</div>
+    <div class="side-nav-item" id="snav-cinderella" onclick="switchTab('cinderella')"><span class="nav-icon">🥿</span>Cinderella Watch</div>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-label">Draft</div>
+    <div class="side-nav-item" id="snav-draftboard" onclick="switchTab('draftboard')"><span class="nav-icon">🏀</span>NBA Draft Board</div>
   </div>
-</nav>
+</aside>
 
 <main>
 
@@ -384,6 +426,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 </div>
 
 </main>
+</div><!-- /app-shell -->
 
 <script>
 // ===== AI DRAFT BOARD =====
@@ -658,20 +701,22 @@ function renderAll() {
 
 // ===== POWER =====
 function renderPower() {
-  let teams = computeSOL([...filteredTeams('power-conf')]).sort((a,b) => b.barthag - a.barthag);
+  let teams = computeSOL([...filteredTeams('power-conf')]);
+  const s = getSort('power');
+  if (!s.col) teams.sort((a,b) => b.barthag - a.barthag);
+  else teams = sortTeams(teams, 'power');
   if (!teams.length) { document.getElementById('power-container').innerHTML = '<div class="loading-bar">No data.</div>'; return; }
   const [maxEM, minEM] = [Math.max(...teams.map(t=>t.netEM)), Math.min(...teams.map(t=>t.netEM))];
-  const [maxSOL, minSOL] = [Math.max(...teams.map(t=>t.solScore)), Math.min(...teams.map(t=>t.solScore))];
-  let html = `<div class="table-wrap"><table>
+  let html = `<div class="table-wrap"><table id="tbl-power">
     <thead><tr>
-      <th class="sorted">Rk</th><th>Team</th><th>Conf</th>
+      <th>Rk</th><th>Team</th><th>Conf</th>
       <th class="num">Record</th>
-      <th class="num has-tip" data-tip="Win prob vs avg D1">Barthag</th>
-      <th class="num has-tip" data-tip="Adj Off − Adj Def">Net EM</th>
+      <th class="num">Barthag</th>
+      <th class="num">Net EM</th>
       <th class="num">Adj OE</th><th class="num">Adj DE</th>
       <th class="num">Tempo</th>
-      <th class="num has-tip" data-tip="Wins above bubble">WAB</th>
-      <th class="num has-tip" data-tip="Quality of opponents in losses. Elite/Good/Avg/Poor + 0-100 score">SOL</th>
+      <th class="num">WAB</th>
+      <th class="num">SOL</th>
     </tr></thead><tbody>`;
   teams.forEach((t,i) => {
     const p = pct(t.netEM, minEM, maxEM);
@@ -690,15 +735,20 @@ function renderPower() {
     </tr>`;
   });
   document.getElementById('power-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-power'), 'power',
+    [null, 'name', 'conf', null, 'barthag', 'netEM', 'adjOE', 'adjDE', 'adjT', 'wab', 'solScore']);
 }
 
 // ===== EFFICIENCY =====
 function renderEfficiency() {
-  let teams = computeSOL([...filteredTeams('eff-conf')]).sort((a,b) => b.netEM - a.netEM);
+  let teams = computeSOL([...filteredTeams('eff-conf')]);
+  const s = getSort('efficiency');
+  if (!s.col) teams.sort((a,b) => b.netEM - a.netEM);
+  else teams = sortTeams(teams, 'efficiency');
   if (!teams.length) return;
   const avgOE = (teams.reduce((s,t)=>s+t.adjOE,0)/teams.length).toFixed(1);
   const avgDE = (teams.reduce((s,t)=>s+t.adjDE,0)/teams.length).toFixed(1);
-  const best = teams[0];
+  const best = [...teams].sort((a,b)=>b.netEM-a.netEM)[0];
   const fast = [...teams].sort((a,b)=>b.adjT-a.adjT)[0];
   const bestSOL = [...teams].sort((a,b)=>b.solScore-a.solScore)[0];
   document.getElementById('eff-cards').innerHTML = `
@@ -709,14 +759,13 @@ function renderEfficiency() {
     <div class="stat-card"><div class="stat-card-label">Best Loss Quality</div><div class="stat-card-value" style="color:var(--purple);font-size:18px">${bestSOL?.name}</div><div class="stat-card-sub">SOL ${bestSOL?.solScore.toFixed(0)} — ${bestSOL?.solLabel}</div></div>`;
   const [maxOE,minOE] = [Math.max(...teams.map(t=>t.adjOE)),Math.min(...teams.map(t=>t.adjOE))];
   const [maxDE,minDE] = [Math.max(...teams.map(t=>t.adjDE)),Math.min(...teams.map(t=>t.adjDE))];
-  const [maxSOL,minSOL] = [Math.max(...teams.map(t=>t.solScore)),Math.min(...teams.map(t=>t.solScore))];
-  let html = `<div class="table-wrap"><table>
+  let html = `<div class="table-wrap"><table id="tbl-efficiency">
     <thead><tr>
-      <th class="sorted">Rk</th><th>Team</th>
+      <th>Rk</th><th>Team</th>
       <th class="num">Adj OE</th><th class="num">Adj DE</th>
       <th class="num">Net EM</th><th class="num">Tempo</th>
       <th class="num">Opp OE</th><th class="num">Opp DE</th>
-      <th class="num has-tip" data-tip="Strength of Losses — quality of opponents when this team lost">SOL</th>
+      <th class="num">SOL</th>
     </tr></thead><tbody>`;
   teams.forEach((t,i) => {
     html += `<tr>
@@ -732,20 +781,25 @@ function renderEfficiency() {
     </tr>`;
   });
   document.getElementById('eff-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-efficiency'), 'efficiency',
+    [null, 'name', 'adjOE', 'adjDE', 'netEM', 'adjT', 'oppO', 'oppD', 'solScore']);
 }
 
 // ===== SOS =====
 function renderSOS() {
-  let teams = computeSOL([...filteredTeams('sos-conf')]).sort((a,b) => b.oppO - a.oppO);
+  let teams = computeSOL([...filteredTeams('sos-conf')]);
+  const s = getSort('sos');
+  if (!s.col) teams.sort((a,b) => b.oppO - a.oppO);
+  else teams = sortTeams(teams, 'sos');
   if (!teams.length) return;
   const [maxO, minO] = [Math.max(...teams.map(t=>t.oppO)), Math.min(...teams.map(t=>t.oppO))];
   const [maxSOL, minSOL] = [Math.max(...teams.map(t=>t.solScore)), Math.min(...teams.map(t=>t.solScore))];
-  let html = `<div class="table-wrap"><table>
+  let html = `<div class="table-wrap"><table id="tbl-sos">
     <thead><tr>
-      <th class="sorted">SOS Rk</th><th>Team</th><th>Conf</th>
-      <th class="num has-tip" data-tip="Higher = tougher schedule">Opp Avg OE</th>
-      <th class="num has-tip" data-tip="Lower = tougher schedule">Opp Avg DE</th>
-      <th class="num has-tip" data-tip="Strength of losses — quality of opposition when this team lost">SOL Score</th>
+      <th>Rk</th><th>Team</th><th>Conf</th>
+      <th class="num">Opp Avg OE</th>
+      <th class="num">Opp Avg DE</th>
+      <th class="num">SOL Score</th>
       <th class="num">Adj OE</th><th class="num">Adj DE</th>
       <th class="num">Record</th><th class="num">WAB</th>
     </tr></thead><tbody>`;
@@ -764,6 +818,8 @@ function renderSOS() {
     </tr>`;
   });
   document.getElementById('sos-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-sos'), 'sos',
+    [null, 'name', 'conf', 'oppO', 'oppD', 'solScore', 'adjOE', 'adjDE', null, 'wab']);
 }
 
 // ===== PREDICTOR =====
@@ -946,15 +1002,18 @@ function renderMomentum() {
     const solMomAdj = ((t.solScore - 50) / 100) * 3;
     const adjMomentum = momentum + solMomAdj;
     return {...t, momentum, adjMomentum};
-  }).sort((a,b) => b.adjMomentum - a.adjMomentum);
+  });
   if (dir === 'up')   teams = teams.filter(t => t.adjMomentum > 2);
   if (dir === 'down') teams = teams.filter(t => t.adjMomentum < -2);
-  let html = `<div class="table-wrap"><table>
+  const s = getSort('momentum');
+  if (!s.col) teams.sort((a,b) => b.adjMomentum - a.adjMomentum);
+  else teams = sortTeams(teams, 'momentum');
+  let html = `<div class="table-wrap"><table id="tbl-momentum">
     <thead><tr>
       <th>Rk</th><th>Team</th><th>Conf</th>
-      <th class="num has-tip" data-tip="SOL-adjusted momentum: actual win% vs expected + loss quality">Momentum (adj)</th>
+      <th class="num">Momentum (adj)</th>
       <th class="num">Actual W%</th><th class="num">Expected W%</th>
-      <th class="num has-tip" data-tip="Strength of Losses — adjusts momentum for loss quality">SOL</th>
+      <th class="num">SOL</th>
       <th class="num">Record</th><th class="num">Barthag</th>
     </tr></thead><tbody>`;
   teams.forEach((t,i) => {
@@ -975,6 +1034,8 @@ function renderMomentum() {
     </tr>`;
   });
   document.getElementById('momentum-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-momentum'), 'momentum',
+    [null, 'name', 'conf', 'adjMomentum', null, null, 'solScore', null, 'barthag']);
 }
 
 // ===== HEAD TO HEAD =====
@@ -1040,7 +1101,7 @@ function renderH2H() {
 function renderUpset() {
   const teamsWithSOL = computeSOL([...allTeams]);
   const sorted = [...teamsWithSOL].sort((a,b) => b.barthag - a.barthag);
-  const upsets = [];
+  let upsets = [];
   for (let i = 20; i < sorted.length; i++) {
     const underdog = sorted[i];
     const randOpp = sorted[Math.floor(i * 0.3)];
@@ -1054,17 +1115,25 @@ function renderUpset() {
       upsets.push({underdog, favorite: randOpp, upsetProb, adjUpsetProb, solBoost});
     }
   }
-  upsets.sort((a,b) => b.adjUpsetProb - a.adjUpsetProb);
+  const us = getSort('upset');
+  if (!us.col) upsets.sort((a,b) => b.adjUpsetProb - a.adjUpsetProb);
+  else {
+    upsets.sort((a,b) => {
+      const av = a.underdog[us.col] ?? a[us.col] ?? 0;
+      const bv = b.underdog[us.col] ?? b[us.col] ?? 0;
+      return us.dir * (bv - av);
+    });
+  }
   if (!upsets.length) {
     document.getElementById('upset-container').innerHTML = '<div class="loading-bar">No significant upset opportunities found.</div>';
     return;
   }
-  let html = `<div class="table-wrap"><table>
+  let html = `<div class="table-wrap"><table id="tbl-upset">
     <thead><tr>
       <th>Underdog</th><th>vs Favorite</th>
-      <th class="num has-tip" data-tip="Base upset probability">Base Prob</th>
-      <th class="num has-tip" data-tip="Adjusted for underdog's strength of losses">SOL-adj Prob</th>
-      <th class="num has-tip" data-tip="Underdog strength of losses">Underdog SOL</th>
+      <th class="num">Base Prob</th>
+      <th class="num">SOL-adj Prob</th>
+      <th class="num">Underdog SOL</th>
       <th class="num">Underdog Barthag</th>
       <th class="num">Favorite Barthag</th>
       <th class="num">Underdog Record</th>
@@ -1088,6 +1157,8 @@ function renderUpset() {
     </tr>`;
   });
   document.getElementById('upset-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-upset'), 'upset',
+    [null, null, 'upsetProb', 'adjUpsetProb', null, null, null, null, null]);
 }
 
 // ===== CONF STRENGTH =====
@@ -1098,20 +1169,29 @@ function renderConfStrength() {
     if (!confMap[t.conf]) confMap[t.conf] = [];
     confMap[t.conf].push(t);
   });
-  const confs = Object.entries(confMap).map(([conf, teams]) => {
+  let confs = Object.entries(confMap).map(([conf, teams]) => {
     const avgBarthag = teams.reduce((s,t)=>s+t.barthag,0)/teams.length;
     const avgEM = teams.reduce((s,t)=>s+t.netEM,0)/teams.length;
     const avgSOL = teams.reduce((s,t)=>s+t.solScore,0)/teams.length;
     const topTeam = [...teams].sort((a,b)=>b.barthag-a.barthag)[0];
     return {conf, teams: teams.length, avgBarthag, avgEM, avgSOL, topTeam};
-  }).sort((a,b) => b.avgBarthag - a.avgBarthag);
-  const maxB = confs[0].avgBarthag;
-  let html = `<div class="table-wrap"><table>
+  });
+  const cs = getSort('confstrength');
+  if (!cs.col) confs.sort((a,b) => b.avgBarthag - a.avgBarthag);
+  else {
+    confs.sort((a,b) => {
+      const av = a[cs.col] ?? 0, bv = b[cs.col] ?? 0;
+      if (typeof av === 'string') return cs.dir * av.localeCompare(bv);
+      return cs.dir * (bv - av);
+    });
+  }
+  const maxB = Math.max(...confs.map(c=>c.avgBarthag));
+  let html = `<div class="table-wrap"><table id="tbl-confstrength">
     <thead><tr>
-      <th class="sorted">Rk</th><th>Conference</th><th class="num">Teams</th>
-      <th class="num has-tip" data-tip="Avg win prob vs D1">Avg Barthag</th>
+      <th>Rk</th><th>Conference</th><th class="num">Teams</th>
+      <th class="num">Avg Barthag</th>
       <th class="num">Avg Net EM</th>
-      <th class="num has-tip" data-tip="Avg Strength of Losses across all conference teams">Conf SOL</th>
+      <th class="num">Conf SOL</th>
       <th>Best Team</th>
       <th class="num">Best Barthag</th>
     </tr></thead><tbody>`;
@@ -1131,6 +1211,8 @@ function renderConfStrength() {
     </tr>`;
   });
   document.getElementById('confstrength-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-confstrength'), 'confstrength',
+    [null, 'conf', 'teams', 'avgBarthag', 'avgEM', 'avgSOL', null, null]);
 }
 
 // ===== CINDERELLA =====
@@ -1145,7 +1227,7 @@ function renderCinderella() {
     return {...t, trueRank, projSeed};
   });
   const defRanks = [...teamsWithSOL].sort((a,b) => a.adjDE - b.adjDE);
-  const candidates = teamsWithRank
+  let candidates = teamsWithRank
     .filter(t => t.projSeed >= minSeed && t.trueRank <= 80)
     .map(t => {
       const defRank = defRanks.findIndex(x => x.name === t.name) + 1;
@@ -1158,36 +1240,43 @@ function renderCinderella() {
       const cinderellaScore = defScore + barthagScore + tempoScore + wabScore + seedGapScore + solScore2;
       const kenpomEst = (t.adjOE - t.adjDE).toFixed(1);
       return {...t, defRank, cinderellaScore, kenpomEst};
-    })
-    .sort((a,b) => b.cinderellaScore - a.cinderellaScore)
-    .slice(0, 20);
+    });
+  const cs = getSort('cinderella');
+  if (!cs.col) candidates.sort((a,b) => b.cinderellaScore - a.cinderellaScore);
+  else candidates = sortTeams(candidates, 'cinderella');
+  candidates = candidates.slice(0, 20);
   if (!candidates.length) {
     document.getElementById('cinderella-container').innerHTML = '<div class="loading-bar">No candidates found for selected seed range.</div>';
     return;
   }
-  const top = candidates[0];
-  const bestDef = [...candidates].sort((a,b) => a.adjDE - b.adjDE)[0];
-  const bestWAB = [...candidates].sort((a,b) => b.wab - a.wab)[0];
-  const bestSOL = [...candidates].sort((a,b) => b.solScore - a.solScore)[0];
+  const allCands = teamsWithRank.filter(t => t.projSeed >= minSeed && t.trueRank <= 80).map(t => {
+    const defRank = defRanks.findIndex(x => x.name === t.name) + 1;
+    const cinderellaScore = ((totalTeams - defRank)/totalTeams*25) + t.barthag*30 + Math.max(0,15-Math.abs(t.adjT-69)*0.8) + Math.min(15,Math.max(0,t.wab*2+5)) + Math.min(15,(t.projSeed-1)*t.barthag*10) + Math.min(15,(t.solScore/100)*15);
+    return {...t, defRank, cinderellaScore, kenpomEst:(t.adjOE-t.adjDE).toFixed(1)};
+  }).sort((a,b)=>b.cinderellaScore-a.cinderellaScore);
+  const top = allCands[0];
+  const bestDef = [...allCands].sort((a,b) => a.adjDE - b.adjDE)[0];
+  const bestWAB = [...allCands].sort((a,b) => b.wab - a.wab)[0];
+  const bestSOL = [...allCands].sort((a,b) => b.solScore - a.solScore)[0];
   document.getElementById('cind-cards').innerHTML = `
     <div class="stat-card"><div class="stat-card-label">Top Cinderella Pick</div><div class="stat-card-value" style="color:var(--accent);font-size:18px">${top.name}</div><div class="stat-card-sub">Score: ${top.cinderellaScore.toFixed(1)} · Seed ${top.projSeed}</div></div>
     <div class="stat-card"><div class="stat-card-label">Best Defense</div><div class="stat-card-value" style="color:var(--blue);font-size:18px">${bestDef.name}</div><div class="stat-card-sub">Adj DE: ${bestDef.adjDE.toFixed(1)} · Rank #${bestDef.defRank}</div></div>
     <div class="stat-card"><div class="stat-card-label">Most Battle-Tested</div><div class="stat-card-value" style="color:var(--green);font-size:18px">${bestWAB.name}</div><div class="stat-card-sub">WAB: +${bestWAB.wab.toFixed(1)}</div></div>
     <div class="stat-card"><div class="stat-card-label">Best Loss Quality</div><div class="stat-card-value" style="color:var(--purple);font-size:18px">${bestSOL.name}</div><div class="stat-card-sub">SOL ${bestSOL.solScore.toFixed(0)}/100 — ${bestSOL.solLabel}</div></div>`;
-  const maxScore = candidates[0].cinderellaScore;
-  const minScore = candidates[candidates.length-1].cinderellaScore;
-  let html = `<div class="table-wrap"><table>
+  const maxScore = allCands[0].cinderellaScore;
+  const minScore = allCands[allCands.length-1].cinderellaScore;
+  let html = `<div class="table-wrap"><table id="tbl-cinderella">
     <thead><tr>
       <th>Rk</th><th>Team</th><th>Conf</th>
-      <th class="num has-tip" data-tip="Estimated NCAA seed">Proj Seed</th>
-      <th class="num has-tip" data-tip="Actual strength rank">True Rank</th>
-      <th class="num has-tip" data-tip="Composite upset potential (now includes SOL)">Cinderella Score</th>
-      <th class="num has-tip" data-tip="Net efficiency (KenPom-style)">KenPom Est.</th>
-      <th class="num has-tip" data-tip="Defensive efficiency rank">Adj DE</th>
-      <th class="num has-tip" data-tip="Win prob vs avg D1">Barthag</th>
+      <th class="num">Proj Seed</th>
+      <th class="num">True Rank</th>
+      <th class="num">Cinderella Score</th>
+      <th class="num">KenPom Est.</th>
+      <th class="num">Adj DE</th>
+      <th class="num">Barthag</th>
       <th class="num">Tempo</th>
       <th class="num">WAB</th>
-      <th class="num has-tip" data-tip="Strength of Losses — quality of opponents when this team lost">SOL</th>
+      <th class="num">SOL</th>
       <th class="num">Record</th>
       <th class="num">Verdict</th>
     </tr></thead><tbody>`;
@@ -1212,15 +1301,52 @@ function renderCinderella() {
     </tr>`;
   });
   document.getElementById('cinderella-container').innerHTML = html + '</tbody></table></div>';
+  applySortHeaders(document.getElementById('tbl-cinderella'), 'cinderella',
+    [null, 'name', 'conf', 'projSeed', 'trueRank', 'cinderellaScore', null, 'adjDE', 'barthag', 'adjT', 'wab', 'solScore', null, null]);
 }
 
-// ===== TAB SWITCHING =====
+// ===== SORT STATE =====
+const sortState = {};
+function getSort(tab) { return sortState[tab] || { col: null, dir: 1 }; }
+function setSort(tab, col) {
+  const s = getSort(tab);
+  if (s.col === col) sortState[tab] = { col, dir: s.dir * -1 };
+  else sortState[tab] = { col, dir: -1 }; // default desc
+}
+function applySortHeaders(tableEl, tab, cols) {
+  const s = getSort(tab);
+  tableEl.querySelectorAll('thead th').forEach((th, i) => {
+    if (!cols[i]) return;
+    th.classList.add('sortable');
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (s.col === cols[i]) th.classList.add(s.dir === -1 ? 'sort-desc' : 'sort-asc');
+    th.onclick = () => { setSort(tab, cols[i]); window['render' + tab[0].toUpperCase() + tab.slice(1)](); };
+  });
+}
+function sortTeams(teams, tab) {
+  const s = getSort(tab);
+  if (!s.col) return teams;
+  return [...teams].sort((a, b) => {
+    let av = a[s.col], bv = b[s.col];
+    if (typeof av === 'string') return s.dir * av.localeCompare(bv);
+    return s.dir * (bv - av);
+  });
+}
+
+// ===== SIDE NAV + TAB SWITCHING =====
+function toggleNav() {
+  document.getElementById('side-nav').classList.toggle('open');
+  document.getElementById('nav-overlay').classList.toggle('open');
+}
 function switchTab(id) {
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.side-nav-item').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx = {power:0,efficiency:1,sos:2,predictor:3,bubble:4,momentum:5,h2h:6,upset:7,confstrength:8,cinderella:9,draftboard:10};
-  document.querySelectorAll('.nav-tab')[idx[id]].classList.add('active');
+  const snavEl = document.getElementById('snav-' + id);
+  if (snavEl) snavEl.classList.add('active');
+  // close mobile nav
+  document.getElementById('side-nav').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
 }
 
 loadData();
