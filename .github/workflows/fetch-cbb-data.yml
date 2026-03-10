@@ -10,11 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DATA_REPO_PAT }}
+
       - name: Checkout data repo
         uses: actions/checkout@v4
         with:
           repository: highbrowwharf37/Ishaan-s-coding
-          token: ${{ secrets.DATA_REPO_PAT }}
+          ssh-key: ${{ secrets.DATA_REPO_PAT }}
           path: data-repo
 
       - name: Setup Node.js
