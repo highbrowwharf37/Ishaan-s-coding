@@ -1,0 +1,1 @@
+{"hosting":{"site":"rimjob-sports","public":".","ignore":["firebase.json","**/.*","merge.py","README.md"],"rewrites":[{"source":"/cbb/analytics","destination":"/cbb-rankings.html"},{"source":"/cbb/analytics.html","destination":"/cbb-rankings.html"}],"cleanUrls":true}}

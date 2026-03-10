@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<weakness:"Senior who plays physically without elite athleticism — transition to NBA pace and length could expose limitations quickly.",weakness:"Three-point shooting and free-throw shooting both inconsistent — limits offensive effectiveness if he can't space the floor.",weakness:"Averaging under 10 PPG; offense is largely untested at this level. Pure developmental pick with no near-term NBA role.",weakness:"Raw offensively — heavily reliant on athleticism and physicality. Shot needs significant work to project as a long-term starter.",weakness:"6'2\" frame will be a liability defensively at the NBA level. Range questions remain — high-volume scorer but below the arc.",weakness:"Limited playmaking; high-turnover stretches concern teams that need a guard who can initiate offense. Needs a clear role.",weakness:"Numbers (12 PPG) don't pop — his value is intangible. Teams betting on tools and motor rather than proven production.",weakness:"Turnover-prone as a lead handler; 6'5\" limits versatility at the next level despite the elite wingspan.",weakness:"Role player ceiling at this stage. Only 11 PPG in a system built for him. Needs significant development before contributing.",weakness:"Will be a 23-year-old rookie. Playing for third program under same coach — some wonder how he'll adapt to a new system.",weakness:"Not a shot-blocker — lacks the rim protection expected from a center prospect. Two-foot explosion limits athleticism upside.",weakness:"Will be a 24-year-old rookie. Shooting isn't consistent enough to fully stretch the floor. Ceiling questions given age.",weakness:"Frame (6'3\", 178 lbs) concerns scouts — may struggle to finish through contact at the NBA level despite scoring skill.",weakness:"Just six made threes all season and 60.6% from the free-throw line are real concerns for a big expected to space the floor.",weakness:"Production is volume-dependent on Huskie offensive system. Limited self-creation ability — needs good spacing to get his shots.",weakness:"Only 51.3% on layups in conference play despite positional size. Lacks the explosion to consistently turn the corner at NBA pace.",weakness:"Three-point shooting unproven at a high level; relatively small sample against elite competition in the NBL.",weakness:"More fit than upside — a 22-year-old senior whose ceiling is a rotation piece, not a star. Shot creation off the dribble is limited.",weakness:"Pull-up shooting hasn't matched his catch-and-shoot efficiency. Benefits heavily from high usage and green light — may look different with less freedom.",weakness:"Height (6'3\") and athleticism will draw skepticism from some evaluators despite production. Defensive rebounding rate is below average.",weakness:"Torn ACL last year, returned and lasted only four games this season — health and current development are major question marks.",weakness:"Limited playmaking ceiling at 6'4\"; teams may question whether he can run an offense or is a pure role player at the next level.",weakness:"Streaky — prone to cold stretches where efficiency craters. Shooting percentages inconsistent outside of hot games.",weakness:"Only 48.8% at the rim in conference play; low three-point and free-throw attempt rates suggest limited off-ball threat.",weakness:"Lacks elite athleticism — gets by on IQ and footwork. Might struggle to get to spots against NBA length without elite burst.",weakness:"Dealing with a hand injury; has yet to prove he can carry a team offensively for a full game. Still raw as a perimeter shooter.",weakness:"Three-point shooting (38%) will need to hold up vs NBA length. Some scouts question whether he has a true go-to move at the next level.",weakness:"Limited playmaking at Kansas; averaging only 1.7 rim attempts per game and just 31.7% in ball-screen situations raises questions.",weakness:"Free-throw rate lower than expected for a star; still developing consistency as a passer under defensive pressure.",!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,9 +17,25 @@
   --purple: #7d3c98; --purple-light: #f5eef8;
   --font-sans: 'Libre Franklin', sans-serif;
   --font-serif: 'Source Serif 4', serif;
+  --header-bg: #1a1916;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+  --radius: 6px;
 }
-body { background: var(--bg); color: var(--text-primary); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
-header { background: var(--text-primary); color: white; padding: 0 24px; border-bottom: 3px solid var(--accent); position: sticky; top: 0; z-index: 200; }
+[data-theme="dark"] {
+  --bg: #111210; --surface: #1c1c1a; --border: #2e2d2a;
+  --text-primary: #f0ede8; --text-secondary: #a8a39d; --text-muted: #6b6560;
+  --accent: #e05545; --accent-light: #2a1a18;
+  --green: #3dbb73; --green-light: #0f2119;
+  --blue: #4a9fd4; --blue-light: #0e1e2e;
+  --amber: #e8a030; --amber-light: #251d0a;
+  --purple: #a569bd; --purple-light: #1e1228;
+  --header-bg: #0d0d0b;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+}
+body { background: var(--bg); color: var(--text-primary); font-family: var(--font-sans); font-size: 14px; line-height: 1.5; transition: background 0.2s, color 0.2s; }
+header { background: var(--header-bg); color: white; padding: 0 24px; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
 .header-inner { max-width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px; }
 .logo { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: white; white-space: nowrap; }
 .logo span { color: var(--accent); font-style: italic; }
@@ -27,12 +43,12 @@ header { background: var(--text-primary); color: white; padding: 0 24px; border-
 
 /* SIDE NAV */
 .app-shell { display: flex; min-height: calc(100vh - 56px); }
-.side-nav { width: 220px; min-width: 220px; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; z-index: 100; }
+.side-nav { width: 220px; min-width: 220px; background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; z-index: 100; transition: background 0.2s; }
 .side-nav-inner { padding: 14px 0; }
 .side-nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-muted); padding: 10px 18px 6px; }
 .side-nav-item { display: flex; align-items: center; gap: 9px; padding: 9px 18px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all 0.12s; border-left: 3px solid transparent; line-height: 1.3; }
 .side-nav-item:hover { background: var(--bg); color: var(--text-primary); }
-.side-nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); }
+.side-nav-item.active { color: var(--accent); background: var(--accent-light); border-left-color: var(--accent); font-weight: 700; }
 .side-nav-item .nav-icon { font-size: 15px; width: 18px; text-align: center; flex-shrink: 0; }
 .side-nav-divider { height: 1px; background: var(--border); margin: 8px 18px; }
 .side-nav-toggle { display: none; background: none; border: none; cursor: pointer; color: white; font-size: 20px; padding: 0 8px; line-height: 1; }
@@ -40,31 +56,32 @@ header { background: var(--text-primary); color: white; padding: 0 24px; border-
 /* TOP NAV (hidden by default, shown on mobile) */
 nav { display: none; }
 
-main { flex: 1; padding: 24px; overflow-x: hidden; min-width: 0; }
+main { flex: 1; padding: 28px 32px; overflow-x: hidden; min-width: 0; max-width: 1400px; }
 .section { display: none; }
 .section.active { display: block; }
-.page-title { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 14px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.page-title h1 { font-family: var(--font-serif); font-size: 26px; font-weight: 600; letter-spacing: -0.5px; }
+.page-title { margin-bottom: 24px; border-bottom: 2px solid var(--border); padding-bottom: 16px; display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.page-title h1 { font-family: var(--font-serif); font-size: 28px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-primary); }
 .page-title p { font-size: 12px; color: var(--text-muted); font-style: italic; }
 .filters { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
 .filters label { font-size: 11px; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
-.filters select { padding: 6px 10px; border: 1px solid var(--border); border-radius: 3px; font-family: var(--font-sans); font-size: 13px; background: white; color: var(--text-primary); outline: none; }
+.filters select { padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; font-family: var(--font-sans); font-size: 13px; background: var(--surface); color: var(--text-primary); outline: none; box-shadow: var(--shadow-sm); }
 .filters select:focus { border-color: var(--accent); }
 .filter-spacer { flex: 1; }
 .last-updated { font-size: 11px; color: var(--text-muted); font-style: italic; }
-.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; background: white; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-sm); }
 table { width: 100%; border-collapse: collapse; min-width: 650px; }
-thead th { background: #f4f1ed; padding: 9px 12px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
+thead th { background: var(--bg); padding: 10px 14px; text-align: left; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
 thead th:hover { color: var(--text-primary); }
 thead th.sorted { color: var(--accent); }
 thead th.num, td.num { text-align: right; }
 tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
 tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: #faf8f5; }
-td { padding: 10px 12px; font-size: 13px; white-space: nowrap; }
+tbody tr:hover { background: var(--bg); }
+td { padding: 11px 14px; font-size: 13px; white-space: nowrap; color: var(--text-primary); }
 .rank-cell { font-size: 11px; font-weight: 700; color: var(--text-muted); min-width: 32px; }
 .rank-cell.top5 { color: var(--accent); }
-.team-cell { font-weight: 600; }
+.team-cell { font-weight: 600; text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color 0.15s; }
+.team-cell:hover { text-decoration-color: var(--blue); color: var(--blue); }
 .conf-tag { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-left: 5px; }
 .pill { display: inline-block; padding: 2px 6px; border-radius: 2px; font-size: 11px; font-weight: 600; }
 .pill-green { background: var(--green-light); color: var(--green); }
@@ -81,7 +98,7 @@ td { padding: 10px 12px; font-size: 13px; white-space: nowrap; }
 .bar-amber .bar-fill { background: var(--amber); }
 .bar-purple .bar-fill { background: var(--purple); }
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 20px; }
-.stat-card { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 14px 16px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; box-shadow: var(--shadow-sm); }
 .stat-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; }
 .stat-card-value { font-family: var(--font-serif); font-size: 24px; font-weight: 600; letter-spacing: -1px; }
 .stat-card-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
@@ -90,7 +107,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 .has-tip .th-tip { display: none; }
 .has-tip:hover::after { content: attr(data-tip); position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%); background: var(--text-primary); color: white; padding: 6px 10px; border-radius: 4px; font-size: 11px; white-space: nowrap; z-index: 999; pointer-events: none; font-weight: 400; text-transform: none; letter-spacing: 0; }
 .has-tip:hover::before { content: ''; position: absolute; bottom: 106%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--text-primary); z-index: 999; }
-.loading-bar { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 40px; text-align: center; color: var(--text-muted); }
+.loading-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 40px; text-align: center; color: var(--text-muted); }
 .spinner { width: 26px; height: 26px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .error-box { background: var(--accent-light); border: 1px solid #f5c6c4; border-radius: 4px; padding: 18px 22px; color: var(--accent); font-size: 13px; line-height: 1.8; }
@@ -109,14 +126,14 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 
 /* PREDICTOR */
 .two-col { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; margin-bottom: 20px; }
-.picker-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 20px; }
+.picker-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); }
 .picker-card h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px; }
-.picker-card select { width: 100%; padding: 9px 11px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; font-family: var(--font-sans); outline: none; }
+.picker-card select { width: 100%; padding: 9px 11px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; font-family: var(--font-sans); outline: none; background: var(--surface); color: var(--text-primary); }
 .picker-card select:focus { border-color: var(--accent); }
 .vs-mid { display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 28px; color: var(--text-muted); padding-top: 36px; }
 .action-btn { width: 100%; margin-top: 10px; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 4px; font-family: var(--font-sans); font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px; transition: background 0.15s; }
 .action-btn:hover { background: #a93226; }
-.result-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 24px; }
+.result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; box-shadow: var(--shadow-sm); }
 .result-teams-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
 .result-team { text-align: center; flex: 1; }
 .result-name { font-family: var(--font-serif); font-size: 18px; font-weight: 600; }
@@ -127,7 +144,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 .prob-bar { height: 8px; border-radius: 4px; background: var(--border); overflow: hidden; margin-bottom: 20px; }
 .prob-bar-fill { height: 100%; background: var(--green); border-radius: 4px; transition: width 0.7s ease; }
 .matchup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.matchup-row { background: var(--bg); border-radius: 4px; padding: 10px 12px; }
+.matchup-row { background: var(--bg); border-radius: 6px; padding: 11px 14px; border: 1px solid var(--border); }
 .matchup-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; }
 .matchup-vals { display: flex; justify-content: space-between; font-weight: 600; font-size: 13px; }
 .better { color: var(--green); }
@@ -145,7 +162,7 @@ th .th-tip { font-size: 10px; font-weight: 400; color: var(--text-muted); displa
 .bubble-in-head { background: var(--green); }
 .bubble-edge-head { background: var(--amber); }
 .bubble-out-head { background: var(--accent); }
-.bubble-list { background: white; border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; }
+.bubble-list { background: var(--surface); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; }
 .bubble-row { padding: 9px 12px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
 .bubble-row:last-child { border-bottom: none; }
 .bubble-name { font-weight: 600; }
@@ -196,7 +213,57 @@ thead th.sort-asc::after  { content: ' ▲'; color: var(--accent); font-size: 10
 thead th.sort-desc::after { content: ' ▼'; color: var(--accent); font-size: 10px; }
 thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0ef; }
 
-/* RESPONSIVE */
+/* ===== METRIC TOOLTIP SYSTEM ===== */
+.metric-tip { position: relative; cursor: help; display: inline-flex; align-items: center; gap: 3px; }
+.metric-tip .tip-icon { font-size: 10px; color: var(--text-muted); opacity: 0.7; }
+.metric-tip:hover .tip-icon { opacity: 1; color: var(--blue); }
+.tip-popup {
+  display: none; position: absolute; z-index: 500; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  width: 260px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12); padding: 12px 14px; font-size: 12px; line-height: 1.5;
+  color: var(--text-secondary); text-align: left; pointer-events: none;
+}
+.tip-popup .tip-name { font-weight: 700; color: var(--text-primary); font-size: 13px; margin-bottom: 4px; }
+.tip-popup .tip-def { margin-bottom: 8px; }
+.tip-popup .tip-rank { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tip-popup .tip-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; letter-spacing: 0.3px; }
+.tip-tag-nat { background: var(--blue-light); color: var(--blue); }
+.tip-tag-conf { background: #f0fdf4; color: var(--green); }
+.tip-tag-label { background: var(--accent-light); color: var(--accent); }
+.tip-popup .tip-pct-bar { height: 5px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.tip-popup .tip-pct-fill { height: 100%; background: var(--blue); border-radius: 3px; transition: width 0.3s; }
+.metric-tip:hover .tip-popup { display: block; }
+
+/* ===== WHY RANKED HERE PANEL ===== */
+.why-ranked-card { background: var(--blue-light); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 10px 0; font-size: 13px; line-height: 1.7; }
+.why-ranked-card .why-title { font-weight: 700; color: var(--blue); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
+.why-ranked-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin: 0 2px; }
+
+/* ===== PREDICTOR LAB SLIDERS ===== */
+.slider-lab { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+.slider-lab label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.slider-lab input[type=range] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.slider-lab .slider-val { font-weight: 700; color: var(--accent); font-size: 13px; }
+.slider-lab .slider-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-bottom: 12px; }
+
+/* ===== PLAY-STYLE SIMILARITY ===== */
+.similarity-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+.similarity-score { font-size: 22px; font-weight: 900; font-family: var(--font-serif); min-width: 48px; text-align: center; color: var(--blue); }
+.similarity-pct { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+.similarity-bar { height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+.similarity-bar-fill { height: 100%; background: var(--blue); border-radius: 2px; }
+
+/* ===== TEAM DETAIL MODAL ===== */
+.modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
+.modal-backdrop.open { display: flex; }
+.modal-box { background: var(--surface); border-radius: 12px; padding: 28px; max-width: 640px; width: 95%; max-height: 85vh; overflow-y: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.25); border: 1px solid var(--border); }
+.modal-box h2 { font-family: var(--font-serif); font-size: 22px; margin: 0 0 4px; }
+.modal-close { float: right; cursor: pointer; font-size: 20px; color: var(--text-muted); line-height: 1; }
+.modal-close:hover { color: var(--accent); }
+.modal-section { margin: 16px 0; border-top: 1px solid var(--border); padding-top: 14px; }
+.modal-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 10px; }
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .side-nav { display: none; position: fixed; top: 56px; left: 0; height: calc(100vh - 56px); z-index: 300; box-shadow: 4px 0 20px rgba(0,0,0,0.12); }
   .side-nav.open { display: block; }
@@ -204,6 +271,7 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
   .side-nav-overlay { display: none; position: fixed; inset: 0; top: 56px; background: rgba(0,0,0,0.35); z-index: 299; }
   .side-nav-overlay.open { display: block; }
   main { padding: 16px; }
+  .tip-popup { left: 0; transform: none; }
 }
 </style>
 </head>
@@ -215,7 +283,12 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
       <button class="side-nav-toggle" onclick="toggleNav()" title="Menu">☰</button>
       <div class="logo">CBB<span>Analytics</span></div>
     </div>
-    <div class="header-meta">2025–26 Season<br><span id="last-updated-header">Loading...</span></div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="header-meta">2025–26 Season<br><span id="last-updated-header">Loading...</span></div>
+      <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;color:white;cursor:pointer;font-size:13px;font-family:var(--font-sans);font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background 0.15s;">
+        <span id="dark-icon">🌙</span><span id="dark-label">Dark</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -230,6 +303,9 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
     <div class="side-nav-item" id="snav-efficiency" onclick="switchTab('efficiency')"><span class="nav-icon">⚡</span>Efficiency</div>
     <div class="side-nav-item" id="snav-sos" onclick="switchTab('sos')"><span class="nav-icon">📅</span>Schedule Strength</div>
     <div class="side-nav-item" id="snav-confstrength" onclick="switchTab('confstrength')"><span class="nav-icon">🏟️</span>Conf Strength</div>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-label">Live</div>
+    <div class="side-nav-item" id="snav-scores" onclick="switchTab('scores')"><span class="nav-icon">🔴</span>Scores</div>
     <div class="side-nav-divider"></div>
     <div class="side-nav-label">Tools</div>
     <div class="side-nav-item" id="snav-predictor" onclick="switchTab('predictor')"><span class="nav-icon">🎯</span>Game Predictor</div>
@@ -247,6 +323,15 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
 </aside>
 
 <main>
+
+<!-- SCORES -->
+<div class="section" id="scores">
+  <div class="page-title">
+    <div><h1>Scores</h1><p>Yesterday &amp; today's results with Vegas lines — updates nightly at 3 AM ET</p></div>
+  </div>
+  <div id="scores-container"><div class="loading-bar"><div class="spinner"></div>Loading scores...</div></div>
+  <p class="data-note">Data: collegebasketballdata.com via GitHub Action · Betting lines from consensus providers</p>
+</div>
 
 <!-- POWER RANKINGS -->
 <div class="section active" id="power">
@@ -303,7 +388,31 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
       <select id="pred-b"><option value="">Select team...</option></select>
     </div>
   </div>
+  <!-- Phase 3: Predictor Lab sliders -->
+  <div class="slider-lab">
+    <div style="font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:12px">🧪 Predictor Lab — adjust model weights</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div>
+        <label>Defense Importance <span class="slider-val" id="lab-def-val">1.0×</span></label>
+        <div class="slider-row"><input type="range" id="lab-def" min="0" max="2" step="0.1" value="1" oninput="document.getElementById('lab-def-val').textContent=parseFloat(this.value).toFixed(1)+'×'"></div>
+      </div>
+      <div>
+        <label>Loss Quality (SOL) <span class="slider-val" id="lab-sol-val">1.0×</span></label>
+        <div class="slider-row"><input type="range" id="lab-sol" min="0" max="2" step="0.1" value="1" oninput="document.getElementById('lab-sol-val').textContent=parseFloat(this.value).toFixed(1)+'×'"></div>
+      </div>
+      <div>
+        <label>Chaos Level <span class="slider-val" id="lab-chaos-val">0%</span></label>
+        <div class="slider-row"><input type="range" id="lab-chaos" min="0" max="20" step="1" value="0" oninput="document.getElementById('lab-chaos-val').textContent=this.value+'%'"></div>
+      </div>
+    </div>
+  </div>
   <div id="pred-result"></div>
+
+  <!-- Phase 4: Play-style similarity -->
+  <div id="similarity-section" style="display:none;margin-top:24px">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);margin-bottom:12px">🎨 Teams That Play Like <span id="sim-team-name"></span></div>
+    <div id="similarity-list"></div>
+  </div>
 </div>
 
 <!-- BUBBLE -->
@@ -367,7 +476,7 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
     <div><h1>🥿 Cinderella Watch</h1>
     <p>Teams most likely to make a deep tournament run — including strength of losses as a key factor</p></div>
   </div>
-  <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:18px 20px;margin-bottom:20px;font-size:13px;line-height:1.8;color:var(--text-secondary)">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px;font-size:13px;line-height:1.8;color:var(--text-secondary)">
     <strong style="color:var(--text-primary);font-size:14px">How we identify Cinderella teams:</strong><br>
     Research shows the best statistical predictors of tournament upsets are: <strong>Adjusted Efficiency Margin</strong>, <strong>Defensive Efficiency</strong>, <strong>Barthag vs Seed Gap</strong>, <strong>Tempo Control</strong>, <strong>Schedule-adjusted WAB</strong>, and now <strong>Strength of Losses</strong> — teams whose losses came against elite opponents are far better bets to beat a favored team than those who folded against weak competition. The <em>Cinderella Score</em> is a composite of all six factors.
   </div>
@@ -391,11 +500,11 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
     <div><h1>🏀 2026 NBA Draft Board</h1>
     <p>AI-powered big board — top prospects with team fit analysis, generated on demand</p></div>
   </div>
-  <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--text-secondary);line-height:1.8">
-    <strong style="color:var(--text-primary)">How this works:</strong> Click <strong>Generate Draft Board</strong> and Claude AI will analyze the latest 2026 NBA Draft class to produce a live big board with team fit analysis. Regenerate anytime for fresh analysis reflecting the most current rankings.
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--text-secondary);line-height:1.8">
+    <strong style="color:var(--text-primary)">How this works:</strong> Click <strong>Generate Draft Board</strong> to produce a live big board with team fit analysis for the 2026 NBA Draft class. Regenerate anytime for fresh analysis.
   </div>
   <div style="display:flex;gap:14px;align-items:center;margin-bottom:20px;flex-wrap:wrap">
-    <button class="draft-gen-btn" id="draft-gen-btn" onclick="generateDraftBoard()">✨ Generate Draft Board</button>
+    <button class="draft-gen-btn" id="draft-gen-btn" onclick="generateDraftBoard()">🏀 Load Draft Board</button>
     <div class="filters" style="margin:0">
       <label>Show</label>
       <select id="draft-count">
@@ -416,103 +525,81 @@ thead th.sort-asc, thead th.sort-desc { color: var(--accent); background: #f7f0e
     <span id="draft-timestamp" style="font-size:11px;color:var(--text-muted);font-style:italic"></span>
   </div>
   <div id="draftboard-container">
-    <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:60px 20px;text-align:center;color:var(--text-muted)">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:60px 20px;text-align:center;color:var(--text-muted)">
       <div style="font-size:48px;margin-bottom:14px">🏀</div>
       <div style="font-size:16px;font-weight:600;color:var(--text-secondary);margin-bottom:8px">Click "Generate Draft Board" to load the latest big board</div>
-      <div style="font-size:13px">Claude AI will produce an up-to-date ranking with team fits for up to 50 prospects</div>
+      <div style="font-size:13px">Generate an up-to-date ranking with team fits for up to 50 prospects</div>
     </div>
   </div>
-  <p class="data-note">Powered by Claude AI · Rankings reflect latest draft information · Regenerate anytime for fresh analysis</p>
+  <p class="data-note">Rankings reflect latest draft information · Regenerate anytime for fresh analysis</p>
 </div>
 
 </main>
 </div><!-- /app-shell -->
 
 <script>
-// ===== AI DRAFT BOARD =====
+// ===== DRAFT BOARD =====
+// ===== 2026 NBA DRAFT CLASS (Bleacher Report, March 2026) =====
+const DRAFT_CLASS_2026 = [
+  {pick:1,name:"AJ Dybantsa",school:"BYU",pos:"SF",yr:"Fr",age:19,ht:"6'9\"",wt:"210",wingspan:"7'0\"",ppg:23.6,rpg:6.7,apg:3.8,fg:53.0,tsp:62.4,team:"Sacramento Kings",teamNeed:"Franchise cornerstone wing to build around",nbaComp:"Jaylen Brown",analysis:"Dybantsa leads the nation in scoring and has been unstoppable since Thanksgiving, finishing above 50% in all but four games. His combination of size, handle and shot creation at 19 is generational. Sacramento gets the cornerstone of their rebuild.",tier:"Franchise",tierColor:"var(--accent)"},
+  {pick:2,name:"Darryn Peterson",school:"Kansas",pos:"SG",yr:"Fr",age:18,ht:"6'6\"",wt:"205",wingspan:"6'9\"",ppg:19.7,rpg:4.4,apg:3.2,fg:49.3,tsp:60.1,team:"Indiana Pacers",teamNeed:"Elite scoring guard alongside Haliburton",nbaComp:"Anthony Edwards",analysis:"Peterson is the most polished two-guard in this class — his shotmaking on 6.9 three-point attempts per game and short-range jumper efficiency are elite. Indiana gets a dynamic backcourt piece to pair with Haliburton for the next decade.",tier:"Franchise",tierColor:"var(--accent)"},
+  {pick:3,name:"Cameron Boozer",school:"Duke",pos:"PF",yr:"Fr",age:18,ht:"6'9\"",wt:"250",wingspan:"7'1\"",ppg:23.5,rpg:9.9,apg:4.2,fg:57.1,tsp:66.8,team:"Brooklyn Nets",teamNeed:"Skilled franchise big to build around",nbaComp:"Kevin Love",analysis:"Boozer is on pace for the highest box plus-minus on record regardless of class. His combination of strength, footwork, and vision at 18 is unprecedented — shooting near 40% from three while initiating offense at 250 lbs. Brooklyn gets a generational big.",tier:"Franchise",tierColor:"var(--accent)"},
+  {pick:4,name:"Caleb Wilson",school:"North Carolina",pos:"PF",yr:"Fr",age:19,ht:"6'10\"",wt:"215",wingspan:"7'2\"",ppg:19.9,rpg:10.1,apg:3.1,fg:58.8,tsp:65.4,team:"Washington Wizards",teamNeed:"Athletic two-way big and offensive initiator",nbaComp:"Jermaine O'Neal",analysis:"Wilson is the nation's dunk leader with elite athleticism at 6'10\". His 23-point showing over Cameron Boozer and Duke showed isolation footwork, shotmaking versatility, and 61.2% on post-ups. Washington gets an explosive two-way big.",tier:"Franchise",tierColor:"var(--accent)"},
+  {pick:5,name:"Keaton Wagler",school:"Illinois",pos:"PG",yr:"Fr",age:19,ht:"6'6\"",wt:"180",wingspan:"6'9\"",ppg:24.8,rpg:4.1,apg:5.3,fg:47.2,tsp:61.8,team:"Utah Jazz",teamNeed:"Franchise guard who can run an offense",nbaComp:"Jamal Murray",analysis:"Wagler exploded for 46 vs Purdue, 34 at Wisconsin, and 28 vs Nebraska — his pacing and shot-making as a 6'6\" lead guard are rare. He gets to spots off change of speed and converts inside the arc with touch. Utah gets a cornerstone playmaker.",tier:"Franchise",tierColor:"var(--accent)"},
+  {pick:6,name:"Kingston Flemings",school:"Houston",pos:"PG",yr:"Fr",age:19,ht:"6'4\"",wt:"190",wingspan:"6'7\"",ppg:16.6,rpg:3.9,apg:5.3,fg:47.8,tsp:58.9,team:"Atlanta Hawks",teamNeed:"Dynamic lead guard and two-way creator",nbaComp:"De'Aaron Fox",analysis:"Flemings' first step, lethal mid-range game, and defensive tools make him one of the most complete guards in this class. His poise in crunch time and efficient play alongside Milos Uzan shows he can run an offense. Atlanta gets a two-way franchise guard.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:7,name:"Mikel Brown Jr.",school:"Louisville",pos:"PG",yr:"Fr",age:18,ht:"6'5\"",wt:"180",wingspan:"6'7\"",ppg:22.1,rpg:3.8,apg:5.2,fg:43.4,tsp:58.2,team:"Dallas Mavericks",teamNeed:"Explosive scoring guard and playmaker",nbaComp:"Anfernee Simons",analysis:"Brown exploded for 45 points and 10 threes in one game — his rhythm, fluidity and microwave scoring are elite. His 30.4 assist percentage shows real lead-guard playmaking to complement the scoring. Dallas gets a dynamic backcourt piece.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:8,name:"Brayden Burries",school:"Arizona",pos:"SG",yr:"So",age:20,ht:"6'4\"",wt:"205",wingspan:"6'7\"",ppg:18.3,rpg:4.1,apg:2.6,fg:51.2,tsp:62.7,team:"Memphis Grizzlies",teamNeed:"Efficient scoring guard off the ball",nbaComp:"Quentin Grimes",analysis:"Burries is supremely efficient in ball-screen situations, devastating in transition, and great at attacking closeouts. He doesn't need dazzling creation to produce. Memphis gets a polished scoring guard who works perfectly alongside Ja.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:9,name:"Jayden Quaintance",school:"Kentucky",pos:"PF",yr:"So",age:18,ht:"6'10\"",wt:"255",wingspan:"7'3\"",ppg:12.4,rpg:8.1,apg:1.9,fg:54.3,tsp:61.8,team:"Chicago Bulls",teamNeed:"Defensive anchor with elite upside",nbaComp:"Bam Adebayo",analysis:"Quaintance's frame, length and shot-blocking ceiling are elite despite injury questions this season. He's younger than most freshmen in this class. Chicago bets on one of the great defensive ceilings in years — low-post touch and driving ability are developing fast.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:10,name:"Darius Acuff Jr.",school:"Arkansas",pos:"PG",yr:"Fr",age:18,ht:"6'3\"",wt:"190",wingspan:"6'5\"",ppg:21.8,rpg:4.6,apg:5.9,fg:47.4,tsp:60.3,team:"Memphis Grizzlies",teamNeed:"Secondary creator and scoring spark plug",nbaComp:"Stephon Marbury",analysis:"Acuff exploded for 49 points in a double-OT win vs a ranked opponent — his change of speed, lethal pull-up, sharp float game and quarterback feel for balancing scoring with passing are special. Memphis adds another elite young guard.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:11,name:"Labaron Philon",school:"Alabama",pos:"PG",yr:"So",age:20,ht:"6'4\"",wt:"185",wingspan:"6'6\"",ppg:17.9,rpg:3.8,apg:6.1,fg:46.2,tsp:60.8,team:"Portland Trail Blazers",teamNeed:"Playmaking guard with shot-making ability",nbaComp:"Mike Conley",analysis:"Philon's breakout sophomore season — improved three-point shooting (2+ per game), signature footwork and consistent playmaking — has scouts sold. Portland gets a reliable point guard who can run a system and hit shots.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:12,name:"Thomas Haugh",school:"Florida",pos:"SF",yr:"Sr",age:22,ht:"6'9\"",wt:"215",wingspan:"7'0\"",ppg:18.4,rpg:6.9,apg:2.8,fg:47.1,tsp:60.2,team:"OKC Thunder",teamNeed:"Plug-and-play 3-and-D wing for a contender",nbaComp:"Jeff Green",analysis:"Haugh's case revolves around fit — 6'9\" size, shooting, athleticism and winning IQ. He hits threes, delivers above-the-rim finishes and flashes creation. OKC adds a versatile forward who fits their championship-caliber system immediately.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:13,name:"Karim Lopez",school:"New Zealand Breakers",pos:"PF",yr:"Int",age:18,ht:"6'8\"",wt:"225",wingspan:"7'0\"",ppg:14.2,rpg:6.8,apg:2.4,fg:51.3,tsp:60.1,team:"Charlotte Hornets",teamNeed:"High-upside international big with creation",nbaComp:"Franz Wagner",analysis:"Lopez's 32-point game against Melbourne showed face-up creation and shotmaking at 18 that scouts rarely see. His strength and physicality set him apart from most forwards his age. Charlotte bets on a skilled big with enormous ceiling.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:14,name:"Nate Ament",school:"Tennessee",pos:"SF",yr:"Fr",age:19,ht:"6'10\"",wt:"207",wingspan:"7'1\"",ppg:16.8,rpg:6.2,apg:2.5,fg:47.9,tsp:61.4,team:"San Antonio Spurs",teamNeed:"Versatile wing with shoot-dribble-pass toolkit",nbaComp:"Zaccharie Risacher",analysis:"Ament's 6'10\" size, diverse shot-making and improving confidence in crunch time make him a tantalizing fit next to Wembanyama. He gets to the line at a strong rate and averages 2.5 assists. His positional size and release point make him nearly unguardable.",tier:"Star",tierColor:"var(--blue)"},
+  {pick:15,name:"Braylon Mullins",school:"UConn",pos:"SG",yr:"Fr",age:19,ht:"6'5\"",wt:"190",wingspan:"6'8\"",ppg:16.2,rpg:3.8,apg:2.1,fg:45.8,tsp:62.3,team:"Golden State Warriors",teamNeed:"Off-ball shooter to space floor for Curry",nbaComp:"Aaron Nesmith",analysis:"Mullins' shooting diversity, movement shooting and defensive competitiveness are elite for his age. He won't always put up big numbers but he can catch fire — his 25-point eruption vs Creighton was a preview. Golden State gets a plug-and-play shooter.",tier:"Starter",tierColor:"var(--green)"},
+  {pick:16,name:"Koa Peat",school:"Arizona",pos:"PF",yr:"Fr",age:19,ht:"6'8\"",wt:"235",wingspan:"7'0\"",ppg:13.7,rpg:7.4,apg:2.1,fg:54.1,tsp:58.6,team:"Miami Heat",teamNeed:"Physical big with scoring instincts and toughness",nbaComp:"Wendell Carter Jr.",analysis:"Peat's pro-ready frame, mid-range skill and tough rebounding fit Miami's blue-collar culture perfectly. Despite shooting questions, his interior finishing and toughness give the Heat a reliable frontcourt piece who earns his minutes.",tier:"Starter",tierColor:"var(--green)"},
+    {pick:17,name:"Amari Allen",school:"Alabama",pos:"SF",yr:"Fr",age:18,ht:"6'8\"",wt:"215",wingspan:"7'1\"",ppg:12.3,rpg:7.3,apg:3.3,fg:45.2,tsp:60.8,team:"Memphis Grizzlies",teamNeed:"Swiss-army two-way wing with defensive potential",nbaComp:"Josh Hart",analysis:"Allen does everything — shoots 38.5% from three on decent volume, defends multiple positions, rebounds out of his area, and passes. His defensive toughness at 18 and elite length make him a coveted two-way piece. Memphis gets a versatile wing who complements Ja Morant perfectly.",tier:"Starter",tierColor:"var(--green)",weakness:"Not a primary creator — needs good spacing and ball movement to produce offensively. Scoring upside is capped unless he develops off-the-dribble game significantly."},
+  {pick:18,name:"Morez Johnson",school:"Michigan",pos:"C",yr:"Fr",age:18,ht:"7'0\"",wt:"235",wingspan:"7'4\"",ppg:13.4,rpg:7.4,apg:1.2,fg:65.2,tsp:68.1,team:"OKC Thunder",teamNeed:"Rim-running center with defensive upside",nbaComp:"Mark Williams",analysis:"Johnson finishes at an elite rate near the rim and brings physicality that's rare for an 18-year-old big. His 65% FG and defensive activity make him a high-floor addition. OKC gets a developmental center to grow alongside Chet and Giddey.",tier:"Starter",tierColor:"var(--green)",weakness:"Offensive game is entirely interior-dependent. Three-point range may never come. In today's NBA, a center who can't space the floor faces real positional limitations."},
+  {pick:19,name:"Patrick Ngongba",school:"Duke",pos:"C",yr:"So",age:20,ht:"6'11\"",wt:"240",wingspan:"7'3\"",ppg:12.4,rpg:8.1,apg:1.9,fg:54.3,tsp:63.2,team:"Charlotte Hornets",teamNeed:"Skilled two-way big to anchor the frontcourt",nbaComp:"Isaiah Hartenstein",analysis:"Ngongba's passing vision for a 6'11\" big is genuinely special — his 1.9 assists reflect a feel for offense that translates. Combined with elite rebounding and shot-blocking instincts, Charlotte gets a versatile modern center at a position of need.",tier:"Starter",tierColor:"var(--green)",weakness:"Offensive consistency is still developing — can disappear for stretches. Physicality sometimes lacking against elite bigs. Back-to-basket game is raw for his size."},
+  {pick:20,name:"Aday Mara",school:"Michigan",pos:"C",yr:"Jr",age:22,ht:"7'2\"",wt:"240",wingspan:"7'5\"",ppg:16.8,rpg:7.4,apg:5.2,fg:47.5,tsp:61.8,team:"Toronto Raptors",teamNeed:"Elite passing big man with floor-spacing upside",nbaComp:"Marc Gasol",analysis:"Mara's passing vision at 7'2\" is a generational outlier — his 5.2 assists per game from the center position is virtually unheard of. Combined with elite shot-blocking instincts and improving shooting, Toronto gets a franchise-altering offensive hub.",tier:"Starter",tierColor:"var(--green)",weakness:"Traditional back-to-basket center in an era that has moved away from that archetype. Athleticism limitations will be exposed by quicker NBA bigs. Shooting needs consistency."},
+  {pick:21,name:"Joshua Jefferson",school:"Iowa State",pos:"PF",yr:"Jr",age:21,ht:"6'9\"",wt:"240",wingspan:"7'1\"",ppg:18.4,rpg:4.8,apg:2.6,fg:40.5,tsp:57.2,team:"LA Lakers",teamNeed:"Versatile two-way forward with championship IQ",nbaComp:"Aaron Gordon",analysis:"Jefferson's transformation into a complete player has impressed scouts all season — improved three-point efficiency alongside elite passing for a big have changed his projection. His switchable defense and 6'9\" frame fit the modern game. LA gets a legitimate two-way piece.",tier:"Starter",tierColor:"var(--green)",weakness:"Shooting is still inconsistent — 40.5% FG means good stretches are interspersed with cold games. Not a self-creator off the dribble; needs the ball in others' hands to thrive."},
+  {pick:22,name:"Isaiah Evans",school:"Duke",pos:"SG",yr:"So",age:20,ht:"6'5\"",wt:"200",wingspan:"6'8\"",ppg:15.0,rpg:3.8,apg:2.5,fg:42.9,tsp:60.3,team:"Denver Nuggets",teamNeed:"Off-ball shooter to space floor and complement Jokic",nbaComp:"Klay Thompson",analysis:"Evans' movement shooting and positional size are NBA-ready right now — his fluid, dynamic release off screens makes him a nightmare for defenders. Denver gets a plug-and-play off-ball weapon to slot next to Jokic and Murray immediately.",tier:"Starter",tierColor:"var(--green)",weakness:"Streaky shooter with just adequate athleticism — not someone who creates his own shot. Limited playmaking vision beyond the catch-and-shoot role. Defense is adequate but not special."},
+  {pick:23,name:"Dailyn Swain",school:"Texas",pos:"SF",yr:"So",age:20,ht:"6'7\"",wt:"215",wingspan:"7'1\"",ppg:17.7,rpg:6.0,apg:3.1,fg:55.4,tsp:62.4,team:"San Antonio Spurs",teamNeed:"Long, athletic two-way wing next to Wembanyama",nbaComp:"Dorian Finney-Smith",analysis:"Swain is arguably the most underrated player in this class — a long, uber-athletic wing who applies consistent rim pressure and displays impressive playmaking on the move. His 30-point eruption (4-of-7 from deep) showed a developing perimeter game. SA gets a two-way wing tailor-made for Wembanyama.",tier:"Starter",tierColor:"var(--green)",weakness:"Three-point shot (.33.3%) needs to become more consistent for him to be a true floor-spacer. Somewhat one-dimensional offensively without a reliable go-to move off the dribble."},
+  {pick:24,name:"Henri Veesaar",school:"North Carolina",pos:"C",yr:"Jr",age:22,ht:"7'0\"",wt:"230",wingspan:"7'3\"",ppg:17.7,rpg:7.4,apg:3.1,fg:55.4,tsp:66.2,team:"Sacramento Kings",teamNeed:"Skilled offensive center who can space the floor",nbaComp:"Moe Wagner",analysis:"Veesaar's inside-out scoring package is uniquely coveted — 30 made threes this season plus elite play-finishing at 7 feet. His clutch three in the Duke-UNC game and defensive stop right after showed composure. Sacramento gets a versatile big who can contribute immediately.",tier:"Starter",tierColor:"var(--green)",weakness:"Not a rim-protector — limited shot-blocking for his size. Physicality and mobility are concerning against elite NBA bigs. Will likely need to play in drop coverage exclusively on defense."},
+  {pick:25,name:"Cameron Carr",school:"Baylor",pos:"SG",yr:"So",age:21,ht:"6'5\"",wt:"205",wingspan:"7'2\"",ppg:13.3,rpg:5.2,apg:2.2,fg:48.8,tsp:63.1,team:"LA Clippers",teamNeed:"Athletic wing shooter with defensive tools",nbaComp:"Jordan Clarkson",analysis:"Carr hits 50% on contested threes, has 37 dunks and a 5% block rate at 6'5\" with a 7'2\" wingspan — elite combination of scoring and defensive upside. The Clippers get a versatile wing who can score off the bench and guard multiple positions.",tier:"Starter",tierColor:"var(--green)",weakness:"Streaky — prone to cold stretches where efficiency craters. Shooting percentages inconsistent outside of hot games. Limited shot creation off the dribble."},
+  {pick:26,name:"Alex Karaban",school:"UConn",pos:"SF",yr:"Sr",age:22,ht:"6'8\"",wt:"215",wingspan:"7'0\"",ppg:14.0,rpg:5.3,apg:2.1,fg:45.0,tsp:60.8,team:"Milwaukee Bucks",teamNeed:"Winning culture piece with immediate contribution",nbaComp:"Jeff Green",analysis:"One of the winningest college players in recent history, Karaban brings immediate professional readiness — elite IQ, multiple championship pedigree, and 3-and-D tools. Milwaukee gets a plug-and-play forward who knows exactly how to win.",tier:"Starter",tierColor:"var(--green)",weakness:"Will be a 22-year-old rookie with questions about upside ceiling. Not a primary creator. Role-player projection only — ceiling is solid starter, not All-Star."},
+    {pick:27,name:"Motiejus Krivas",school:"Arizona",pos:"C",yr:"Fr",age:19,ht:"7'1\"",wt:"230",wingspan:"7'4\"",ppg:9.8,rpg:6.1,apg:1.2,fg:57.0,tsp:64.8,team:"Houston Rockets",teamNeed:"Long-term developmental center with elite tools",nbaComp:"Kristaps Porzingis",analysis:"Krivas is a 7-foot Lithuanian big who skipped European pro ball to play at Arizona — his length, touch and feel are exceptionally advanced for his age. His 57% FG in a featured role and soft hands in the pick-and-roll make scouts dream. Houston bets on a high-ceiling modern center.",tier:"Rotation",tierColor:"var(--amber)",weakness:"Very thin frame (230 lbs) will be physically challenged by NBA bigs. Limited athleticism and mobility for the modern pace. Purely developmental — not close to contributing in year one."},
+  {pick:28,name:"Tyler Tanner",school:"Vanderbilt",pos:"PG",yr:"So",age:20,ht:"6'0\"",wt:"173",wingspan:"6'3\"",ppg:18.3,rpg:5.7,apg:5.4,fg:48.4,tsp:62.3,team:"New York Knicks",teamNeed:"Fearless competitor and analytics darling",nbaComp:"Aaron Holiday",analysis:"Tanner is the most confounding prospect in this class — a 6'0\" guard who leads the SEC with 2.5 steals, fearlessly attacks the rim to dunk in traffic, and has the feel of a seasoned distributor. NY bets that analytics and winning instincts transcend the size concerns.",tier:"Rotation",tierColor:"var(--amber)",weakness:"6'0\" is a massive liability in today's NBA — would be the first guard that short drafted in round 1 since 2018. Defensive limitations at that height are real at the NBA level."},
+  {pick:29,name:"Dash Daniels",school:"Melbourne United (NBL)",pos:"SG",yr:"Fr",age:18,ht:"6'5\"",wt:"195",wingspan:"6'9\"",ppg:9.8,rpg:3.4,apg:2.2,fg:43.6,tsp:57.1,team:"Minnesota Timberwolves",teamNeed:"Defensive-minded backcourt versatility and upside",nbaComp:"Gary Payton II",analysis:"Daniels is a high-upside defensive wing — the youngest prospect in this entire class at 18. His length and instincts on defense are already translatable. Minnesota bets on one of the great raw defensive ceilings in this draft.",tier:"Rotation",tierColor:"var(--amber)",weakness:"Has not played 20 minutes in a game since November. Predraft process will carry enormous weight. Offensive game is essentially untapped — teams betting purely on tools and projection."},
+  {pick:30,name:"Chris Cenac Jr.",school:"Houston",pos:"PF",yr:"Fr",age:18,ht:"6'11\"",wt:"240",wingspan:"7'2\"",ppg:11.2,rpg:7.1,apg:1.4,fg:54.6,tsp:62.4,team:"Cleveland Cavaliers",teamNeed:"Developmental athletic big with floor-spacing ceiling",nbaComp:"Bobby Portis",analysis:"Cenac's near-7-foot frame, three-point range and athleticism give Cleveland a developmental big with translatable tools. At just 18, his upside as a stretch-5 who can run the floor and eventually space the court is compelling for a contending team.",tier:"Rotation",tierColor:"var(--amber)",weakness:"Often settles for contested jumpers rather than operating inside with force. Needs to become a more fundamental screen-setter. Could benefit from another season at Houston under Kelvin Sampson."},
+];
+
 async function generateDraftBoard() {
   const btn = document.getElementById('draft-gen-btn');
-  const count = document.getElementById('draft-count').value;
+  const count = parseInt(document.getElementById('draft-count').value);
   const pos = document.getElementById('draft-pos-filter').value;
 
   btn.disabled = true;
-  btn.textContent = '⏳ Generating...';
+  btn.textContent = '⏳ Loading...';
 
   document.getElementById('draftboard-container').innerHTML = `
-    <div style="background:white;border:1px solid var(--border);border-radius:6px;padding:60px 20px;text-align:center">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:60px 20px;text-align:center">
       <div class="spinner" style="margin:0 auto 16px"></div>
-      <div style="font-size:14px;font-weight:600;color:var(--text-secondary)">Claude is analyzing the latest 2026 draft class...</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Generating ${count} prospects — takes about 15–20 seconds</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text-secondary)">Loading 2026 draft class...</div>
     </div>`;
 
-  const posFilter = pos ? `Only include players who primarily play ${pos}.` : '';
+  // Simulate brief load for UX
+  await new Promise(r => setTimeout(r, 600));
 
-  const prompt = `You are an expert NBA draft analyst with deep knowledge of the 2026 NBA Draft class. Generate the top ${count} prospects for the 2026 NBA Draft as of March 2026. ${posFilter}
+  let prospects = DRAFT_CLASS_2026.slice(0, count);
+  if (pos) prospects = prospects.filter(p => p.pos === pos);
 
-Return ONLY a raw JSON array — no markdown, no explanation, no code fences. Start directly with [ and end with ].
+  renderDraftBoard(prospects, pos);
 
-Each object must have exactly these fields:
-{
-  "pick": 1,
-  "name": "Full Name",
-  "school": "School Name",
-  "pos": "SF",
-  "yr": "Fr",
-  "age": 18,
-  "ht": "6'9\\"",
-  "wt": "215",
-  "wingspan": "6'11\\"",
-  "ppg": 18.4,
-  "rpg": 7.2,
-  "apg": 3.1,
-  "fg": 52.3,
-  "tsp": 61.2,
-  "team": "NBA Team Name",
-  "teamNeed": "One sentence on what the team needs",
-  "nbaComp": "Player A / Player B",
-  "analysis": "2-3 sentences on why this player fits this team",
-  "tier": "Franchise",
-  "tierColor": "var(--accent)"
-}
-
-Tier + tierColor rules — follow exactly:
-- Picks 1-5: tier="Franchise" tierColor="var(--accent)"
-- Picks 6-14: tier="Star" tierColor="var(--blue)"
-- Picks 15-30: tier="Starter" tierColor="var(--green)"
-- Picks 31-50: tier="Depth" tierColor="var(--text-muted)"
-
-Use real accurate 2025-26 season stats. The class includes AJ Dybantsa (BYU), Darryn Peterson (Kansas), Cameron Boozer (Duke), and many other top prospects. Assign realistic NBA teams based on 2025-26 standings (worst records get top picks). Return ONLY the JSON array, nothing else.`;
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 12000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const text = data.content.map(i => i.text || '').join('');
-    const clean = text.replace(/```json|```/g, '').trim();
-    const prospects = JSON.parse(clean);
-
-    renderDraftBoard(prospects, pos);
-
-    const ts = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    document.getElementById('draft-timestamp').textContent = `Generated ${ts} · ${prospects.length} prospects`;
-
-  } catch(err) {
-    document.getElementById('draftboard-container').innerHTML =
-      `<div class="error-box">⚠️ <strong>Could not generate draft board.</strong> Please try again in a moment.<br><small>${err.message}</small></div>`;
-  }
+  const ts = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  document.getElementById('draft-timestamp').textContent = `Updated ${ts} · ${prospects.length} prospects`;
 
   btn.disabled = false;
-  btn.textContent = '✨ Regenerate Draft Board';
+  btn.textContent = '🔄 Refresh Board';
 }
 
 // Cached prospects so position filter re-renders without re-calling API
@@ -529,7 +616,7 @@ function renderDraftBoard(prospects, posFilter) {
   }
 
   const html = filtered.map(p => `
-    <div style="background:white;border:1px solid var(--border);border-radius:6px;margin-bottom:12px;overflow:hidden">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden">
       <div style="display:grid;grid-template-columns:60px 1fr auto;align-items:stretch">
         <div style="background:${p.tierColor};display:flex;align-items:center;justify-content:center;flex-direction:column;padding:16px 8px;min-width:60px">
           <div style="font-size:10px;color:rgba(255,255,255,0.8);font-weight:700;text-transform:uppercase;letter-spacing:0.4px">Pick</div>
@@ -564,6 +651,7 @@ function renderDraftBoard(prospects, posFilter) {
             </div>
             <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">${p.analysis}</div>
           </div>
+          ${p.weakness ? `<div style="background:#fff8f8;border:1px solid #f5c6c0;border-radius:4px;padding:8px 12px;margin-bottom:8px;font-size:12px;color:#8b2e2e;line-height:1.5"><span style="font-weight:700;text-transform:uppercase;letter-spacing:0.4px;font-size:10px;display:block;margin-bottom:3px">⚠ Concern</span>${p.weakness}</div>` : ''}
           <div style="font-size:11px;color:var(--text-muted)">NBA Comp: <strong style="color:var(--text-secondary)">${p.nbaComp}</strong> · <span style="color:${p.tierColor};font-weight:700">${p.tier} Projection</span></div>
         </div>
       </div>
@@ -574,7 +662,190 @@ function renderDraftBoard(prospects, posFilter) {
 
 // ===== DATA =====
 let allTeams = [], allPlayers = [];
-const DATA_URL = 'https://raw.githubusercontent.com/highbrowwharf37/Ishaan-s-coding/main/data.json';
+let netRankMap = {};       // NCAA NET rankings
+let apPollMap = {};        // AP Poll rankings by team name
+let linesMap = {};         // betting lines keyed by "away@home"
+let scoresData = [];       // today/yesterday scores
+const DATA_URL   = 'https://raw.githubusercontent.com/highbrowwharf37/Ishaan-s-coding/main/data.json';
+const AP_URL     = 'https://raw.githubusercontent.com/highbrowwharf37/Ishaan-s-coding/main/ap_poll.json';
+const LINES_URL  = 'https://raw.githubusercontent.com/highbrowwharf37/Ishaan-s-coding/main/lines.json';
+const SCORES_URL = 'https://raw.githubusercontent.com/highbrowwharf37/Ishaan-s-coding/main/scores.json';
+const NCAA_NET_URL = 'https://ncaa-api.henrygd.me/rankings/basketball-men/d1/ncaa-mens-basketball-net-rankings';
+
+async function loadNETRankings() {
+  try {
+    const res = await fetch(NCAA_NET_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    // henrygd NCAA mirror: data is in json.rankings or json.data
+    // Each row has various possible field names — try all of them
+    const rows = json.rankings || json.data || (Array.isArray(json) ? json : []);
+    netRankMap = {};
+    rows.forEach((r, idx) => {
+      // Try every plausible field name the API might return
+      const rank = parseInt(
+        r['Rank'] || r['rank'] || r['RK'] || r['rk'] || r['ranking'] || (idx + 1)
+      ) || (idx + 1);
+      const name = String(
+        r['Team'] || r['team'] || r['School'] || r['school'] ||
+        r['TeamName'] || r['teamName'] || r['name'] || ''
+      ).trim();
+      if (name) netRankMap[name] = rank;
+    });
+    console.log('NET rankings loaded:', Object.keys(netRankMap).length, 'teams. Sample:', JSON.stringify(Object.entries(netRankMap).slice(0,3)));
+    if (allTeams.length) renderPower();
+  } catch(e) {
+    console.warn('NET rankings unavailable:', e.message);
+    // Try fetching raw to debug
+    try {
+      const r2 = await fetch(NCAA_NET_URL);
+      const txt = await r2.text();
+      console.log('NET raw response (first 500 chars):', txt.slice(0, 500));
+    } catch(e2) {}
+  }
+}
+
+// ── AP POLL ──────────────────────────────────────────────────────────────────
+async function loadAPPoll() {
+  try {
+    const res = await fetch(AP_URL + '?t=' + Date.now());
+    if (!res.ok) return;
+    const json = await res.json();
+    apPollMap = {};
+    (json.rankings || []).forEach(r => {
+      if (r.team && r.rank) apPollMap[r.team.trim()] = r.rank;
+    });
+    if (allTeams.length) renderPower();
+  } catch(e) { console.warn('AP Poll unavailable:', e.message); }
+}
+
+// ── BETTING LINES ─────────────────────────────────────────────────────────────
+async function loadLines() {
+  try {
+    const res = await fetch(LINES_URL + '?t=' + Date.now());
+    if (!res.ok) return;
+    const json = await res.json();
+    linesMap = {};
+    (json.lines || []).forEach(l => {
+      if (l.home && l.away) {
+        const key = (l.away + '@' + l.home).toLowerCase().replace(/\s+/g, '');
+        linesMap[key] = l;
+      }
+    });
+  } catch(e) { console.warn('Lines unavailable:', e.message); }
+}
+
+// ── SCORES ────────────────────────────────────────────────────────────────────
+async function loadScores() {
+  try {
+    const res = await fetch(SCORES_URL + '?t=' + Date.now());
+    if (!res.ok) return;
+    const json = await res.json();
+    scoresData = json.games || [];
+    renderScores();
+  } catch(e) {
+    console.warn('Scores unavailable:', e.message);
+    const el = document.getElementById('scores-container');
+    if (el) el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:20px;text-align:center">Scores not yet available — data updates nightly at 3 AM ET.<br><small>If you just set up the GitHub Action, run it manually once from the Actions tab.</small></div>';
+  }
+}
+
+function getLine(awayTeam, homeTeam) {
+  const key = (awayTeam + '@' + homeTeam).toLowerCase().replace(/\s+/g, '');
+  if (linesMap[key]) return linesMap[key];
+  // try reverse
+  for (const [k, v] of Object.entries(linesMap)) {
+    const a = v.away ? v.away.toLowerCase() : '';
+    const h = v.home ? v.home.toLowerCase() : '';
+    const at = awayTeam.toLowerCase(), ht = homeTeam.toLowerCase();
+    if ((a.includes(at) || at.includes(a)) && (h.includes(ht) || ht.includes(h))) return v;
+  }
+  return null;
+}
+
+function getAPRank(teamName) {
+  if (apPollMap[teamName]) return apPollMap[teamName];
+  const lower = teamName.toLowerCase();
+  for (const [k, v] of Object.entries(apPollMap)) {
+    const kl = k.toLowerCase();
+    if (kl.includes(lower) || lower.includes(kl)) return v;
+    const words = lower.split(' ');
+    if (words.some(w => w.length > 3 && kl.includes(w))) return v;
+  }
+  return null;
+}
+
+// ── SCORES RENDERER ───────────────────────────────────────────────────────────
+function renderScores() {
+  const el = document.getElementById('scores-container');
+  if (!el) return;
+  if (!scoresData.length) {
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:20px;text-align:center">No games found for today or yesterday.</div>';
+    return;
+  }
+
+  // Group by date
+  const byDate = {};
+  scoresData.forEach(g => {
+    const d = (g.date || '').slice(0, 10);
+    if (!byDate[d]) byDate[d] = [];
+    byDate[d].push(g);
+  });
+
+  let html = '';
+  Object.keys(byDate).sort().reverse().forEach(date => {
+    const label = new Date(date + 'T12:00:00').toLocaleDateString('en-US', {weekday:'long', month:'short', day:'numeric'});
+    html += `<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin:16px 0 8px;">${label}</div>`;
+    html += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;">`;
+    byDate[date].forEach(g => {
+      const final = g.status === 'final' || g.status === 'complete' || g.status === 'F';
+      const scheduled = !final && (g.homeScore == null);
+      const homeWon = final && g.homeScore > g.awayScore;
+      const awayWon = final && g.awayScore > g.homeScore;
+      const line = getLine(g.away, g.home);
+      const spreadTxt = line && line.formattedSpread
+        ? `<span style="font-size:10px;color:var(--text-muted);margin-left:6px">Spread: ${line.formattedSpread}</span>` : '';
+      const ouTxt = line && line.overUnder
+        ? `<span style="font-size:10px;color:var(--text-muted);margin-left:6px">O/U: ${line.overUnder}</span>` : '';
+      const statusBadge = final
+        ? `<span style="font-size:10px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:1px 6px;border-radius:10px">FINAL</span>`
+        : `<span style="font-size:10px;font-weight:700;color:var(--green);background:var(--green-light);padding:1px 6px;border-radius:10px">${g.status || 'SCHED'}</span>`;
+      html += `
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            ${statusBadge}
+            <span style="font-size:10px;color:var(--text-muted)">${g.neutralSite ? '🏟 Neutral' : ''}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span style="font-weight:${awayWon?'800':'500'};font-size:13px;color:${awayWon?'var(--text-primary)':'var(--text-secondary)'}">${g.away}</span>
+            <span style="font-weight:800;font-size:16px;color:${awayWon?'var(--green)':'var(--text-muted)'}">${g.awayScore ?? '—'}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-weight:${homeWon?'800':'500'};font-size:13px;color:${homeWon?'var(--text-primary)':'var(--text-secondary)'}">${g.home}</span>
+            <span style="font-weight:800;font-size:16px;color:${homeWon?'var(--green)':'var(--text-muted)'}">${g.homeScore ?? '—'}</span>
+          </div>
+          ${(spreadTxt || ouTxt) ? `<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:6px">${spreadTxt}${ouTxt}</div>` : ''}
+        </div>`;
+    });
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+// Fuzzy match team name to NET ranking map (handles slight name differences)
+function getNETRank(teamName) {
+  if (netRankMap[teamName]) return netRankMap[teamName];
+  // Try partial match
+  const lower = teamName.toLowerCase();
+  for (const [k, v] of Object.entries(netRankMap)) {
+    const kl = k.toLowerCase();
+    if (kl.includes(lower) || lower.includes(kl)) return v;
+    // Handle common abbreviation diffs e.g. "UConn" vs "Connecticut"
+    const words = lower.split(' ');
+    if (words.some(w => w.length > 3 && kl.includes(w))) return v;
+  }
+  return null;
+}
 
 async function loadData() {
   try {
@@ -604,6 +875,10 @@ async function loadData() {
       if (s) s.innerHTML = '<option value="">Select team...</option>' + opts;
     });
     renderAll();
+    loadNETRankings(); // parallel fetches — each re-renders relevant section when done
+    loadAPPoll();
+    loadLines();
+    loadScores();
   } catch(err) {
     const html = `<div class="error-box">⚠️ <strong>Could not load data.</strong> Try refreshing.<br><small>${err.message}</small></div>`;
     ['power-container','eff-container','sos-container','bubble-container','momentum-container','upset-container','confstrength-container'].forEach(id => {
@@ -707,36 +982,53 @@ function renderPower() {
   else teams = sortTeams(teams, 'power');
   if (!teams.length) { document.getElementById('power-container').innerHTML = '<div class="loading-bar">No data.</div>'; return; }
   const [maxEM, minEM] = [Math.max(...teams.map(t=>t.netEM)), Math.min(...teams.map(t=>t.netEM))];
+  const hasNET = Object.keys(netRankMap).length > 0;
+  const hasAP  = Object.keys(apPollMap).length > 0;
   let html = `<div class="table-wrap"><table id="tbl-power">
     <thead><tr>
       <th>Rk</th><th>Team</th><th>Conf</th>
       <th class="num">Record</th>
       <th class="num">Barthag</th>
+      <th class="num" title="NCAA NET Ranking — what the selection committee uses">NET ${hasNET?'':'⏳'}</th>
+      <th class="num" title="Difference between Barthag rank and NET rank. ▲ = model rates higher than committee, ▼ = committee rates higher">vs NET</th>
+      <th class="num" title="AP Poll media ranking">AP ${hasAP?'':'⏳'}</th>
       <th class="num">Net EM</th>
       <th class="num">Adj OE</th><th class="num">Adj DE</th>
-      <th class="num">Tempo</th>
       <th class="num">WAB</th>
       <th class="num">SOL</th>
     </tr></thead><tbody>`;
   teams.forEach((t,i) => {
     const p = pct(t.netEM, minEM, maxEM);
+    const netRank = getNETRank(t.name);
+    const apRank  = getAPRank(t.name);
+    const diff = (netRank && hasNET) ? (i+1) - netRank : null;
+    const netCell = netRank
+      ? `<strong>#${netRank}</strong>`
+      : `<span style="color:var(--text-muted);font-size:11px">${hasNET?'—':'…'}</span>`;
+    const diffCell = diff === null ? '<span style="color:var(--text-muted);font-size:10px">—</span>'
+      : diff === 0 ? '<span style="color:var(--text-muted);font-size:11px">=</span>'
+      : diff > 0
+        ? `<span style="color:var(--green);font-weight:800;font-size:11px" title="Barthag ranks this team ${Math.abs(diff)} spots higher than NET">▲${Math.abs(diff)}</span>`
+        : `<span style="color:var(--accent);font-weight:800;font-size:11px" title="NET ranks this team ${Math.abs(diff)} spots higher than Barthag">▼${Math.abs(diff)}</span>`;
     html += `<tr>
       <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
-      <td class="team-cell">${t.name}<span class="conf-tag">${t.conf}</span></td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${t.name}')">${t.name}<span class="conf-tag">${t.conf}</span></td>
       <td><span class="pill pill-blue">${t.conf}</span></td>
       <td class="num">${t.record}</td>
       <td class="num"><strong>${(t.barthag*100).toFixed(1)}%</strong></td>
+      <td class="num">${netCell}</td>
+      <td class="num">${diffCell}</td>
+      <td class="num">${apRank ? `<span style="font-weight:700;color:var(--amber)">AP #${apRank}</span>` : `<span style="color:var(--text-muted);font-size:10px">${hasAP?'—':'…'}</span>`}</td>
       <td class="num">${barHTML(`${t.netEM>=0?'+':''}${t.netEM.toFixed(1)}`, p, 'bar-green')}</td>
       <td class="num">${t.adjOE.toFixed(1)}</td>
       <td class="num">${t.adjDE.toFixed(1)}</td>
-      <td class="num">${t.adjT.toFixed(1)}</td>
       <td class="num"><span class="pill ${t.wab>=0?'pill-green':'pill-red'}">${t.wab>=0?'+':''}${t.wab.toFixed(1)}</span></td>
       <td class="num">${solBadge(t)}</td>
     </tr>`;
   });
   document.getElementById('power-container').innerHTML = html + '</tbody></table></div>';
   applySortHeaders(document.getElementById('tbl-power'), 'power',
-    [null, 'name', 'conf', null, 'barthag', 'netEM', 'adjOE', 'adjDE', 'adjT', 'wab', 'solScore']);
+    [null, 'name', 'conf', null, 'barthag', null, null, 'netEM', 'adjOE', 'adjDE', 'wab', 'solScore']);
 }
 
 // ===== EFFICIENCY =====
@@ -770,7 +1062,7 @@ function renderEfficiency() {
   teams.forEach((t,i) => {
     html += `<tr>
       <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
-      <td class="team-cell">${t.name}<span class="conf-tag">${t.conf}</span></td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${t.name}')">${t.name}<span class="conf-tag">${t.conf}</span></td>
       <td class="num">${barHTML(t.adjOE.toFixed(1), pct(t.adjOE,minOE,maxOE), 'bar-blue')}</td>
       <td class="num">${barHTML(t.adjDE.toFixed(1), pct(maxDE-t.adjDE,0,maxDE-minDE), 'bar-red')}</td>
       <td class="num"><strong style="color:${t.netEM>0?'var(--green)':'var(--accent)'}">${t.netEM>=0?'+':''}${t.netEM.toFixed(1)}</strong></td>
@@ -806,7 +1098,7 @@ function renderSOS() {
   teams.forEach((t,i) => {
     html += `<tr>
       <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
-      <td class="team-cell">${t.name}</td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${t.name}')">${t.name}</td>
       <td><span class="pill pill-blue">${t.conf}</span></td>
       <td class="num">${barHTML(`<strong>${t.oppO.toFixed(1)}</strong>`, pct(t.oppO,minO,maxO), 'bar-blue')}</td>
       <td class="num">${t.oppD.toFixed(1)}</td>
@@ -967,13 +1259,28 @@ function runPredictor() {
 // ===== BUBBLE =====
 function renderBubble() {
   const teamsWithSOL = computeSOL([...allTeams]);
-  const adjusted = teamsWithSOL.map(t => {
-    const solAdj = ((t.solScore - 50) / 100) * 0.6;
-    return { ...t, adjWAB: t.wab + solAdj };
-  }).sort((a,b) => b.adjWAB - a.adjWAB);
-  const inTourney  = adjusted.filter(t => t.adjWAB >= 2.0).slice(0,20);
-  const onBubble   = adjusted.filter(t => t.adjWAB >= -1.0 && t.adjWAB < 2.0).slice(0,16);
-  const outTourney = adjusted.filter(t => t.adjWAB < -1.0).slice(0,16);
+  const n = teamsWithSOL.length;
+
+  // Composite resume score: 45% Barthag, 30% NetEM, 15% WAB, 10% SOL
+  // This punishes teams like Pepperdine/Oregon that pad WAB on weak schedules.
+  const byBarthag = [...teamsWithSOL].sort((a,b) => b.barthag - a.barthag);
+  const byNetEM   = [...teamsWithSOL].sort((a,b) => b.netEM - a.netEM);
+  const byWab     = [...teamsWithSOL].sort((a,b) => b.wab - a.wab);
+
+  const scored = teamsWithSOL.map(t => {
+    const ri = (sorted, name) => sorted.findIndex(x => x.name === name);
+    const pctB = (n - ri(byBarthag, t.name)) / n;
+    const pctE = (n - ri(byNetEM,   t.name)) / n;
+    const pctW = (n - ri(byWab,     t.name)) / n;
+    const pctS = t.solScore / 100;
+    const resumeScore = pctB*45 + pctE*30 + pctW*15 + pctS*10;
+    return { ...t, resumeScore };
+  }).sort((a,b) => b.resumeScore - a.resumeScore);
+
+  const inTourney  = scored.slice(0, 36);
+  const onBubble   = scored.slice(36, 56);
+  const outTourney = scored.slice(56);
+
   const makeList = (teams) => teams.map(t => `
     <div class="bubble-row">
       <div>
@@ -981,16 +1288,19 @@ function renderBubble() {
         <span style="font-size:11px;color:var(--text-muted)"> ${t.conf}</span>
         <span style="margin-left:6px">${solBadge(t)}</span>
       </div>
-      <div class="bubble-wab">${t.record} · WAB ${t.adjWAB>=0?'+':''}${t.adjWAB.toFixed(1)} <span style="font-size:10px;color:var(--text-muted)">(adj)</span></div>
+      <div class="bubble-wab">${t.record} · Resume ${t.resumeScore.toFixed(1)} · WAB ${t.wab>=0?'+':''}${t.wab.toFixed(1)}</div>
     </div>`).join('');
-  document.getElementById('bubble-container').innerHTML = `
+
+  document.getElementById('bubble-container').innerHTML =
+    `<div style="background:var(--blue-light);border:1px solid #d6eaf8;border-radius:4px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--blue);line-height:1.7">
+      <strong>How this works:</strong> Composite resume score — 45% team quality (Barthag), 30% efficiency margin, 15% WAB, 10% loss quality. Mirrors how the committee evaluates resumes, not raw WAB alone. Top 36 = locks · Next 20 = bubble · Rest = out.
+    </div>
     <div class="bubble-cols">
-      <div><div class="bubble-col-head bubble-in-head">✓ In the Tournament (${inTourney.length})</div><div class="bubble-list">${makeList(inTourney)}</div></div>
-      <div><div class="bubble-col-head bubble-edge-head">⚠ On the Bubble (${onBubble.length})</div><div class="bubble-list">${makeList(onBubble)}</div></div>
-      <div><div class="bubble-col-head bubble-out-head">✗ On the Outside (${outTourney.length})</div><div class="bubble-list">${makeList(outTourney)}</div></div>
+      <div><div class="bubble-col-head bubble-in-head">&#10003; In the Tournament (${inTourney.length})</div><div class="bubble-list">${makeList(inTourney)}</div></div>
+      <div><div class="bubble-col-head bubble-edge-head">&#9888; On the Bubble (${onBubble.length})</div><div class="bubble-list">${makeList(onBubble)}</div></div>
+      <div><div class="bubble-col-head bubble-out-head">&#10007; On the Outside (${outTourney.length})</div><div class="bubble-list">${makeList(outTourney)}</div></div>
     </div>`;
 }
-
 // ===== MOMENTUM =====
 function renderMomentum() {
   let teams = computeSOL([...filteredTeams('mom-conf')]);
@@ -1023,7 +1333,7 @@ function renderMomentum() {
     const actualWP = totalG > 0 ? ((t.w/totalG)*100).toFixed(1) : '0.0';
     html += `<tr>
       <td class="rank-cell ${i<5?'top5':''}">${i+1}</td>
-      <td class="team-cell">${t.name}</td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${t.name}')">${t.name}</td>
       <td><span class="pill pill-blue">${t.conf}</span></td>
       <td class="num"><span class="${arrowClass}">${arrow} ${t.adjMomentum>=0?'+':''}${t.adjMomentum.toFixed(1)}%</span></td>
       <td class="num">${actualWP}%</td>
@@ -1144,8 +1454,8 @@ function renderUpset() {
     const levelClass = level === 'HIGH' ? 'upset-level-high' : level === 'MEDIUM' ? 'upset-level-med' : '';
     const boosted = solBoost > 0.005;
     html += `<tr>
-      <td class="team-cell">${underdog.name}<span class="conf-tag">${underdog.conf}</span></td>
-      <td class="team-cell">${favorite.name}<span class="conf-tag">${favorite.conf}</span></td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${underdog.name}')">${underdog.name}<span class="conf-tag">${underdog.conf}</span></td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${favorite.name}')">${favorite.name}<span class="conf-tag">${favorite.conf}</span></td>
       <td class="num">${(upsetProb*100).toFixed(1)}%</td>
       <td class="num"><strong>${(adjUpsetProb*100).toFixed(1)}%</strong>${boosted?` <span style="font-size:10px;color:var(--green)">+${(solBoost*100).toFixed(1)}%</span>`:''}
       </td>
@@ -1285,7 +1595,7 @@ function renderCinderella() {
     const verdict = i === 0 ? '🥿 #1 Pick' : i < 3 ? '⭐ Elite' : i < 7 ? '🔥 Strong' : i < 12 ? '👀 Watch' : '💡 Sleeper';
     html += `<tr>
       <td class="rank-cell ${i<3?'top5':''}">${i+1}</td>
-      <td class="team-cell">${t.name}</td>
+      <td class="team-cell" style="cursor:pointer" onclick="openTeamModal('${t.name}')">${t.name}</td>
       <td><span class="pill pill-blue">${t.conf}</span></td>
       <td class="num"><span class="pill ${t.projSeed<=4?'pill-red':t.projSeed<=8?'pill-amber':'pill-green'}">#${t.projSeed} seed</span></td>
       <td class="num">#${t.trueRank}</td>
@@ -1334,6 +1644,24 @@ function sortTeams(teams, tab) {
 }
 
 // ===== SIDE NAV + TAB SWITCHING =====
+function toggleDark() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('dark-icon').textContent = isDark ? '🌙' : '☀️';
+  document.getElementById('dark-label').textContent = isDark ? 'Dark' : 'Light';
+  try { localStorage.setItem('cbb-theme', isDark ? 'light' : 'dark'); } catch(e) {}
+}
+function initTheme() {
+  try {
+    const saved = localStorage.getItem('cbb-theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('dark-icon').textContent = '☀️';
+      document.getElementById('dark-label').textContent = 'Light';
+    }
+  } catch(e) {}
+}
+
 function toggleNav() {
   document.getElementById('side-nav').classList.toggle('open');
   document.getElementById('nav-overlay').classList.toggle('open');
@@ -1349,7 +1677,388 @@ function switchTab(id) {
   document.getElementById('nav-overlay').classList.remove('open');
 }
 
+// ===== PHASE 1: METRIC TOOLTIP SYSTEM =====
+const METRIC_DEFS = {
+  barthag: { name: 'Barthag', def: 'Win probability vs average D1 team in a neutral site game. The gold standard power rating.' },
+  netEM:   { name: 'Net Efficiency', def: 'Adjusted Offensive Efficiency minus Adjusted Defensive Efficiency — net points per 100 possessions vs avg opponent.' },
+  adjOE:   { name: 'Adj Offense (AdjOE)', def: 'Points scored per 100 possessions, adjusted for opponent strength.' },
+  adjDE:   { name: 'Adj Defense (AdjDE)', def: 'Points allowed per 100 possessions, adjusted for opponent strength. Lower is better.' },
+  adjT:    { name: 'Tempo (AdjT)', def: 'Adjusted possessions per game. Higher = faster pace. Average D1 is around 68.' },
+  wab:     { name: 'WAB (Wins Above Bubble)', def: 'How many more wins a team has than an average bubble team would in the same schedule. Positive = tournament-worthy.' },
+  solScore:{ name: 'SOL (Strength of Losses)', def: 'Average Barthag of opponents this team lost to, 0–100 scale. Elite = only bad losses to great teams.' },
+  oppO:    { name: 'Opp Offense', def: "Average adjusted offensive efficiency of this team's opponents." },
+  oppD:    { name: 'Opp Defense', def: "Average adjusted defensive efficiency of this team's opponents." },
+};
+
+function makeTipHTML(metricKey, value, allTeamsSorted) {
+  const def = METRIC_DEFS[metricKey];
+  if (!def) return value;
+  const sorted = [...allTeamsSorted].sort((a,b) => {
+    if (metricKey === 'adjDE') return a[metricKey] - b[metricKey];
+    return b[metricKey] - a[metricKey];
+  });
+  const rank = sorted.findIndex(t => Math.abs(t[metricKey] - value) < 0.001) + 1;
+  const pct = rank > 0 ? Math.round((1 - rank / sorted.length) * 100) : 50;
+  const label = pct >= 90 ? 'Elite 🔥' : pct >= 75 ? 'Great' : pct >= 50 ? 'Above Avg' : pct >= 25 ? 'Below Avg' : 'Poor';
+  const labelColor = pct >= 90 ? 'var(--accent)' : pct >= 75 ? 'var(--blue)' : pct >= 50 ? 'var(--green)' : 'var(--text-muted)';
+  return `<span class="metric-tip">${value}<span class="tip-icon">ⓘ</span>
+    <span class="tip-popup">
+      <div class="tip-name">${def.name}</div>
+      <div class="tip-def">${def.def}</div>
+      <div class="tip-rank">
+        ${rank > 0 ? `<span class="tip-tag tip-tag-nat">Natl #${rank}</span>` : ''}
+        <span class="tip-tag tip-tag-label" style="background:${labelColor}20;color:${labelColor}">${label}</span>
+      </div>
+      <div class="tip-pct-bar"><div class="tip-pct-fill" style="width:${pct}%"></div></div>
+    </span>
+  </span>`;
+}
+
+// ===== PHASE 1: "WHY RANKED HERE?" GENERATOR =====
+function generateWhyRanked(team, rank, totalTeams) {
+  const reasons = [];
+  const pctRank = rank / totalTeams;
+
+  // Offense analysis
+  if (team.adjOE > 120) reasons.push('<span class="why-ranked-badge" style="background:var(--blue-light);color:var(--blue)">Elite offense</span>');
+  else if (team.adjOE > 115) reasons.push('<span class="why-ranked-badge" style="background:var(--blue-light);color:var(--blue)">Top-tier offense</span>');
+
+  // Defense analysis
+  if (team.adjDE < 94) reasons.push('<span class="why-ranked-badge" style="background:#f0fdf4;color:var(--green)">Elite defense</span>');
+  else if (team.adjDE < 97) reasons.push('<span class="why-ranked-badge" style="background:#f0fdf4;color:var(--green)">Top-10 defense</span>');
+
+  // SOL analysis
+  if (team.solScore >= 80) reasons.push('<span class="why-ranked-badge" style="background:var(--purple-light);color:var(--purple)">Elite loss quality</span>');
+  else if (team.solScore >= 65) reasons.push('<span class="why-ranked-badge" style="background:var(--purple-light);color:var(--purple)">Good loss quality</span>');
+  else if (team.solScore < 40 && team.wab > 0) reasons.push('<span class="why-ranked-badge" style="background:var(--accent-light);color:var(--accent)">Soft schedule wins</span>');
+
+  // WAB analysis
+  if (team.wab > 5) reasons.push('<span class="why-ranked-badge" style="background:var(--accent-light);color:var(--accent)">WAB +' + team.wab.toFixed(1) + ' — dominant vs bubble</span>');
+  else if (team.wab > 2) reasons.push('<span class="why-ranked-badge" style="background:var(--accent-light);color:var(--accent)">WAB +' + team.wab.toFixed(1) + ' above bubble</span>');
+  else if (team.wab < -1) reasons.push('<span class="why-ranked-badge" style="background:#fff3f3;color:var(--accent)">WAB ' + team.wab.toFixed(1) + ' — below bubble</span>');
+
+  const summary = pctRank < 0.05 ? 'national title contender' :
+                  pctRank < 0.15 ? 'legitimate Final Four threat' :
+                  pctRank < 0.3  ? 'tournament-caliber team' :
+                  pctRank < 0.5  ? 'fringe tournament team' : 'outside looking in';
+
+  return `<div class="why-ranked-card">
+    <div class="why-title">💡 Why ranked #${rank}?</div>
+    <div style="margin-bottom:6px">${reasons.length ? reasons.join(' ') : '<span style="color:var(--text-muted)">Balanced profile across all metrics</span>'}</div>
+    <div style="font-size:12px;color:var(--text-secondary)">Barthag ${(team.barthag*100).toFixed(1)}% win probability profile — <em>${summary}</em>.</div>
+  </div>`;
+}
+
+// ===== PHASE 3: ENHANCED PREDICTOR WITH SLIDERS =====
+function runPredictor() {
+  const nameA = document.getElementById('pred-a').value;
+  const nameB = document.getElementById('pred-b').value;
+  if (!nameA || !nameB || nameA === nameB) {
+    document.getElementById('pred-result').innerHTML = '<div class="error-box">Please select two different teams.</div>';
+    return;
+  }
+  const teamsWithSOL = computeSOL(allTeams);
+  const a = teamsWithSOL.find(t=>t.name===nameA);
+  const b = teamsWithSOL.find(t=>t.name===nameB);
+  if (!a || !b) return;
+
+  // Read slider weights
+  const defW   = parseFloat(document.getElementById('lab-def').value);
+  const solW   = parseFloat(document.getElementById('lab-sol').value);
+  const chaos  = parseFloat(document.getElementById('lab-chaos').value) / 100;
+
+  // Build weighted effective barthag
+  const effectiveA = (a.barthag * 0.4) + ((1 - a.adjDE/150) * 0.3 * defW) + (a.solScore/100 * 0.3 * solW);
+  const effectiveB = (b.barthag * 0.4) + ((1 - b.adjDE/150) * 0.3 * defW) + (b.solScore/100 * 0.3 * solW);
+
+  const pA = a.barthag, pB = b.barthag;
+  const baseWinA = (pA - pA*pB) / (pA + pB - 2*pA*pB);
+
+  // Weighted win prob
+  const eTotal = effectiveA + effectiveB;
+  let adjWinA = eTotal > 0 ? effectiveA / eTotal : 0.5;
+  // Apply chaos — push toward 50/50
+  adjWinA = adjWinA + (0.5 - adjWinA) * chaos;
+  adjWinA = Math.max(0.02, Math.min(0.98, adjWinA));
+  let adjWinB = 1 - adjWinA;
+
+  const baseAWins = baseWinA > 0.5;
+  const adjAWins  = adjWinA  > adjWinB;
+  const solFlipped = baseAWins !== adjAWins;
+  const spread = Math.abs(adjWinA - adjWinB);
+  const isClose = spread < 0.12;
+  const pctA = (adjWinA * 100).toFixed(1);
+  const pctB = (adjWinB * 100).toFixed(1);
+  const aWins = adjAWins;
+  const avgPoss = (a.adjT + b.adjT) / 2;
+  const scoreA = ((a.adjOE / 100) * (b.adjDE / 100) * avgPoss).toFixed(1);
+  const scoreB = ((b.adjOE / 100) * (a.adjDE / 100) * avgPoss).toFixed(1);
+
+  // SOL tiebreaker text
+  let tiebreakerHTML = '';
+  const adjustedStr = (defW !== 1 || solW !== 1 || chaos > 0) ?
+    `<span style="font-size:10px;color:var(--purple);font-weight:700"> (Lab-adjusted)</span>` : '';
+
+  if (solFlipped && isClose) {
+    tiebreakerHTML = `<div class="tiebreaker-box sol-wins">🔄 <strong>Slider weights flipped this matchup.</strong> Base Barthag favored <strong>${baseAWins ? a.name : b.name}</strong>, but your current weight settings give <strong>${aWins ? a.name : b.name}</strong> the edge.</div>`;
+  } else if (isClose) {
+    tiebreakerHTML = `<div class="tiebreaker-box too-close">⚖️ <strong>Close matchup.</strong> ${a.solScore > b.solScore ? `<strong>${a.name}</strong> has better loss quality (SOL ${a.solScore.toFixed(0)} vs ${b.solScore.toFixed(0)}), giving them a slight battle-tested edge.` : `<strong>${b.name}</strong> has better loss quality (SOL ${b.solScore.toFixed(0)} vs ${a.solScore.toFixed(0)}), giving them a slight battle-tested edge.`}</div>`;
+  } else {
+    tiebreakerHTML = `<div class="tiebreaker-box clear-fav">✅ <strong>Clear favourite${adjustedStr}.</strong> The ${(spread*100).toFixed(0)}-point spread is decisive. SOL (${a.solScore.toFixed(0)} vs ${b.solScore.toFixed(0)}) doesn't change the outcome.</div>`;
+  }
+
+  document.getElementById('pred-result').innerHTML = `
+    <div class="result-card">
+      <div class="result-teams-row">
+        <div class="result-team" style="cursor:pointer" onclick="openTeamModal('${a.name}')">
+          <div class="result-name">${a.name} <span style="font-size:10px;color:var(--blue)">📋</span></div>
+          <div class="result-pct ${aWins?'win':'lose'}">${pctA}%</div>
+          <div class="result-label">${aWins?'FAVORED':'UNDERDOG'}</div>
+          <div style="margin-top:6px">${solBadge(a)}</div>
+        </div>
+        <div style="color:var(--text-muted);font-size:18px;font-family:var(--font-serif)">vs</div>
+        <div class="result-team" style="cursor:pointer" onclick="openTeamModal('${b.name}')">
+          <div class="result-name">${b.name} <span style="font-size:10px;color:var(--blue)">📋</span></div>
+          <div class="result-pct ${!aWins?'win':'lose'}">${pctB}%</div>
+          <div class="result-label">${!aWins?'FAVORED':'UNDERDOG'}</div>
+          <div style="margin-top:6px">${solBadge(b)}</div>
+        </div>
+      </div>
+      ${tiebreakerHTML}
+      <div style="margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:5px">
+          <span style="color:var(--blue)">${a.name}</span>
+          <span style="color:var(--text-muted)">Win Probability</span>
+          <span style="color:var(--accent)">${b.name}</span>
+        </div>
+        <div style="height:28px;border-radius:4px;background:var(--accent);overflow:hidden;position:relative">
+          <div style="height:100%;background:var(--blue);width:${pctA}%;border-radius:4px;transition:width 0.7s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:8px">
+            <span style="color:white;font-size:12px;font-weight:700">${pctA}%</span>
+          </div>
+          <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);color:white;font-size:12px;font-weight:700">${pctB}%</span>
+        </div>
+      </div>
+      <div style="text-align:center;background:var(--bg);border-radius:6px;padding:14px;margin-bottom:20px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);font-weight:700;margin-bottom:8px">Projected Score</div>
+        <div style="font-family:var(--font-serif);font-size:32px;font-weight:600;letter-spacing:-1px">
+          <span style="color:var(--blue)">${a.name} ${scoreA}</span>
+          <span style="color:var(--text-muted);font-size:20px;margin:0 10px">—</span>
+          <span style="color:var(--accent)">${b.name} ${scoreB}</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Based on avg tempo of ${avgPoss.toFixed(1)} possessions</div>
+      </div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);margin-bottom:12px">Head-to-Head Stat Comparison</div>
+      ${[
+        {label:'Adj Offense',         av:a.adjOE,       bv:b.adjOE,       higherBetter:true,  fmt:v=>v.toFixed(1)},
+        {label:'Adj Defense',         av:a.adjDE,       bv:b.adjDE,       higherBetter:false, fmt:v=>v.toFixed(1)},
+        {label:'Net Efficiency',      av:a.netEM,       bv:b.netEM,       higherBetter:true,  fmt:v=>(v>=0?'+':'')+v.toFixed(1)},
+        {label:'Tempo',               av:a.adjT,        bv:b.adjT,        higherBetter:null,  fmt:v=>v.toFixed(1)},
+        {label:'Win Prob (Barthag)',   av:a.barthag*100, bv:b.barthag*100, higherBetter:true,  fmt:v=>v.toFixed(1)+'%'},
+        {label:'WAB',                 av:a.wab,         bv:b.wab,         higherBetter:true,  fmt:v=>(v>=0?'+':'')+v.toFixed(1)},
+        {label:'Strength of Losses',  av:a.solScore,    bv:b.solScore,    higherBetter:true,  fmt:v=>v.toFixed(0)+'/100', highlight:true},
+      ].map(m => {
+        const maxV = Math.max(Math.abs(m.av), Math.abs(m.bv), 0.1);
+        const pA2 = Math.min(100, (Math.abs(m.av) / maxV) * 100);
+        const pB2 = Math.min(100, (Math.abs(m.bv) / maxV) * 100);
+        const aWinsMetric = m.higherBetter === null ? false : m.higherBetter ? m.av > m.bv : m.av < m.bv;
+        const bWinsMetric = m.higherBetter === null ? false : !aWinsMetric && m.av !== m.bv;
+        const rowStyle = m.highlight && isClose ? 'background:var(--purple-light);border-radius:6px;padding:4px 0;' : '';
+        return `<div style="display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;gap:8px;margin-bottom:10px;${rowStyle}">
+          <div style="display:flex;align-items:center;gap:6px;justify-content:flex-end">
+            <span style="font-size:12px;font-weight:700;color:${aWinsMetric?'var(--blue)':'var(--text-secondary)'}">${m.fmt(m.av)}</span>
+            <div style="height:8px;border-radius:2px;background:var(--blue);width:${pA2}px;max-width:80px;opacity:${aWinsMetric?1:0.4}"></div>
+          </div>
+          <div style="text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;color:${m.highlight?'var(--purple)':'var(--text-muted)'}">
+            ${m.label}${m.highlight && isClose ? ' ⚖️' : ''}
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <div style="height:8px;border-radius:2px;background:var(--accent);width:${pB2}px;max-width:80px;opacity:${bWinsMetric?1:0.4}"></div>
+            <span style="font-size:12px;font-weight:700;color:${bWinsMetric?'var(--accent)':'var(--text-secondary)'}">${m.fmt(m.bv)}</span>
+          </div>
+        </div>`;
+      }).join('')}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">
+        <div style="background:var(--blue-light);border-radius:4px;padding:10px 14px;text-align:center">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:var(--blue);font-weight:700;margin-bottom:3px">${a.name} Record</div>
+          <div style="font-size:18px;font-weight:700;color:var(--blue)">${a.record}</div>
+        </div>
+        <div style="background:var(--accent-light);border-radius:4px;padding:10px 14px;text-align:center">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:var(--accent);font-weight:700;margin-bottom:3px">${b.name} Record</div>
+          <div style="font-size:18px;font-weight:700;color:var(--accent)">${b.record}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Phase 4: Show similarity for the favored team
+  const vegasLine = getLine(nameA, nameB) || getLine(nameB, nameA);
+  if (vegasLine) {
+    const favored = vegasLine.spread != null
+      ? (vegasLine.spread < 0 ? vegasLine.home : vegasLine.away) : null;
+    const spreadAbs = vegasLine.spread != null ? Math.abs(vegasLine.spread) : null;
+    const modelFav = aWins ? nameA : nameB;
+    const agree = favored && (
+      favored.toLowerCase().includes(modelFav.toLowerCase()) ||
+      modelFav.toLowerCase().includes(favored.toLowerCase())
+    );
+    const vegasHTML = `<div style="margin-top:14px;background:var(--amber-light);border:1px solid #f9e4b0;border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--amber);margin-bottom:10px">📈 Vegas Lines</div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:13px;margin-bottom:${favored?'10px':'0'}">
+        ${spreadAbs != null ? `<div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px">Spread</div><strong>${favored} -${spreadAbs}</strong></div>` : ''}
+        ${vegasLine.overUnder ? `<div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px">Over/Under</div><strong>${vegasLine.overUnder}</strong></div>` : ''}
+        ${vegasLine.homeMoneyline ? `<div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px">${vegasLine.home} ML</div><strong>${vegasLine.homeMoneyline > 0 ? '+' : ''}${vegasLine.homeMoneyline}</strong></div>` : ''}
+        ${vegasLine.awayMoneyline ? `<div><div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px">${vegasLine.away} ML</div><strong>${vegasLine.awayMoneyline > 0 ? '+' : ''}${vegasLine.awayMoneyline}</strong></div>` : ''}
+      </div>
+      ${favored ? `<div style="font-size:12px;color:${agree ? 'var(--green)' : 'var(--accent)'};font-weight:600">
+        ${agree ? '✅ Model agrees with Vegas' : '⚠️ Model disagrees with Vegas'} — Vegas favors <strong>${favored}</strong>${spreadAbs ? ` by ${spreadAbs}` : ''}, model gives <strong>${modelFav}</strong> ${Math.round(Math.max(aWins ? winA : winB, aWins ? winB : winA))}% chance
+      </div>` : ''}
+    </div>`;
+    document.getElementById('pred-result').innerHTML += vegasHTML;
+  }
+  showSimilarity(aWins ? nameA : nameB);
+}
+
+// ===== PHASE 4: PLAY-STYLE SIMILARITY =====
+function teamFeatureVector(t) {
+  // [tempo, offense, defense, barthag, wab, sol]
+  return [t.adjT, t.adjOE, t.adjDE, t.barthag * 100, t.wab, t.solScore / 10];
+}
+
+function cosineSim(va, vb) {
+  const dot = va.reduce((s,x,i) => s + x*vb[i], 0);
+  const magA = Math.sqrt(va.reduce((s,x) => s + x*x, 0));
+  const magB = Math.sqrt(vb.reduce((s,x) => s + x*x, 0));
+  return (magA && magB) ? dot / (magA * magB) : 0;
+}
+
+function showSimilarity(teamName) {
+  const teamsWithSOL = computeSOL(allTeams);
+  const target = teamsWithSOL.find(t => t.name === teamName);
+  if (!target) return;
+
+  const fv = teamFeatureVector(target);
+  const scored = teamsWithSOL
+    .filter(t => t.name !== teamName)
+    .map(t => ({ ...t, sim: cosineSim(fv, teamFeatureVector(t)) }))
+    .sort((a,b) => b.sim - a.sim)
+    .slice(0, 5);
+
+  document.getElementById('sim-team-name').textContent = teamName;
+  document.getElementById('similarity-list').innerHTML = scored.map(t => {
+    const pct = Math.round(t.sim * 100);
+    const styleNote = Math.abs(t.adjT - target.adjT) < 2 ? 'Similar tempo' :
+                      t.adjT > target.adjT ? 'Faster pace' : 'Slower pace';
+    return `<div class="similarity-card">
+      <div style="text-align:center;min-width:60px">
+        <div class="similarity-score">${pct}%</div>
+        <div class="similarity-pct">match</div>
+        <div class="similarity-bar"><div class="similarity-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px">${t.name} <span style="font-size:11px;color:var(--text-muted)">${t.conf}</span></div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px">${styleNote} · Barthag ${(t.barthag*100).toFixed(1)}% · SOL ${t.solScore.toFixed(0)}</div>
+        <div style="margin-top:4px">${solBadge(t)}</div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:var(--text-muted)">${t.record}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('similarity-section').style.display = 'block';
+}
+
+// ===== PHASE 2: TEAM DETAIL MODAL =====
+function openTeamModal(teamName) {
+  const teamsWithSOL = computeSOL(allTeams);
+  const sorted = [...teamsWithSOL].sort((a,b) => b.barthag - a.barthag);
+  const t = teamsWithSOL.find(x => x.name === teamName);
+  if (!t) return;
+  const rank = sorted.findIndex(x => x.name === teamName) + 1;
+
+  const defRank  = [...teamsWithSOL].sort((a,b) => a.adjDE - b.adjDE).findIndex(x => x.name === teamName) + 1;
+  const offRank  = [...teamsWithSOL].sort((a,b) => b.adjOE - a.adjOE).findIndex(x => x.name === teamName) + 1;
+  const solRank  = [...teamsWithSOL].sort((a,b) => b.solScore - a.solScore).findIndex(x => x.name === teamName) + 1;
+  const wabRank  = [...teamsWithSOL].sort((a,b) => b.wab - a.wab).findIndex(x => x.name === teamName) + 1;
+  const n = teamsWithSOL.length;
+
+  // Conf rank
+  const confTeams = [...teamsWithSOL].filter(x => x.conf === t.conf).sort((a,b) => b.barthag - a.barthag);
+  const confRank  = confTeams.findIndex(x => x.name === teamName) + 1;
+
+  // Cinderella score (reuse from existing logic if available)
+  const cinScore  = t.cinderellaScore || null;
+
+  // Styles that play similar
+  const fv = teamFeatureVector(t);
+  const topSim = teamsWithSOL
+    .filter(x => x.name !== teamName)
+    .map(x => ({ name: x.name, sim: cosineSim(fv, teamFeatureVector(x)) }))
+    .sort((a,b) => b.sim - a.sim)
+    .slice(0, 3);
+
+  const modal = document.getElementById('team-modal');
+  document.getElementById('team-modal-body').innerHTML = `
+    <span class="modal-close" onclick="document.getElementById('team-modal').classList.remove('open')">✕</span>
+    <h2>${t.name}</h2>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">${t.conf} · ${t.record}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <span class="pill pill-red">#${rank} Nationally</span>
+      <span class="pill pill-blue">#${confRank} in ${t.conf}</span>
+      ${solBadge(t)}
+    </div>
+
+    ${generateWhyRanked(t, rank, n)}
+
+    <div class="modal-section">
+      <div class="modal-section-title">📊 National Rankings</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        ${[
+          ['Offense (AdjOE)', offRank, n, t.adjOE.toFixed(1) + ' pts/100'],
+          ['Defense (AdjDE)', defRank, n, t.adjDE.toFixed(1) + ' pts/100'],
+          ['WAB', wabRank, n, (t.wab >= 0 ? '+' : '') + t.wab.toFixed(1)],
+          ['Loss Quality (SOL)', solRank, n, t.solScore.toFixed(0) + '/100'],
+        ].map(([lbl, rk, tot, val]) => {
+          const pct = Math.round((1 - rk/tot)*100);
+          const col = pct >= 90 ? 'var(--accent)' : pct >= 70 ? 'var(--blue)' : pct >= 40 ? 'var(--green)' : 'var(--text-muted)';
+          return `<div style="background:var(--bg);border-radius:6px;padding:10px 12px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);font-weight:700">${lbl}</div>
+            <div style="font-size:20px;font-weight:900;font-family:var(--font-serif);color:${col}">#${rk}</div>
+            <div style="font-size:11px;color:var(--text-secondary)">${val} · Top ${100-pct+1}%</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">🎨 Teams That Play Like ${t.name}</div>
+      ${topSim.map(s => `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span>${s.name}</span><span style="font-weight:700;color:var(--blue)">${Math.round(s.sim*100)}% match</span>
+      </div>`).join('')}
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">⚡ Key Stats</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+        ${[
+          ['Barthag', (t.barthag*100).toFixed(1)+'%'],
+          ['Net EM', (t.netEM>=0?'+':'')+t.netEM.toFixed(1)],
+          ['Tempo', t.adjT.toFixed(1)],
+          ['Opp Off', t.oppO.toFixed(1)],
+          ['Opp Def', t.oppD.toFixed(1)],
+          ['WAB', (t.wab>=0?'+':'')+t.wab.toFixed(1)],
+        ].map(([l,v]) => `<div style="background:var(--bg);border-radius:4px;padding:8px;text-align:center">
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.4px;color:var(--text-muted);font-weight:700">${l}</div>
+          <div style="font-weight:700;font-size:15px;margin-top:2px">${v}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  `;
+  modal.classList.add('open');
+}
+
+initTheme();
 loadData();
 </script>
-</body>
+
+<!-- Team Detail Modal -->
+<div class="modal-backdrop" id="team-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box" id="team-modal-body"></div>
+</div>
 </html>

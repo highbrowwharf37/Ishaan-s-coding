@@ -1,0 +1,148 @@
+name: Fetch CBB Extra Data
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout data repo
+        uses: actions/checkout@v4
+        with:
+          repository: highbrowwharf37/Ishaan-s-coding
+          token: ${{ secrets.DATA_REPO_PAT }}
+          path: data-repo
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install cbb-api
+        run: npm install -g cbb-api
+
+      - name: Fetch AP Poll rankings
+        env:
+          CBB_DATA_API_KEY: ${{ secrets.CBB_DATA_API_KEY }}
+        run: |
+          cbb --rankings --season 2026 --output-dir /tmp/cbb-out || true
+
+      - name: Fetch today's scores
+        env:
+          CBB_DATA_API_KEY: ${{ secrets.CBB_DATA_API_KEY }}
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          YESTERDAY=$(date -u -d "yesterday" +%Y-%m-%d)
+          cbb --games --start-date $YESTERDAY --end-date $TODAY --season 2026 --output-dir /tmp/cbb-out || true
+
+      - name: Fetch today's betting lines
+        env:
+          CBB_DATA_API_KEY: ${{ secrets.CBB_DATA_API_KEY }}
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          TOMORROW=$(date -u -d "tomorrow" +%Y-%m-%d)
+          cbb --lines --start-date $TODAY --end-date $TOMORROW --season 2026 --output-dir /tmp/cbb-out || true
+
+      - name: Process and write JSON files
+        run: |
+          node << 'JSEOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const outDir = '/tmp/cbb-out';
+          const dataDir = path.join(process.cwd(), 'data-repo');
+
+          try {
+            const rankDir = path.join(outDir, 'rankings');
+            const files = fs.existsSync(rankDir) ? fs.readdirSync(rankDir) : [];
+            const rankFile = files.find(f => f.includes('2026'));
+            if (rankFile) {
+              const raw = JSON.parse(fs.readFileSync(path.join(rankDir, rankFile), 'utf8'));
+              const ap = (Array.isArray(raw) ? raw : raw.rankings || [])
+                .filter(r => (r.poll || '').toLowerCase().includes('ap') || (r.pollName || '').toLowerCase().includes('ap'))
+                .sort((a, b) => (a.week || 0) - (b.week || 0));
+              const latestWeek = Math.max(...ap.map(r => r.week || 0));
+              const latest = ap.filter(r => (r.week || 0) === latestWeek)
+                .sort((a, b) => (a.rank || 99) - (b.rank || 99));
+              const out = {
+                updated: new Date().toISOString(),
+                week: latestWeek,
+                rankings: latest.map(r => ({
+                  rank: r.rank || r.ranking,
+                  team: r.school || r.team || r.teamName,
+                  conference: r.conference,
+                  record: r.record
+                }))
+              };
+              fs.writeFileSync(path.join(dataDir, 'ap_poll.json'), JSON.stringify(out, null, 2));
+              console.log('AP Poll: wrote ' + out.rankings.length + ' teams');
+            }
+          } catch(e) { console.error('AP Poll error:', e.message); }
+
+          try {
+            const gamesDir = path.join(outDir, 'games', '2026');
+            const files = fs.existsSync(gamesDir) ? fs.readdirSync(gamesDir).sort().reverse() : [];
+            let allGames = [];
+            files.slice(0, 2).forEach(f => {
+              try {
+                const data = JSON.parse(fs.readFileSync(path.join(gamesDir, f), 'utf8'));
+                allGames = allGames.concat(Array.isArray(data) ? data : data.games || []);
+              } catch(e) {}
+            });
+            const games = allGames.filter(g => g.homeTeam && g.awayTeam).map(g => ({
+              id: g.id,
+              date: g.startDate || g.date,
+              home: g.homeTeam,
+              away: g.awayTeam,
+              homeScore: g.homePoints ?? null,
+              awayScore: g.awayPoints ?? null,
+              status: g.status || (g.homePoints != null ? 'final' : 'scheduled'),
+              neutralSite: g.neutralSite || false
+            }));
+            fs.writeFileSync(path.join(dataDir, 'scores.json'), JSON.stringify({ updated: new Date().toISOString(), games }, null, 2));
+            console.log('Scores: wrote ' + games.length + ' games');
+          } catch(e) { console.error('Scores error:', e.message); }
+
+          try {
+            const linesDir = path.join(outDir, 'lines', '2026');
+            const files = fs.existsSync(linesDir) ? fs.readdirSync(linesDir).sort().reverse() : [];
+            let allLines = [];
+            files.slice(0, 2).forEach(f => {
+              try {
+                const data = JSON.parse(fs.readFileSync(path.join(linesDir, f), 'utf8'));
+                allLines = allLines.concat(Array.isArray(data) ? data : data.lines || []);
+              } catch(e) {}
+            });
+            const lineMap = {};
+            allLines.forEach(l => {
+              const gid = l.id || (l.homeTeam + '-' + l.awayTeam);
+              if (!lineMap[gid]) lineMap[gid] = l;
+            });
+            const lines = Object.values(lineMap).map(l => ({
+              id: l.id,
+              date: l.startDate || l.date,
+              home: l.homeTeam,
+              away: l.awayTeam,
+              spread: l.spread ?? null,
+              overUnder: l.overUnder ?? null,
+              homeMoneyline: l.homeMoneyline ?? null,
+              awayMoneyline: l.awayMoneyline ?? null,
+              formattedSpread: l.spread != null ? (l.spread > 0 ? '+' + l.spread : '' + l.spread) : null
+            }));
+            fs.writeFileSync(path.join(dataDir, 'lines.json'), JSON.stringify({ updated: new Date().toISOString(), lines }, null, 2));
+            console.log('Lines: wrote ' + lines.length + ' lines');
+          } catch(e) { console.error('Lines error:', e.message); }
+          JSEOF
+
+      - name: Commit and push
+        run: |
+          cd data-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ap_poll.json scores.json lines.json
+          git diff --staged --quiet || git commit -m "chore: update cbb data $(date -u +%Y-%m-%d)"
+          git push
