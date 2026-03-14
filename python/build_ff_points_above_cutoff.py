@@ -125,6 +125,54 @@ def build_player_row(
     return player_row
 
 
+def played_game_count(row: dict) -> int:
+    return sum(1 for week in WEEK_COLUMNS if parse_points(row.get(week)) is not None)
+
+
+def best_week_value(row: dict) -> float | None:
+    values = []
+    for week in WEEK_COLUMNS:
+        value = parse_points(row.get(week))
+        if value is not None:
+            values.append(value)
+    if not values:
+        return None
+    return max(values)
+
+
+def should_keep_row(row: dict) -> bool:
+    position = row["Pos"]
+    games_played = played_game_count(row)
+    best_week = best_week_value(row)
+
+    if best_week is None:
+        return False
+
+    if position == "RB":
+        if games_played <= 4 and best_week <= -5:
+            return False
+        return True
+
+    if position == "TE":
+        if games_played <= 5 and best_week <= -4:
+            return False
+        return True
+
+    if position == "WR":
+        if best_week <= -8:
+            return False
+        if games_played <= 5 and best_week <= -4:
+            return False
+        return True
+
+    if position == "QB":
+        if games_played <= 5 and best_week <= -6:
+            return False
+        return True
+
+    return True
+
+
 def build_output_rows() -> List[dict]:
     output_rows: List[dict] = []
 
@@ -145,12 +193,13 @@ def build_output_rows() -> List[dict]:
             build_player_row(season, position, source_row, weekly_cutoffs)
             for source_row in source_rows
         ]
+        file_rows = [row for row in file_rows if should_keep_row(row)]
 
         file_rows.sort(
             key=lambda row: (
                 row["season"],
                 row["Pos"],
-                -float(row["TTL"]),
+                -float(row["AVG"]),
                 row["Player"],
             )
         )
