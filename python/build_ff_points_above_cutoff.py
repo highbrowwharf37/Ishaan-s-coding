@@ -5,8 +5,9 @@ but with each weekly cell replaced by the number of points above that week's
 positional cutoff.
 
 Cutoffs:
-- RB/WR: 25th-highest scorer each week
-- QB/TE: 13th-highest scorer each week
+- QB: 11th-highest scorer each week
+- RB/WR/TE: the score of the player after the top 20 RBs, top 20 WRs,
+  top 10 TEs, and top 20 remaining flex-eligible RB/WR/TE players
 """
 
 from __future__ import annotations
@@ -20,12 +21,13 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT_DIR / "Past FF Data"
 OUTPUT_FILE = DATA_DIR / "player_points_above_cutoff.csv"
 
-POSITION_CUTOFFS = {
-    "RB": 25,
-    "WR": 25,
-    "QB": 13,
-    "TE": 13,
+QB_CUTOFF_RANK = 11
+FLEX_STARTER_COUNTS = {
+    "RB": 20,
+    "WR": 20,
+    "TE": 10,
 }
+FLEX_BENCH_OFFSET = 20
 
 WEEK_COLUMNS = [str(week) for week in range(1, 19)]
 
@@ -80,12 +82,73 @@ def cutoff_for_week(scores: List[float], rank: int) -> float | None:
     return scores[rank - 1]
 
 
+def score_after_top(scores: List[float], count: int) -> float | None:
+    if not scores:
+        return None
+    if len(scores) <= count:
+        return scores[-1]
+    return scores[count]
+
+
 def season_from_name(file_path: Path) -> str:
     return file_path.stem[:4]
 
 
 def position_from_name(file_path: Path) -> str:
     return file_path.stem[4:].upper()
+
+
+def player_key(row: dict) -> tuple[str, str, str]:
+    return (
+        (row.get("Player") or "").strip(),
+        (row.get("Team") or "").strip(),
+        (row.get("Pos") or "").strip(),
+    )
+
+
+def build_weekly_cutoffs_for_season(
+    season_rows_by_position: Dict[str, List[dict]],
+) -> Dict[str, Dict[str, float | None]]:
+    weekly_cutoffs = {
+        "QB": {week: None for week in WEEK_COLUMNS},
+        "RB": {week: None for week in WEEK_COLUMNS},
+        "WR": {week: None for week in WEEK_COLUMNS},
+        "TE": {week: None for week in WEEK_COLUMNS},
+    }
+
+    qb_scores_by_week = collect_weekly_scores(season_rows_by_position.get("QB", []))
+    for week, scores in qb_scores_by_week.items():
+        weekly_cutoffs["QB"][week] = cutoff_for_week(scores, QB_CUTOFF_RANK)
+
+    for week in WEEK_COLUMNS:
+        selected_keys = set()
+        remaining_entries = []
+
+        for position, starter_count in FLEX_STARTER_COUNTS.items():
+            position_entries = []
+            for row in season_rows_by_position.get(position, []):
+                points = parse_points(row.get(week))
+                if points is None:
+                    continue
+                position_entries.append((player_key(row), points))
+
+            position_entries.sort(key=lambda entry: entry[1], reverse=True)
+            selected_keys.update(key for key, _ in position_entries[:starter_count])
+            remaining_entries.extend(
+                (key, points) for key, points in position_entries[starter_count:]
+            )
+
+        remaining_scores = sorted(
+            [points for key, points in remaining_entries if key not in selected_keys],
+            reverse=True,
+        )
+        flex_cutoff = score_after_top(remaining_scores, FLEX_BENCH_OFFSET)
+
+        weekly_cutoffs["RB"][week] = flex_cutoff
+        weekly_cutoffs["WR"][week] = flex_cutoff
+        weekly_cutoffs["TE"][week] = flex_cutoff
+
+    return weekly_cutoffs
 
 
 def build_player_row(
@@ -176,38 +239,46 @@ def should_keep_row(row: dict) -> bool:
 def build_output_rows() -> List[dict]:
     output_rows: List[dict] = []
 
+    season_rows_by_position: Dict[str, Dict[str, List[dict]]] = {}
+
     for file_path in sorted(DATA_DIR.glob("*.csv")):
         position = position_from_name(file_path)
-        if position not in POSITION_CUTOFFS:
+        if position not in {"QB", "RB", "WR", "TE"}:
             continue
 
         season = season_from_name(file_path)
-        source_rows = load_rows(file_path)
-        weekly_scores = collect_weekly_scores(source_rows)
-        weekly_cutoffs = {
-            week: cutoff_for_week(scores, POSITION_CUTOFFS[position])
-            for week, scores in weekly_scores.items()
-        }
+        season_rows_by_position.setdefault(season, {})[position] = load_rows(file_path)
 
-        file_rows = [
-            build_player_row(season, position, source_row, weekly_cutoffs)
-            for source_row in source_rows
-        ]
-        file_rows = [row for row in file_rows if should_keep_row(row)]
+    for season in sorted(season_rows_by_position):
+        rows_by_position = season_rows_by_position[season]
+        weekly_cutoffs_by_position = build_weekly_cutoffs_for_season(rows_by_position)
 
-        file_rows.sort(
-            key=lambda row: (
-                row["season"],
-                row["Pos"],
-                -float(row["AVG"]),
-                row["Player"],
+        for position in ["QB", "RB", "WR", "TE"]:
+            source_rows = rows_by_position.get(position, [])
+            file_rows = [
+                build_player_row(
+                    season,
+                    position,
+                    source_row,
+                    weekly_cutoffs_by_position[position],
+                )
+                for source_row in source_rows
+            ]
+            file_rows = [row for row in file_rows if should_keep_row(row)]
+
+            file_rows.sort(
+                key=lambda row: (
+                    row["season"],
+                    row["Pos"],
+                    -float(row["AVG"]),
+                    row["Player"],
+                )
             )
-        )
 
-        for index, row in enumerate(file_rows, start=1):
-            row["#"] = str(index)
+            for index, row in enumerate(file_rows, start=1):
+                row["#"] = str(index)
 
-        output_rows.extend(file_rows)
+            output_rows.extend(file_rows)
 
     return output_rows
 
