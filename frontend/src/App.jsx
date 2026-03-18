@@ -3,12 +3,14 @@ import Header from './components/Header';
 import Navigation from './components/Navigation';
 import AllTimeLeaders from './components/AllTimeLeaders';
 import BySeason from './components/BySeason';
-import { loadAllTimeData, loadManifest, loadSeasonData } from './utils/dataLoader';
+import AllTimeFootball from './components/AllTimeFootball';
+import { loadAllTimeData, loadFootballAllTimeData, loadManifest, loadSeasonData } from './utils/dataLoader';
 import './App.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('alltime');
   const [allTimeData, setAllTimeData] = useState([]);
+  const [footballData, setFootballData] = useState([]);
   const [seasonData, setSeasonData] = useState({});
   const [availableSeasons, setAvailableSeasons] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,6 +25,10 @@ function App() {
         // Load all-time data
         const fullData = await loadAllTimeData();
         setAllTimeData(fullData);
+
+        // Load football data
+        const footballAllTimeData = await loadFootballAllTimeData();
+        setFootballData(footballAllTimeData);
 
         // Load available seasons
         const seasons = await loadManifest();
@@ -62,6 +68,9 @@ function App() {
         )}
         {activeTab === 'byseason' && (
           <BySeason key="byseason" seasons={availableSeasons} seasonData={seasonData} loading={loading} error={error} />
+        )}
+        {activeTab === 'football' && (
+          <AllTimeFootball key="football" data={footballData} loading={loading} error={error} />
         )}
       </main>
     </>

@@ -10,7 +10,7 @@
 
 ✅ **serve.py** - Local development server for viewing the dashboards
 
-✅ **nba_data/** - Generated directory with JSON data files
+✅ **frontend/public/nba_data/** - Generated directory with JSON data files
 
 ### Setup Instructions
 
@@ -23,11 +23,11 @@ python build_nba_json.py
 
 Expected output:
 ```
-✓ Created nba_data\nba_stats_full.json (12767 records)
-✓ Created nba_data\nba_stats_2024-25.json (569 records)
-✓ Created nba_data\nba_stats_2023-24.json (572 records)
+✓ Created frontend\public\nba_data\nba_stats_full.json (12767 records)
+✓ Created frontend\public\nba_data\nba_stats_2024-25.json (569 records)
+✓ Created frontend\public\nba_data\nba_stats_2023-24.json (572 records)
 ... (more seasons)
-✓ Created nba_data\manifest.json
+✓ Created frontend\public\nba_data\manifest.json
 ```
 
 #### Step 2: Start the Server
@@ -97,7 +97,7 @@ FP = PTS + (0.5 × REB) + (1.5 × AST) − (0.25 × TOV) + (2 × STL) + (2 × BL
 
 **Q: Data not loading?**
 - Make sure you ran `python build_nba_json.py` first
-- Check that `nba_data/` folder exists and contains JSON files
+- Check that `frontend/public/nba_data/` exists and contains JSON files
 - Try refreshing the page (Ctrl+R)
 
 **Q: Changes to CSV files not showing?**
@@ -112,6 +112,6 @@ FP = PTS + (0.5 × REB) + (1.5 × AST) − (0.25 × TOV) + (2 × STL) + (2 × BL
 ### Need Help?
 
 - Check the data files are in `Past Fantasy Data/` folder
-- Verify JSON files were created in `nba_data/` folder
+- Verify JSON files were created in `frontend/public/nba_data/`
 - Make sure the server is running (you should see the message)
 - Try a different browser if you encounter issues

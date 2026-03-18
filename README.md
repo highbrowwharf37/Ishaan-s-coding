@@ -46,7 +46,7 @@ First, convert the CSV files to JSON (required for the web interface):
 python build_nba_json.py
 ```
 
-This creates the `nba_data/` directory with all necessary JSON files.
+This creates the `frontend/public/nba_data/` directory with all necessary JSON files.
 
 ### 2. Start the Local Server
 Launch the development server:
@@ -73,9 +73,9 @@ Visit these URLs:
 rimjob-sports/
 ├── nba_stats.html              # NBA stats dashboard
 ├── cbb-rankings.html           # College basketball dashboard
-├── nba_data/                   # Generated JSON data files
-│   ├── nba_stats_full.json    # All-time stats
-│   ├── nba_stats_YYYY-YY.json # Season-specific stats
+├── frontend/public/nba_data/   # Generated JSON data files
+│   ├── nba_stats_full.json     # All-time stats
+│   ├── nba_stats_YYYY-YY.json  # Season-specific stats
 │   └── manifest.json           # Available seasons
 ├── Past Fantasy Data/          # Source CSV files
 │   ├── nba_stats_full.csv     # Full historical data

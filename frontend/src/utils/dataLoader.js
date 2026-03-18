@@ -14,6 +14,18 @@ export async function loadAllTimeData() {
   }
 }
 
+export async function loadFootballAllTimeData() {
+  try {
+    const res = await fetch('./ff_data/player_points_above_cutoff.json');
+    if (!res.ok) throw new Error('Could not load football points-above-cutoff data');
+    const data = await res.json();
+    return data.map(parseFootballPlayer).filter(p => p.player && p.gp > 0);
+  } catch (err) {
+    console.error('Error loading football all-time data:', err);
+    throw err;
+  }
+}
+
 export async function loadManifest() {
   try {
     const res = await fetch('./nba_data/manifest.json');
@@ -59,6 +71,18 @@ export function parsePlayer(row, season = null) {
   };
 }
 
+export function parseFootballPlayer(row) {
+  return {
+    player: String(row.Player || ''),
+    season: String(row.season || ''),
+    position: String(row.Pos || ''),
+    team: String(row.Team || ''),
+    gp: parseInt(row.GP) || 0,
+    avg: parseFloat(row.AVG) || 0,
+    ttl: parseFloat(row.TTL) || 0,
+  };
+}
+
 export function formatNumber(n, decimals = 0) {
   return typeof n === 'number' ? n.toFixed(decimals) : '—';
 }
@@ -70,5 +94,16 @@ export function sortData(data, sortKey) {
   else if (sortKey === 'pts') sorted.sort((a, b) => b.pts - a.pts);
   else if (sortKey === 'reb') sorted.sort((a, b) => b.reb - a.reb);
   else if (sortKey === 'ast') sorted.sort((a, b) => b.ast - a.ast);
+  return sorted;
+}
+
+export function sortFootballData(data, sortKey) {
+  const sorted = [...data];
+
+  if (sortKey === 'avg') sorted.sort((a, b) => b.avg - a.avg);
+  else if (sortKey === 'ttl') sorted.sort((a, b) => b.ttl - a.ttl);
+  else if (sortKey === 'gp') sorted.sort((a, b) => b.gp - a.gp);
+  else if (sortKey === 'season') sorted.sort((a, b) => parseInt(b.season) - parseInt(a.season));
+
   return sorted;
 }

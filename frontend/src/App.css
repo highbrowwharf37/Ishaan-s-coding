@@ -309,6 +309,16 @@ td {
   color: var(--blue);
 }
 
+.pill-red {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.pill-orange {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
 .pill-amber {
   background: var(--amber-light);
   color: var(--amber);
