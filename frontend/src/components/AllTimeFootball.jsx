@@ -55,7 +55,7 @@ export default function AllTimeFootball({ data, loading, error }) {
       <div className="page-title">
         <div>
           <h1>All-Time Leaders 🏈</h1>
-          <p>Player points above cutoff across all available football seasons</p>
+          <p>Player points above replacement across all available football seasons</p>
         </div>
       </div>
 
@@ -83,8 +83,8 @@ export default function AllTimeFootball({ data, loading, error }) {
             resetPage();
           }}
         >
-          <option value="avg">Average Above Cutoff</option>
-          <option value="ttl">Total Above Cutoff</option>
+          <option value="avg">Average Above Replacement</option>
+          <option value="ttl">Total Above Replacement</option>
           <option value="gp">Games Played</option>
           <option value="season">Season</option>
         </select>
