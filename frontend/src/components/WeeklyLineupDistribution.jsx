@@ -9,6 +9,26 @@ const METRIC_OPTIONS = [
   { value: 'scoreGe100Rate', label: '100+ Rate', colorVar: 'var(--purple)' },
 ];
 
+const OVERALL_AVERAGE_METRICS = [
+  { key: 'eligibleQb', label: 'Eligible QB', decimals: 1 },
+  { key: 'eligibleRb', label: 'Eligible RB', decimals: 1 },
+  { key: 'eligibleWr', label: 'Eligible WR', decimals: 1 },
+  { key: 'eligibleTe', label: 'Eligible TE', decimals: 1 },
+  { key: 'samples', label: 'Samples', decimals: 0 },
+  { key: 'mean', label: 'Mean', decimals: 1 },
+  { key: 'stdev', label: 'Stdev', decimals: 1 },
+  { key: 'min', label: 'Min', decimals: 1 },
+  { key: 'p05', label: 'P05', decimals: 1 },
+  { key: 'p10', label: 'P10', decimals: 1 },
+  { key: 'p25', label: 'P25', decimals: 1 },
+  { key: 'p50', label: 'Median', decimals: 1 },
+  { key: 'p75', label: 'P75', decimals: 1 },
+  { key: 'p90', label: 'P90', decimals: 1 },
+  { key: 'p95', label: 'P95', decimals: 1 },
+  { key: 'max', label: 'Max', decimals: 1 },
+  { key: 'scoreGe100Rate', label: '100+ Rate', isPercent: true },
+];
+
 function buildLinePath(points) {
   return points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ');
 }
@@ -108,6 +128,19 @@ export default function WeeklyLineupDistribution({ data, loading, error }) {
     );
     return { latestWeek, highestMean, strongestHitRate };
   }, [seasonRows]);
+
+  const overallAverages = useMemo(() => {
+    if (!data.length) return [];
+
+    return OVERALL_AVERAGE_METRICS.map((metric) => {
+      const total = data.reduce((sum, row) => sum + row[metric.key], 0);
+      const average = total / data.length;
+      return {
+        ...metric,
+        average,
+      };
+    });
+  }, [data]);
 
   if (error) {
     return (
@@ -249,7 +282,7 @@ export default function WeeklyLineupDistribution({ data, loading, error }) {
       <div className="distribution-table-card">
         <div className="distribution-table-header">
           <h2>Weekly Snapshot</h2>
-          <p>The same source data behind the chart, organized week by week.</p>
+          <p>The same source data behind the chart, with overall averages shown in the first row.</p>
         </div>
         <div className="table-wrap">
           <table>
@@ -266,6 +299,16 @@ export default function WeeklyLineupDistribution({ data, loading, error }) {
               </tr>
             </thead>
             <tbody>
+              <tr className="highlight-row">
+                <td className="player-cell">Overall Avg</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'mean')?.average ?? 0, 1)}</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'p50')?.average ?? 0, 1)}</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'p25')?.average ?? 0, 1)}</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'p75')?.average ?? 0, 1)}</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'p90')?.average ?? 0, 1)}</td>
+                <td className="num">{`${((overallAverages.find((metric) => metric.key === 'scoreGe100Rate')?.average ?? 0) * 100).toFixed(1)}%`}</td>
+                <td className="num">{formatNumber(overallAverages.find((metric) => metric.key === 'samples')?.average ?? 0, 0)}</td>
+              </tr>
               {seasonRows.map((row) => (
                 <tr key={`${row.season}-${row.week}`}>
                   <td className="player-cell">Week {row.week}</td>
