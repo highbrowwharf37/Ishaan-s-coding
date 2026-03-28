@@ -7,7 +7,6 @@ files are reflected immediately during local use.
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
-
 PORT = 4174
 DIST_DIR = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 
