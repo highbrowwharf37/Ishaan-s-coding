@@ -1,154 +1,192 @@
-# Sports Analytics Dashboard
+# Fantasy Tracker
 
-A modern, responsive web dashboard for tracking college basketball rankings and NBA player fantasy statistics.
+A local sports analytics dashboard for NBA and NFL data.
 
-## Features
+The current app is a React frontend with two grouped sections:
+- `NBA`
+  - `All Time Leaders`
+  - `By Season`
+- `NFL`
+  - `All Time Leaders`
+  - `By Season`
+  - `Weekly Lineups`
 
-### 📊 CBB Rankings (`cbb-rankings.html`)
-Comprehensive college basketball analytics including:
-- **Power Rankings** - Team Barthag win probability + adjusted efficiency
-- **Efficiency Metrics** - Offensive & defensive efficiency analysis
-- **Schedule Strength** - Strength of schedule analysis
-- **Game Predictor** - Simulate matchups between teams
-- **Bubble Tracker** - NCAA tournament bubble status
-- **Momentum Tracker** - Teams trending up or down
-- **Head-to-Head** - Side-by-side team comparison
-- **Upset Alerts** - High-probability upset opportunities
-- **Conference Strength** - Conference rankings
-- **Cinderella Watch** - Teams likely for tournament upsets
-- **NBA Draft Board** - 2026 NBA draft projections
+The project uses CSV files as source data, generates JSON files for the frontend, and serves the built app locally.
 
-**Data Source:** [Barttorvik.com](https://barttorvik.com)
+## What This Repo Contains
 
-### 🏀 NBA Stats Tracker (`nba_stats.html`)
-Historical NBA player fantasy statistics with two views:
-- **All-Time Leaders** - Career fantasy point leaders across all seasons
-  - Filter by minimum games played
-  - Sort by: Fantasy Points/Game, Total Fantasy Points, Points, Rebounds, or Assists
-  - Top 100 leaders highlighted
-  
-- **By Season** - Year-by-year leader boards
-  - Toggle between 26 seasons (2000-01 to 2025-26)
-  - Season-specific sorting and filtering
-  - Track player performance across different eras
+### Frontend
+- `frontend/`
+  - React + Vite app
+  - reads generated JSON from `frontend/public/nba_data/` and `frontend/public/ff_data/`
 
-**Fantasy Score Formula:**
-```
-FP = PTS + (0.5 × REB) + (1.5 × AST) - (0.25 × TOV) + (2 × STL) + (2 × BLK) + (3 × FG3M)
-```
+### NBA data
+- `Past FBB Data/`
+  - season CSVs like `nba_stats_2025-26.csv`
+  - combined file `nba_stats_full.csv`
+- `python/FBB pipeline/`
+  - `nbatracker.py`
+    - fetches NBA stats and writes season CSVs
+  - `update_nba_daily.py`
+    - regenerates the active season, rebuilds the full CSV, refreshes NBA JSON
+  - `build_nba_json.py`
+    - converts NBA CSVs to frontend JSON
+  - `run_update_nba_daily.cmd`
+    - helper wrapper for scheduled runs
+
+### NFL data
+- `Past FF Data/`
+  - yearly source CSVs like `2013QB.csv`, `2024WR.csv`
+  - derived outputs like `player_points_above_cutoff.csv`
+  - weekly simulation output `weekly_lineup_distribution_summary.csv`
+- `python/FF pipeline/`
+  - `build_ff_points_above_cutoff.py`
+    - builds football points-above-replacement CSV
+    - also writes weekly WAR columns and season WAR
+  - `estimate_weekly_ff_lineup_distribution.py`
+    - simulates weekly lineup distributions
+    - includes replacement-team score, percentile, and win rate
+  - `build_ff_json.py`
+    - converts football CSV outputs to frontend JSON
+  - `build_weekly_ff_lineups.py`
+    - optional utility for explicit weekly lineup generation
+
+### Local server
+- `python/serve_frontend_dist.py`
+  - serves `frontend/dist` on `http://localhost:4174`
+  - disables cache so updated JSON shows up immediately
 
 ## Quick Start
 
-### 1. Generate NBA Data Files
-First, convert the CSV files to JSON (required for the web interface):
+## 1. Install frontend dependencies
 
-```bash
-python build_nba_json.py
+From the repo root:
+
+```powershell
+cd frontend
+npm install
+cd ..
 ```
 
-This creates the `frontend/public/nba_data/` directory with all necessary JSON files.
+## 2. Build the frontend
 
-### 2. Start the Local Server
-Launch the development server:
-
-```bash
-python serve.py
+```powershell
+cd frontend
+npm run build
+cd ..
 ```
 
-Output:
-```
-🚀 Server running at http://localhost:8000
-📊 Open http://localhost:8000/nba_stats.html in your browser
-   Press Ctrl+C to stop the server
-```
+## 3. Start the local server
 
-### 3. Open in Browser
-Visit these URLs:
-- **NBA Stats:** http://localhost:8000/nba_stats.html
-- **CBB Rankings:** http://localhost:8000/cbb-rankings.html
-
-## File Structure
-
-```
-rimjob-sports/
-├── nba_stats.html              # NBA stats dashboard
-├── cbb-rankings.html           # College basketball dashboard
-├── frontend/public/nba_data/   # Generated JSON data files
-│   ├── nba_stats_full.json     # All-time stats
-│   ├── nba_stats_YYYY-YY.json  # Season-specific stats
-│   └── manifest.json           # Available seasons
-├── Past Fantasy Data/          # Source CSV files
-│   ├── nba_stats_full.csv     # Full historical data
-│   ├── nba_stats_YYYY-YY.csv  # Season-specific CSV files
-├── build_nba_json.py           # CSV → JSON converter
-├── serve.py                    # Local development server
-├── merge.py                    # Data processing utility
-└── nbatracker.py              # Player tracking utility
+```powershell
+python python\serve_frontend_dist.py
 ```
 
-## Data Management
+Open:
 
-### Updating NBA Stats
-If you update the CSV files in `Past Fantasy Data/`:
+`http://localhost:4174/`
 
-```bash
-python build_nba_json.py
+## Data refresh commands
+
+### NBA
+
+Refresh the active NBA season, rebuild the full NBA CSV, and regenerate NBA JSON:
+
+```powershell
+python "python\FBB pipeline\update_nba_daily.py"
 ```
 
-This will regenerate all JSON files from the current CSV data.
+If you only need to rebuild NBA JSON from existing CSVs:
 
-### Daily 2025-26 Refresh
-To regenerate the current `2025-26` season file, replace that season in
-`nba_stats_full.csv`, and refresh the frontend JSON in one step:
-
-```bash
-python python/update_nba_daily.py
+```powershell
+python "python\FBB pipeline\build_nba_json.py"
 ```
 
-This command writes the latest season CSV to `Past FBB Data/nba_stats_2025-26.csv`,
-rebuilds `Past FBB Data/nba_stats_full.csv` with a correct `Season` column for every
-row, and then regenerates `frontend/public/nba_data/*.json`.
+### NFL
 
-### Adding New Seasons
-1. Add `nba_stats_YYYY-YY.csv` to the `Past Fantasy Data/` folder
-2. Run `python build_nba_json.py`
-3. The new season will automatically appear in the dashboard
+Rebuild football player outputs, including weekly WAR columns and season WAR:
 
-## Design System
+```powershell
+python "python\FF pipeline\build_ff_points_above_cutoff.py"
+```
 
-Both dashboards use a consistent design language:
+Recompute weekly lineup distribution summaries:
 
-### Color Palette
-- **Accent (Red):** #c0392b - Primary CTAs and highlights
-- **Green:** #27ae60 - Positive/good performance
-- **Blue:** #2471a3 - Alternative highlights
-- **Amber:** #d68910 - Warnings/neutral
-- **Purple:** #7d3c98 - Secondary info
+```powershell
+python "python\FF pipeline\estimate_weekly_ff_lineup_distribution.py"
+```
 
-### Typography
-- **Serif:** Source Serif 4 - Headlines and emphasis
-- **Sans-serif:** Libre Franklin - Body text and labels
+Rebuild football JSON for the frontend:
 
-### Components
-- Sortable tables with hover states
-- Responsive grid layouts
-- Smooth transitions and animations
-- Accessible color coding for stats
+```powershell
+python "python\FF pipeline\build_ff_json.py"
+```
 
-## Browser Support
+### Typical NFL full refresh
 
-- ✅ Chrome/Edge (90+)
-- ✅ Firefox (88+)
-- ✅ Safari (14+)
-- ✅ Mobile browsers
+```powershell
+python "python\FF pipeline\build_ff_points_above_cutoff.py"
+python "python\FF pipeline\estimate_weekly_ff_lineup_distribution.py"
+python "python\FF pipeline\build_ff_json.py"
+```
+
+## Frontend behavior
+
+The app currently includes:
+- grouped top-level navigation for `NBA` and `NFL`
+- dark mode toggle
+- sortable tables
+- search and filter controls
+- football WAR data
+- weekly lineup distribution charts with replacement-team overlays
+
+## Data flow
+
+### NBA flow
+
+`stats.nba.com` -> `nbatracker.py` -> `Past FBB Data/*.csv` -> `build_nba_json.py` -> `frontend/public/nba_data/*.json` -> React app
+
+### NFL flow
+
+`Past FF Data/* position csvs` -> `build_ff_points_above_cutoff.py` -> `player_points_above_cutoff.csv`
+
+then:
+
+`player_points_above_cutoff.csv` + yearly source CSVs -> `estimate_weekly_ff_lineup_distribution.py` -> `weekly_lineup_distribution_summary.csv`
+
+then:
+
+`build_ff_json.py` -> `frontend/public/ff_data/*.json` -> React app
+
+## Important files
+
+- `frontend/src/App.jsx`
+  - top-level app shell and NBA/NFL grouping
+- `frontend/src/components/`
+  - page components and tables
+- `frontend/src/utils/dataLoader.js`
+  - frontend JSON loaders and parsers
+- `frontend/src/App.css`
+  - app styling
+- `frontend/src/index.css`
+  - theme variables
 
 ## Notes
 
-- Data is loaded from local JSON files (generated from CSVs)
-- All processing is done client-side in the browser
-- No external API calls required after JSON generation
-- Fully responsive design for all screen sizes
+- The current live frontend uses the React app, not the older standalone HTML pages.
+- The browser reads generated JSON files, not the source CSVs directly.
+- If you update CSV data, rebuild the matching JSON before expecting the site to reflect the change.
+- `python/serve_frontend_dist.py` is the main local server for the current workflow.
+
+## Local workflow summary
+
+When data changes:
+
+1. Run the relevant Python pipeline script(s)
+2. Regenerate JSON
+3. Rebuild the frontend
+4. Run `python python\serve_frontend_dist.py`
 
 ## License
 
-Created for sports analytics tracking.
+Internal sports analytics project.
