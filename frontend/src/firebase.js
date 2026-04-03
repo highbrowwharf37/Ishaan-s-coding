@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics"; // optional
 
+const rimjob_key = process.env.rimjob_key;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBqVEmoeRvHOnD7O7zZUuQkBvBB7yMrgN8",
+  apiKey: rimjob_key,
   authDomain: "rimjob-sports.firebaseapp.com",
   projectId: "rimjob-sports",
   storageBucket: "rimjob-sports.firebasestorage.app",
